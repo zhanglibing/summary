@@ -65,13 +65,37 @@
         </li>
         <li>
             手机端防止点击穿透 <br>
+            加延迟150ms 、delay(150)
+        </li>
+        <li>
+            <p>楼层跳转</p>
+            （1）楼层高度floor.offset().top
+            (2)将楼层高度放到arr数组中
             <pre>
-                   <code>
-  $('.wrapper').delay(150).queue(function(){
-    $(this).removeClass('active').dequeue();
-  });自己测试最小150ms
-                   </code>
-               </pre>
+                <code>
+$(window).on("scroll",function(){
+    var stop=$(window).scrollTop();
+    $(arr).each(function(i,v){
+      if(stop>=v){
+       $(body).animate({scrollTop:arr[]},1000) ;
+      }
+    })
+})
+原生js中stop=document.body.scrollTop||document.documentElement.scrollTop;
+floor[i].offsetTop=h;
+                </code>
+            </pre>
+        </li>
+        <li>
+            属性添加 可以同时添加多个属性({}) <br>
+            attr() \removeAttr(); <br>
+            表单类元素添加属性 .prop('disabled',true); <br>
+            .removeProp();
+        </li>
+        <li>
+            获取值 <br>
+            .text() <br>
+            .val()表单元素
         </li>
     </ol>
 </div>
