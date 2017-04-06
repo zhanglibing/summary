@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WeBGL</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!--WebGL-->
+<div class="wrapper">
+    <h1>WebGL</h1>
+    <ol>
+        <li>
+            <p>最基础渲染例子</p>
+            <pre>
+              <code>
+var scene = new THREE.Scene();  //场景
+var camera = new THREE.PerspectiveCamera( 75
+, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    //摄像头  在Three.js里有几种不同方式的摄像头。在这里, 我们使用的是一个叫做PerspectiveCamera的摄像机。    第一个属性75设置的是视角,第二个属性设置的是摄像头拍摄下来的东西的长宽比。
+var renderer = new THREE.WebGLRenderer();//渲染器(renderer)
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+
+如果的应用程序运行在一个低分辨率的情况下，但是你想保持程序的视窗大小，你可以在调用setSize的时候并把updateStyle设置为false，例如：
+setSize(window.innerWidth/2, window.innerHeight/2, false)
+
+
+var geometry = new THREE.BoxGeometry( 1, 1, 1 ); //几何体    这个是立方体
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 材质
+var cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
+camera.position.z = 5;
+
+默认情况下，但我们调用scence.add()的时候，我们要添加的东西讲被添加在(0,0,0)坐标下.这会导致相机和立方体彼此交叉。为了避免这一点，我们只需将相机移出一点。
+
+渲染循环。
+
+function render() {
+    requestAnimationFrame( render );
+    renderer.render( scene, camera );
+}
+render();
+              </code>
+          </pre>
+        </li>
+        <li>
+            <p> 四中光源</p>
+            <pre>
+                <code>
+AmbientLight: 环境光，基础光源，它的颜色会被加载到整个场景和所有对象的当前颜色上。
+PointLight：点光源，朝着所有方向都发射光线
+SpotLight ：聚光灯光源：类型台灯，天花板上的吊灯，手电筒等
+DirectionalLight：方向光，又称无限光，从这个发出的光源可以看做是平行光.
+
+
+1：PointLight   （注意单点发光不产生阴影 该点往四面八方各个方向发光）
+属性：color:光源颜色
+intensity：强度，光照的强度，默认为1
+distance：距离， 光照照射得到的距离，决定光可以照射多远
+position：光源所在的位置
+visible：可见性，如果为true，光源就会打开
+
+点光源的属性在聚点光源上都存在
+castShadow：为true则该光源会产生阴影
+shadowCameraNear:投影近点，距离光源多近能产生阴影
+shadowCameraFar：投影远点，到哪一点为止不再产生阴影
+shadowCameraFov：投影视场，聚光的角度大小
+target：决定关注的方向。
+exponent：光照衰减指数，光照越远光强衰减越快。
+shadowBias：阴影偏移。
+onlyShadow：如果为true，表示只在场景中添加阴影，并不会添加光照。
+shadowCameraVisible=true；可以场景中看到光源在哪里，和如何产生阴影的。很好用的一个属性。
+shadowDarkness：阴影暗度，默认0.5 定义阴影有多黑
+shadowMapWidth：阴影映射宽度
+shadowMapHeight：阴影映射高度
+
+使用方法 var pointColor = "#ffffff";
+        var spotLight = new THREE.SpotLight(pointColor);
+        spotLight.position.set(-40, 60, -10);
+        spotLight.castShadow = true;
+        spotLight.shadowCameraNear = 2;
+        spotLight.shadowCameraFar = 200;
+        spotLight.shadowCameraFov = 30;
+        spotLight.target = plane;//光照照向地面
+        spotLight.distance = 0;
+        spotLight.angle = 0.4;
+        scene.add(spotLight);
+
+
+平行光
+ var pointColor = "#ff5808";
+        var directionalLight = new THREE.DirectionalLight(pointColor);
+        directionalLight.position.set(-40, 60, -10);
+        directionalLight.castShadow = true;
+        directionalLight.shadowCameraNear = 2;
+        directionalLight.shadowCameraFar = 200;
+        directionalLight.shadowCameraLeft = -50;
+        directionalLight.shadowCameraRight = 50;
+        directionalLight.shadowCameraTop = 50;
+        directionalLight.shadowCameraBottom = -50;
+
+        directionalLight.distance = 0;
+        directionalLight.intensity = 0.5;
+        directionalLight.shadowMapHeight = 1024;
+        directionalLight.shadowMapWidth = 1024;
+
+
+        scene.add(directionalLight);
+
+
+
+制造产生阴影的几个步骤,让球体和方块将阴影投影到地上，哪些物体投射阴影，哪些物体接受阴影
+
+render.shadowMapEnabled=true;//告诉render我们需要阴影(允许阴影隐射)
+plane.receiveShadow=true;//地面接受阴影
+cude.castShadow=true;//cast投射，就是方块投射阴影
+spotLight.castShadow=true;不是所有的光源都可以投射阴影 ,这里使用聚点光源可以产生阴影
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p>照相机</p>
+            <pre>
+             <code>
+ 1正交投影照相机 THREE.OrthographicCamera(left, right, top, bottom, near, far)    参数代表6个面
+ 为了保持照相机的横竖比例，需要保证(right - left)与(top - bottom)的比例与Canvas宽度与高度的比例一致。
+ near与far都是指到照相机位置在深度平面的位置，而照相机不应该拍摄到其后方的物体，因此这两个值应该均为正值
+ 为了保证场景中的物体不会因为太近或太远而被照相机忽略，一般near的值设置得较小，far的值设置得较大，具体值视
+ 场景中物体的位置等决定。
+
+
+ 2透视投影照相机   THREE.PerspectiveCamera(fov, aspect, near, far)
+
+ fov是视景体竖直方向上的张角（是角度制而非弧度制） 将照相机的竖直张角
+ aspect等于width / height，是照相机水平方向和竖直方向长度的比值，通常设为Canvas的横纵比例。
+ near和far分别是照相机到视景体最近、最远的距离，均为正值，且far应大于near。
+
+ ***基本几何形状
+ 1.立方体 THREE.CubeGeometry(width, height, depth, widthSegments, heightSegments, depthSegments)
+ width是x方向上的长度；height是y方向上的长度；depth是z方向上的长度；
+ 后三个参数分别是在三个方向上的分段数，如widthSegments为3的话，代表x方向上水平分为三份。
+ 一般情况下不需要分段的话，可以不设置后三个参数，后三个参数的默认值为1。
+
+ 2.平面
+ THREE.PlaneGeometry(width, height, widthSegments, heightSegments)
+ width是x方向上的长度；height是y方向上的长度；后两个参数同样表示分段。
+
+ 3.球体
+ THREE.SphereGeometry(radius, segmentsWidth, segmentsHeight, phiStart, phiLength, thetaStart, thetaLength)
+ radius是半径；segmentsWidth表示经度上的切片数；segmentsHeight表示纬度上的切片数；
+ phiStart表示经度开始的弧度；phiLength表示经度跨过的弧度；thetaStart表示纬度开始的弧度；
+ thetaLength表示纬度跨过的弧度。
+
+ new THREE.SphereGeometry(3, 8, 6, 0, Math.PI * 2, Math.PI / 6, Math.PI / 3)
+
+
+ 4.圆形
+ THREE.CircleGeometry(radius, segments, thetaStart, thetaLength)
+
+ new THREE.CircleGeometry(3, 18, Math.PI / 3, Math.PI / 3 * 4)可以创建一个在x轴和y轴所在平面的三分之二圆的扇形：
+            </code>
+            </pre>
+
+        </li>
+        <li>
+            <p> 基本材质</p>
+            <pre>
+                <code>
+ 1.Lambert材质 Lambert光照模型的主要特点是只考虑漫反射而不考虑镜面反射的效果 因而对于金属、镜子等需要镜面反射效果的物体就不适应
+  var material=new THREE.MeshLambertMaterial({
+      color: 0xffff00
+  })
+ 属性：emissive是材质的自发光颜色
+   var material=new THREE.MeshLambertMaterial({
+        color: 0xffff00，
+        emissive: 0xff0000
+   })
+
+2.Phong材质 Phong模型考虑了镜面反射的效果，因此对于金属、镜面的表现尤为适合。
+   new THREE.MeshPhongMaterial({
+       color: 0xffff00
+   });
+
+3.法向材质可以将材质的颜色设置为其法向量的方向，有时候对于调试很有帮助。
+  法向材质的设定很简单，甚至不用设置任何参数：
+
+  new THREE.MeshNormalMaterial()
+
+4.材质的纹理贴图
+var texture = THREE.ImageUtils.loadTexture('../img/0.png', {}, function() {  //将图片导入纹理中 并且重新绘制画面
+    renderer.render(scene, camera);
+});
+var material = new THREE.MeshLambertMaterial({
+    map: texture
+});
+
+
+有时候，我们希望长方体的六面各种的贴图都不同。因此，我们首先准备了六张颜色各异的图像，分别写了数字0到5。然后，分别导入图像到六个纹理，并设置到六个材质中：
+
+var materials = [];
+for (var i = 0; i < 6; ++i) {
+    materials.push(new THREE.MeshBasicMaterial({
+        map: THREE.ImageUtils.loadTexture('../img/' + i + '.png',
+                {}, function() {
+                    renderer.render(scene, camera);
+                }),
+        overdraw: true
+    }));
+}
+
+var cube = new THREE.Mesh(new THREE.CubeGeometry(5, 5, 5),
+        new THREE.MeshFaceMaterial(materials));
+scene.add(cube);
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p>网格</p>
+            <pre>
+                <code>
+1.如何创建网格：
+var material = new THREE.MeshLambertMaterial({
+    color: 0xffff00
+});
+var geometry = new THREE.CubeGeometry(1, 2, 3);
+var mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
+
+如果material和geometry之后不会复用的话，也可以合在一起写为：
+var mesh = new THREE.Mesh(new THREE.CubeGeometry(1, 2, 3),
+    new THREE.MeshLambertMaterial({
+        color: 0xffff00
+    })
+);
+scene.add(mesh);
+
+2.修改属性
+
+mesh.material = new THREE.MeshLambertMaterial({
+    color: 0xff0000
+});
+
+THREE.Vector3有x、y、z三个属性，如果只设置其中一个属性，则可以用以下方法：
+mesh.position.z = 1;
+如果需要同时设置多个属性，可以使用以下两种方法：
+mesh.position.set(1.5, -0.5, 0);
+或
+mesh.position = new THREE.Vector3(1.5, -0.5, 0);
+缩放对应的属性是scale，旋转对应的属性是rotation，具体方法与上例相同，分别表示沿x、y、z三轴缩放或旋转。
+
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p> 着色器</p>
+            <pre>
+                <code>
+   WebGL支持的着色器只有顶点着色器与片元着色器。
+
+   顶点着色器
+   顶点着色器中的“顶点”指的正是Mesh中的顶点，对于每个顶点调用一次。因此，如果场景中有一个正方体，那么对八个顶点将各自调用一次顶点着色器，可以修改顶点的位置或者颜色等信息，然后传入片元着色器。
+
+   片元着色器
+   片元是栅格化之后，在形成像素之前的数据。片元着色器是每个片元会调用一次的程序，因此，片元着色器特别适合用来做图像后处理。
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p> 点积与叉积区别</p>
+            <pre>
+                <code>
+  点积：两个单位向量的点积得到两个向量的夹角的cos值，通过它可以知道两个向量的相似性，利用点积可判断一个多边形是否面向摄像机还是背向摄像机。
+向量的点积与它们夹角的余弦成正比，因此在聚光灯的效果计算中，可以根据点积来得到光照效果，如果点积越大，说明夹角越小，则物理离光照的轴线越近，光照越强
+
+    利用点积可判断一个多边形是否面向摄像机还是背向摄像机。向量的点积与它们夹角的余弦成正比，因此在聚光灯的效果计算中，可以根据点积来得到光照效果，
+    如果点积越大，说明夹角越小，则物理离光照的轴线越近，光照越强。物理中，点积可以用来计算合力和功。若b为单位矢量，则点积即为a在方向b的投影，即给
+    出了力在这个方向上的分解。功即是力和位移的点积。计算机图形学常用来进行方向性判断，如两矢量点积大于0，则它们的方向朝向相近；如果小于0，则方向相反。
+    矢量内积是人工智能领域中的神经网络技术的数学基础之一，
+
+叉积
+  在物理学光学和计算机图形学中，叉积被用于求物体光照相关问题。
+求解光照的核心在于求出物体表面法线，而叉积运算保证了只要已知物体表面的两个非平行矢量(或者不在同一直线的三个点),就可依靠叉积求得法线。
+
+                </code>
+            </pre>
+        </li>
+    </ol>
+</div>
+</body>
+</html>

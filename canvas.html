@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!--//画布-->
+<div class="wrapper">
+    <h1>画布</h1>
+    <ol>
+        <li>
+            <p>drawImage</p>
+            <pre>
+          <code>
+ var canvas = document.getElementById("canvas")
+ var context = canvas.getContext("2d")
+ var image = new Image()
+ canvas.width = 1152
+ canvas.height = 768
+ image.src = "img.jpg"
+ //图片load完后开始绘制
+ image.onload = function(){
+     context.drawImage( image , 0 , 0 )
+ }
+          </code></pre>
+
+            cxt.drawImage(img,x,y); <br>
+            cxt.drawImage(img,x,y,width,height); <br>
+            cxt.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+        </li>
+        <li>
+            <p>清空矩形区域画布</p>ctx.clearRect(0,0,100,100);（起始坐标）
+        </li>
+        <li>
+            <p>创建矩形</p>ctx.rect(20,20,150,100);
+        </li>
+        <li>
+            <p>创建圆</p>ctx.arc(100,75,50半径,0起始角,2*Math.PI结束角，counterclockwise);	counterclockwise：可选。规定应该逆时针还是顺时针绘图。False = 顺时针，true = 逆时针。
+        </li>
+    </ol>
+
+</div>
+
+</body>
+</html>

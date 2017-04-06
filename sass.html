@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sass</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!--sass-->
+<div class="wrapper">
+    <h1>SASS</h1>
+    <ol>
+        <li>
+            node-sass -w index.scss index.css --output-style expanded 进行监控
+        </li>
+        <li>
+            跳出跟选择器 @at-root .d { color: green;}
+        </li>
+        <li>
+            height:calc(100vh);  全屏时用
+            width:calc(100vw);
+        </li>
+        <li>
+            @if($i>16){  //if和else判断
+
+            }
+            @else{
+
+            }
+        </li>
+        <li>
+            @if 还可以配合 @else if 和 @else 一起使用。
+        </li>
+        <li>
+            percentage($value)：将一个不带单位的数转换成百分比值；<br/>
+            width : percentage(5px / 10px) =》 width: 50%;
+        </li>
+        <li>
+             <pre>
+                 <code>
+   牙的尺寸数据
+    $ya: (
+            (width: 51px, height: 91px),
+            (width: 53px, height:107px),
+            (width: 56px, height:115px),
+            (width: 40px, height: 133px)
+      )
+   @for $i from 1 through length($ya){ //循环对象
+       $item: nth($ya, $i);
+          &:nth-child(#{$i}) {
+
+          }
+   }
+                 </code>
+             </pre>
+        </li>
+        <li>
+            @while $types > 0{   //while判断   只要后面的条件为true就执行
+
+            }
+        </li>
+    </ol>
+</div>
+
+</body>
+</html>

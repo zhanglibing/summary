@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!--javascript-->
+<div class="wrapper">
+    <h1>JAVASCRIPT</h1>
+    <ol>
+        <li>
+            <p>字符串</p>
+        </li>
+        <li>
+            <p>数组</p>
+            删除数组的最后一个元素 arr.pop()<br>
+            删除数组的第一个元素 arr.shift()<br>
+            数组的末尾添加新的元素 arr.push('aa')<br>
+            在数组的开头添加新元素 arr.unshift('aa') IE8以下不支持(插入的值将被返回成 undefined )<br>
+            从一个数组中选择元素 arr.slice(1,6) 下标<br>
+            str = fruits.toString()<br>
+        </li>
+    </ol>
+</div>
+
+<div class="wrapper">
+    <h1>事件</h1>
+    <ol>
+        <li>
+            e.button==0 鼠标左键  1:中键 2右键 3:鼠标左右键同时按下
+        </li>
+        <li>
+            <p>手机端滑动事件问题</p>
+            <pre>
+                  <code>
+H=e.originalEvent.changedTouches[0].pageY;
+endPos = {x: l-n,y:h-H};
+isScrolling = Math.abs(endPos.x) < Math.abs(endPos.y) ? 1:0;
+  //isScrolling为1时，表示纵向滑动，0为横向滑动
+if(isScrolling ===0) {
+event.preventDefault(); //阻止横向触摸事件的默认行为
+}
+ ****** 如果不阻止默认事件苹果手机滑动会反应慢
+如果不调用上下滑动可直接使用event.preventDefault();
+                  </code>
+              </pre>
+
+        </li>
+    </ol>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquery</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!--jquery-->
+<div class="wrapper">
+    <h1>JQUERY</h1>
+    <ol>
+        <li>slides.filter('.active');筛选选中状态的元素</li>
+        <li>合并两个数组 $.merge( [0,1,2], [2,3,4] )结果:[0,1,2,2,3,4]</li>
+        <li>去掉字符串起始和结尾的空格$.trim(str);</li>
+        <li>siblings()所有同级元素 <br>
+            prev()   同级元素的前一个元素  next()之后一个 <br>
+            prevAll()同级元素前所有的元素  nextAll()之后所有
+        </li>
+        <li>remove() - 删除被选元素（及其子元素）
+            empty() - 从被选元素中删除子元素</li>
+        <li>求尺寸
+            width() height() <br>
+            innerWidth() innerHeight()  内填充<br>
+            outerWidth() outerHeight() 边框之内<br>
+            outerWidth(true) outerHeight(true) 边距之内
+        </li>
+        <li>
+            同时绑定两个事件类型 <br>
+            <code>
+                $('#foo').bind('mouseenter mouseleave', function() {
+                $(this).toggleClass('entered');
+                });
+            </code>
+
+        </li>
+        <li>
+            同时绑定多个事件类型 <br>
+            <pre><code>
+   $("button").bind({
+      click:function(){$("p").slideToggle();},
+      mouseover:function(){$("body").css("background-color","red");},
+      mouseout:function(){$("body").css("background-color","#FFFFFF");}
+   });
+               </code></pre>
+        </li>
+        <li>
+            hover事件切换 <br>
+            <pre><code>
+  $("aa").hover(function () {over},function () {out})
+               </code></pre>
+        </li>
+        <li>
+            each遍历<br>
+            <pre><code>
+  (1)DOM元素 $("div").each(function (index, domEle) { }
+  (2)数组 $.each( [0,1,2], function(i, n){});
+  (3)对象 $.each( {{ name: "John", lang: "JS" },...}, function(i, n){
+      alert( "Name: " + i + ", Value: " + n );
+   });
+               </code></pre>
+        </li>
+        <li>
+            手机端防止点击穿透 <br>
+            <pre>
+                   <code>
+  $('.wrapper').delay(150).queue(function(){
+    $(this).removeClass('active').dequeue();
+  });自己测试最小150ms
+                   </code>
+               </pre>
+        </li>
+    </ol>
+</div>
+
+</body>
+</html>

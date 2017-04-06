@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="wrapper">
+    <h1>CSS</h1>
+    <ol>
+        <li>
+            <p class="title">文本溢出</p>
+            <pre><code>
+  .inaline{ //单行文本溢出
+      overflow:hidden
+      white-space:nowarp;
+      text-overflow:ellipsis;
+  }
+  .intwoline{ //多行文本溢出
+     display: -webkit-box !important;
+     overflow:hidden;
+     text-overflow:ellipsis;
+     word-break:break-all;
+     -webkit-box-orient:vertical:
+     -webkit-line-clamp:2;
+  }
+      </code></pre>
+        </li>
+        <li>
+            <p>input和textarea中placeholder的字体设置</p>
+            <pre>
+                  <code>
+
+     input:-moz-placeholder {
+     color:#2b2b2b !important;
+     }
+     input::-moz-placeholder {
+        color:#2b2b2b !important;
+     }
+     input:-ms-input-placeholder {
+        color: #2b2b2b !important;
+     }
+                  </code>
+              </pre>
+
+        </li>
+        <li>
+            div元素之后紧跟的第一个同级p元素div+p{样式}
+        </li>
+        <li>
+            <p>均匀分布问题</p>
+            <pre>
+                  <code>
+   父元素text-align: justify;
+   父元素::after{content: ''; display: inline-block;height: 0;width: 100%;}
+   子元素：display: inline-block;
+                  </code>
+              </pre>
+
+        </li>
+        <li>
+            <p>pc端响应等比例圆、矩形框</p>
+            设置父元素高为0、padding-bottom为100%，此时的padding-bottom为父元素的宽。<br>
+            将父元素设置为相对定位，子元素宽高设为100%。
+        </li>
+        <li>
+            <p>手机端1像素边框问题</p>
+            给父元素类border-1px
+ <pre>
+     <code>
+ border-1px($color)
+  position:relative
+  &:after
+     display:block
+     position:absolute
+     left:0
+     bottom:0
+     width:100%
+     border-top:1px solid $color
+     content:''
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5)
+    .border-1px
+      &::after
+        -webkit-transform: scaleY(0.7)
+        transform: scaleY(0.7)
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2)
+    .border-1px
+      &::after
+       -webkit-transform: scaleY(0.5)
+       transform:scaleY(0.5)
+     </code>
+ </pre>
+        </li>
+    </ol>
+
+
+</div>
+<!--img-->
+<div class="wrapper">
+    <h1>图片等比例缩放</h1>
+    <ol>
+        <li>
+            <p>js求图片的原始尺寸</p>
+            var img = new Image();<br>
+            img.src = 图片路径、ajax请求回来的连接;<br>
+            var imgWidth = img.width;<br>
+            var imgHeight = img.height;<br>
+
+        </li>
+        <li>
+            根据图片宽高和图片外框宽高之比确定具体样式（可以加不同类设置两种类型样式）
+        </li>
+
+
+    </ol>
+
+</div>
+<!--IE兼容性问题-->
+<div class="wrapper">
+    <h1>IE兼容性问题</h1>
+    <ol>
+        <li>
+            IE9-10不支持select要加select::-ms-expand { display: none; }
+        </li>
+        <li>select在苹果手机中要加background：transparent 否则不兼容</li>
+        <li>IE8-IE9都不支持transform中的属性</li>
+        <li>不支持nth-child(n)</li>
+        <li>
+            <p>IE8兼容圆角和阴影方法</p>
+            将PIE.htx放入js文件夹中 <br>
+            在css中<br>
+            -moz-border-radius:22px;<br>
+            -webkit-border-radius:22px;<br>
+            border-radius: 22px;<br>
+            behavior: url(js/PIE.htc);//相对于页面的路径
+        </li>
+
+    </ol>
+
+</div>
+</body>
+</html>
