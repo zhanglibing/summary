@@ -87,70 +87,23 @@
 
 <p>scss文件中可以完全像写正常的css那样去写.</p>
 
-<h2 id="2-sass安装">2. sass安装</h2>
+<h2 id="2-sass安装">2. sass监控</h2>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>npm install -g node-sass
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>
 node-sass -w xxx.scss xxx.css --output-style expanded
-</code></pre>
-</div>
-<p>node-sass 参数:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>-w, --watch                Watch a directory or file
--r, --recursive            Recursively watch directories or files
--o, --output               Output directory
--x, --omit-source-map-url  Omit source map URL comment from output
--i, --indented-syntax      Treat data from stdin as sass code (versus scss)
--q, --quiet                Suppress log output except on error
--v, --version              Prints version info
---output-style             CSS output style (nested | expanded | compact | compressed)
---indent-type              Indent type for output CSS (space | tab)
---indent-width             Indent width; number of spaces or tabs (maximum value: 10)
---linefeed                 Linefeed style (cr | crlf | lf | lfcr)
---source-comments          Include debug info in output
---source-map               Emit source map
---source-map-contents      Embed include contents in map
---source-map-embed         Embed sourceMappingUrl as data URI
---source-map-root          Base path, will be emitted in source-map as is
---include-path             Path to look for imported files
---follow                   Follow symlinked directories
---precision                The amount of precision allowed in decimal numbers
---importer                 Path to .js file containing custom importer
---functions                Path to .js file containing custom functions
---help                     Print usage info
 </code></pre>
 </div>
 
 <h2 id="3-sass的基本特性">3. Sass的基本特性</h2>
 
 <h3 id="变量">变量</h3>
-
-<div class="language-scss highlighter-rouge"><pre class="highlight"><code><span class="nv">$brand-primary</span> <span class="p">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#428bca</span><span class="o">,</span> <span class="m">6</span><span class="mi">.5%</span><span class="p">)</span> <span class="o">!</span><span class="nb">default</span><span class="p">;</span>
-<span class="nv">$btn-primary-color</span> <span class="p">:</span> <span class="mh">#fff</span> <span class="o">!</span><span class="nb">default</span><span class="p">;</span>
-<span class="nv">$btn-primary-bg</span> <span class="p">:</span> <span class="nv">$brand-primary</span> <span class="o">!</span><span class="nb">default</span><span class="p">;</span>
-<span class="nv">$btn-primary-border</span> <span class="p">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$btn-primary-bg</span><span class="o">,</span> <span class="m">5%</span><span class="p">)</span> <span class="o">!</span><span class="nb">default</span><span class="p">;</span>
-<span class="nc">.btn-primary</span> <span class="p">{</span>
-   <span class="nl">background-color</span><span class="p">:</span> <span class="nv">$btn-primary-bg</span><span class="p">;</span>
-   <span class="nl">color</span><span class="p">:</span> <span class="nv">$btn-primary-color</span><span class="p">;</span>
-   <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="nv">$btn-primary-border</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<div class="language-scss highlighter-rouge"><pre class="highlight"><code><span class="nv">$baseLineHeight</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
-<span class="nv">$baseLineHeight</span><span class="p">:</span> <span class="m">1</span><span class="mi">.5</span> <span class="o">!</span><span class="nb">default</span><span class="p">;</span>
-<span class="nt">body</span><span class="p">{</span>
-    <span class="nl">line-height</span><span class="p">:</span> <span class="nv">$baseLineHeight</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<div class="language-scss highlighter-rouge"><pre class="highlight"><code><span class="cm">/* 局部变量 */</span>
+<div class="language-scss highlighter-rouge"><pre class="highlight"><code><span class="cm">/* 全局变量 */</span>
 <span class="nv">$color</span><span class="p">:</span> <span class="no">orange</span> <span class="o">!</span><span class="nb">default</span><span class="p">;</span>
 <span class="nc">.block</span> <span class="p">{</span>
   <span class="nl">color</span><span class="p">:</span> <span class="nv">$color</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="nt">em</span> <span class="p">{</span>
-  <span class="nv">$color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+  <span class="nv">$color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span><span class="cm">/* 局部变量 */</span>
   <span class="nt">a</span> <span class="p">{</span>
     <span class="nl">color</span><span class="p">:</span> <span class="nv">$color</span><span class="p">;</span>
   <span class="p">}</span>
@@ -170,25 +123,6 @@ node-sass -w xxx.scss xxx.css --output-style expanded
       <span class="nt">color</span><span class="nd">:green</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>  
-<span class="p">}</span>
-
-<span class="nc">.box</span> <span class="p">{</span>
-  <span class="nl">border</span><span class="p">:</span> <span class="p">{</span>
-   <span class="nl">top</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">red</span><span class="p">;</span>
-   <span class="nl">bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">green</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="nc">.clearfix</span><span class="p">{</span>
-  <span class="k">&amp;</span><span class="nd">:before</span><span class="o">,</span>
-  <span class="k">&amp;</span><span class="nd">:after</span> <span class="p">{</span>
-    <span class="nl">content</span><span class="p">:</span><span class="s2">""</span><span class="p">;</span>
-    <span class="nl">display</span><span class="p">:</span> <span class="n">table</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">&amp;</span><span class="nd">:after</span> <span class="p">{</span>
-    <span class="nt">clear</span><span class="nd">:both</span><span class="p">;</span>
-    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
