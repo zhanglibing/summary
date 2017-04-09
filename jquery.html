@@ -20,7 +20,7 @@
     </div>
 
 </header>
-<div class="wrapper">
+<div class="wrapper　markdown-body">
     <h1>JQUERY</h1>
     <ol>
         <li>
@@ -91,21 +91,19 @@ floor[i].offsetTop=h;
             </pre>
         </li>
         <li>
-            同时绑定两个事件类型 <br>
-            <code>
-                $('#foo').bind('mouseenter mouseleave', function() {
-                $(this).toggleClass('entered');
-                });
-            </code>
-
-        </li>
-        <li>
-            同时绑定多个事件类型 <br>
+           事件处理 <br>
             <pre><code>
+ return false;取消默认的行为并阻止事件起泡
+ e.preventDefault();只取消默认的行为。
+ e.stopPropagation();只阻止一个事件起泡。
+
+  $('#foo').bind('mouseenter mouseleave', function() {
+   　 $(this).toggleClass('entered');
+  });
    $("button").bind({
-      click:function(){$("p").slideToggle();},
-      mouseover:function(){$("body").css("background-color","red");},
-      mouseout:function(){$("body").css("background-color","#FFFFFF");}
+      click:function(){},
+      mouseover:function(){},
+      mouseout:function(){}
    });
                </code></pre>
         </li>

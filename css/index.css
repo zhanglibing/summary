@@ -1,5 +1,5 @@
 body{
-    font-size: 14px;
+    font-size: 16px;
 }
 *{
     margin:0 ;
@@ -22,11 +22,11 @@ h1{
     margin-bottom:30px;
 }
 .title{
-    font-size:16px;
+    font-size:18px;
 }
 pre{
     overflow: auto;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4;
     background-color: #f7f7f7;
     border-radius: 5px;
