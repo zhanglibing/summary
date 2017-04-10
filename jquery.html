@@ -24,6 +24,42 @@
     <h1>JQUERY</h1>
     <ol>
         <li>
+            <p>选择器</p>
+            not(selector) <br>
+            :even <br>
+            :odd <br>
+            :eq(index) <br>
+            :gt(index) <br>
+            :lt(index) <br>
+            :has(selector) <br>
+            :parent含有子元素或者内容 <br>
+            属性 <br>
+            [attribute] <br>
+            [attribute=value] <br>
+            [attribute!=value] <br>
+            [attribute^=value]开头 <br>
+            [attribute$=value]结尾 <br>
+            [attribute*=value]包含 <br>
+            $("input[name='newsletter']"). <br>
+            表单
+            :input <br>
+            :text <br>
+            :password <br>
+            :radio <br>
+            :checkbox <br>
+            :submit <br>
+            :button <br>
+            :file <br>
+            :hidden <br>
+            表单对象属性 <br>
+            :enabled <br>
+            :disabled <br>
+            :checked <br>
+            :selected <br>
+            $("input:enabled") <br>
+
+        </li>
+        <li>
             <p>筛选</p>
             expr:选择器表达式 ele:dom元素 <br>
             eq(index)  first()  last() <br>
@@ -37,14 +73,35 @@
         <li>去掉字符串起始和结尾的空格$.trim(str);</li>
         <li>
             <p>查找元素</p>
+            eq(index) <br>
             children(expr)只考虑子元素而不考虑所有后代元素 <br>
             closest()  find() <br>
             siblings()所有同级元素 <br>
+            $(this).addClass().siblings().removeClass() <br>
             parent(".selected") <br>
             prev()   同级元素的前一个元素 <br>
             next()之后一个 <br>
             prevAll()同级元素前所有的元素  nextAll()之后所有
         </li>
+        <li>
+            <p>效果</p>
+            show(speed,swing默认/linear,fn) <br>
+            hide([speed],[easing],[fn]) <br>
+            slideDown() <br>
+            slideUp() <br>
+            slideToggle() <br>
+            fadeIn() fadeOut() 以上参数相同 <br>
+            fadeTo(speed,opacity,linear,fn) <br>
+            $("div").finish();停止当前正在运行的动画 <br>
+            animate(params,[speed],[easing],[fn]) <br>
+
+            $("#block").animate({
+            width: "90%",
+            borderWidth: 10
+            }, 1000 );
+
+        </li>；
+
         <li>remove() - 删除被选元素（及其子元素）
             empty() - 从被选元素中删除子元素</li>
         <li>求尺寸
