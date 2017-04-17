@@ -117,12 +117,13 @@
             <p>js求图片的原始尺寸</p>
             var img = new Image();<br>
             img.src = 图片路径、ajax请求回来的连接;<br>
-            var imgWidth = img.width;<br>
-            var imgHeight = img.height;<br>
+            img.onload=function(){ <br>
+                var imgWidth = img.width;<br>
+                var imgHeight = img.height;<br>
+            根据图片宽高和图片外框宽高之比确定具体样式（可以加不同类设置两种类型样式） <br>
+            }
 
-        </li>
-        <li>
-            根据图片宽高和图片外框宽高之比确定具体样式（可以加不同类设置两种类型样式）
+
         </li>
 
 
