@@ -21,19 +21,71 @@
 </header>
 <!--javascript-->
 <div class="wrapper">
-    <h1>JAVASCRIPT</h1>
-    <ol>
+    <h1>JavaScript基础</h1> <ol>
+    <!--字符串、数组-->
         <li>
             <p>字符串</p>
+            <pre class="highlight">
+                <code>
+
+                </code>
+            </pre>
         </li>
         <li>
             <p>数组</p>
-            删除数组的最后一个元素 arr.pop()<br>
-            删除数组的第一个元素 arr.shift()<br>
-            数组的末尾添加新的元素 arr.push('aa')<br>
-            在数组的开头添加新元素 arr.unshift('aa') IE8以下不支持(插入的值将被返回成 undefined )<br>
-            从一个数组中选择元素 arr.slice(1,6) 下标<br>
-            str = fruits.toString()<br>
+            <pre class="highlight">
+                <code>
+  str = fruits.toString()
+ (1)新增:<span class="k">影响原数组</span>
+   arr.<span class="k">push</span>('aa')末尾添加新的元素
+   arr.<span class="k">unshift</span>('aa')数组的开头添加新元素  IE8以下不支持(插入的值将被返回成 undefined )
+ (2)新增:<span class="k">不影响原数组</span>
+   var arr1=["a","b","c"];
+   var arr2=arr.<span class="x">concat</span>("f")//["a","b","c","f"];
+   console.log(arr1)// ["a","b","c"]
+   第二种方法：javascript的展开操作符(...)
+   var arr1=["a","b","c"];
+   var arr2=[<span class="x">...arr1</span>,"f"];//arr2=["a","b","c","f"];
+   var arr2=["f",...arr1];
+  展开符会复制原来的数组，从原数组中取出所有元素，然后存入新的环境
+ (3)移除:<span class="k">影响原数组</span>
+    arr.<span class="x">pop()</span>删除最后一个
+    arr.<span class="x">shift()</span>删除第一个
+    var arr1=["a","b","c"];
+    arr1.<span class="x">splice(0,2)</span>//["c"] 0:开始下标 2:长度
+    这三种移除都返回被删除的元素
+ (4)移除:<span class="k">不影响原数组</span>
+    var arr1=["a","b","c","d","e"];
+    var arr2=arr1.<span class="x">filter(a=>a!=="e")</span>;//["a","b","c","d"];
+    或者var arr2=arr1.<span class="x">filter(a=>{
+      return a!="e"
+    })</span>;//["a","b","c","d"];
+         <span class="kd">单行箭头函数，'return'关键字是默认自带的不需要手动书写
+    多行箭头函数就需要一个明确的返回值
+    </span>
+    还有一种方法截取
+    arr.<span class="x">slice(1,5)</span> 两个下标
+    arr.<span class="x">slice(2)</span>
+ (5)替换:<span class="k">影响原数组</span>
+    var arr=["a","b","c","d"];
+    arr.splice(2,1,30);//["a","b",30,"d"];
+    arr.splice(2,1,30,31);//["a","b",30,31,"d"];
+ (6)替换:<span class="k">不影响原数组</span>
+    var arr1=["a","b","c","d"];
+    var arr2=arr1.<span class="x">map(item=>{
+       if(item==="c"){
+         item="cat"
+       }
+      return item;</span>
+     });
+     //arr2=["a","b","cat","d"]
+
+    arr.map()可以用于转换数据，而不污染数据源
+    var arr3=arr1.map(n=>n+"HI");
+    //  ["aHI","bHI","catHI","dHI"]
+                </code>
+            </pre>
+
         </li>
     </ol>
 </div>
@@ -42,11 +94,16 @@
     <h1>事件</h1>
     <ol>
         <li>
-            e.button==0 鼠标左键  1:中键 2右键 3:鼠标左右键同时按下
+            <pre class="highlight">
+                <code>
+<span class="x">e.button</span>==0 鼠标左键  1:中键 2右键 3:鼠标左右键同时按下
+                </code>
+            </pre>
+
         </li>
         <li>
             <p>手机端滑动事件问题</p>
-            <pre>
+            <pre class="highlight">
                   <code>
 H=e.originalEvent.changedTouches[0].pageY;
 endPos = {x: l-n,y:h-H};
@@ -61,8 +118,222 @@ event.preventDefault(); //阻止横向触摸事件的默认行为
               </pre>
 
         </li>
+        <li>
+            <p>ajax请求</p>
+            <pre class="highlight">
+                <code>
+ var apiAjax = function() <span class="p">{</span>
+   var self = this;
+   this.host = 'http://www.clearbos.com';
+   //this.host = 'http://localhost:39571'; //本地调试
+   this.post = function (options, success, error) {
+     $.ajax({
+       type: "POST",
+       url: self.host + options.path+"?opertionType="+options.opertionType,
+       data:JSON.stringify(options.params),
+       contentType: "application/json",
+       success: function (msg) {
+       msg = <span class="nb">eval("(" + msg + ")");</span> //将后台返回值转化为json对象格式
+       success(msg, options);
+       },
+       error: function (msg) {
+          msg = eval("(" + msg + ")");
+          error(msg, options);
+       }
+     });
+   }
+ this.TeethStatus = function (params, success, error) {
+   var options = {
+   path: '/ClinicalOpRequirements.ashx',
+   opertionType:'TeethChangeStatus',
+   params: params
+   }
+   this.post(options, success, error);
+ }
+ <span class="p">}</span>
+var api=new apiAjax();
+                </code>
+            </pre>
+
+        </li>
     </ol>
 </div>
+
+<!--作用域链-->
+<div class="wrapper">
+    <h1>作用域</h1>
+    <ol>
+        <li>
+            <p>作用域优先级</p>
+            <pre class="highlight">
+                <code>
+ var test=10;
+function testFn(){
+     var test;
+     console.log(test);
+     test=100;
+}
+testFn();<span class="x">//undefined</span>
+                </code>
+            </pre>
+
+        </li>
+        <li>
+            <p>变量声明被提升的机制</p>
+            <pre class="highlight">
+                <code>
+ <span class="k">test()</span>; //test1
+ var test=function(){
+     console.log("test");
+ }
+ function test(){
+    console.log("test1")
+ }
+ <span class="k">test()</span>; //test函数声明会被提升到作用域的最前面<br>
+                </code>
+            </pre>
+
+        </li>
+        <li>
+            <pre class="highlight">
+                <code>
+  test(); // <span class="x">test is not a function</span>
+  var test=function(){
+       console.log("test");
+  }
+                </code>
+            </pre>
+        </li>
+    </ol>
+
+</div>
+
+<!--面向对象-->
+<div class="wrapper">
+    <h1>面向对象</h1>
+    <ol>
+        <li>
+            <p>混合模式（原型模式 + 构造函数模式）</p>
+            <pre class="highlight">
+                <code>
+ function Blog(name, url, friend) {
+    this.name = name;
+    this.url = url;
+    this.friend = friend;
+ }
+ Blog.<span class="k">prototype</span>.alertInfo = function() {
+    alert(this.name + this.url + this.friend);
+ }
+ var blog = new Blog('wuyuchang', 'http://tools.jb51.net/', ['fr1', 'fr2', 'fr3'])
+ var blog2 = new Blog('wyc', 'http://**.com', ['a', 'b']);
+                </code>
+            </pre>
+        </li>
+    </ol>
+</div>
+
+<!--this指向-->
+<div class="wrapper">
+    <h1>this指向</h1>
+    <ol>
+        <li>
+            <p>this方法</p>
+            <pre class="highlight">
+               <code>
+   谁调用指向谁 <br>
+   var checkThis = function(){
+        alert( this.x);
+   };
+    var x = 'this is a property of window';
+    <span class="k">//var window.x</span> = 'this is a property of window';
+    var obj = {};
+    obj.x = 100;
+    obj.y = function(){ alert( this.x ); };
+    obj.y(); <span class="x">// 100</span>
+    checkThis();  <span class="x">//'this is a property of window'</span>
+    <span class="k">全局变量都是window对象的属性</span>
+               </code>
+            </pre>
+        </li>
+        <li>
+            <p>call和apply可以重新定义this的指向</p>
+            <pre class="highlight">
+                <code>
+function changeStyle( type , value ){
+     this.style[ type ] = value;
+}
+ var one = document.getElementByIdx( 'one' );
+ changeStyle.<span class="k">call</span>( <span class="gr">one</span> ,<span class="kr">'fontSize','100px'</span> );
+ changeStyle.<span class="k">apply</span>( <span class="gr">one</span>, <span class="kr">['fontSize','100px']</span>);
+ changeStyle('fontSize' , '300px'); //出现错误，因为此时changeStyle中this引用的是window对象，而window并无style属性。
+     /**changeStyle.<span class="x">call()</span>中有三个参数，<span class="x">第一个参数用于指定该函数将被哪个对象所调用</span>。这里指定了one，也就意味着，
+ changeStyle函数将被one调用，因此函数体内this指向是one对象。**/
+     <span class="x">apply只接受两个参数，第一个参数和call相同，第二个参数必须是一个数组</span> ，数组中的元素对应的就是函数的形参。
+
+ var x = 0;
+ function test() {
+   alert(this.x);
+ }
+ var o = {x : 1, m : test};
+ o.m. <span class="k">apply()</span>; //0
+ o.m. <span class="k">apply(o)</span>;//1
+ <span class="x">当apply没有参数时，表示为全局对象。所以值为0。</span>
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p>new改变this指向</p>
+            <pre class="highlight">
+                <code>
+function demo() {
+    console.log(this);
+}
+demo();  // <span class="x"> window</span>
+new demo();  // <span class="x"> demo</span>
+                </code>
+            </pre>
+        </li>
+    </ol>
+</div>
+<div class="wrapper">
+    <h1>函数方法</h1>
+    <ol>
+        <li>
+            <p>函数参数方法</p>
+            <pre class="highlight">
+                <code>
+   function test(){
+       <span class="k"> arguments</span> 参数数组
+        arguments.length 参数的个数
+   }
+                </code>
+            </pre>
+        </li>
+    </ol>
+</div>
+
+<!--闭包-->
+<div class="wrapper">
+    <h1>闭包</h1>
+    <pre class="highlight">
+        <code>
+var scope = "global scope";
+function checkscope(){
+    var <span class="k">scope</span>  = "local scope";
+    function f(){
+        return scope;
+    }
+    return f;
+}
+var foo = checkscope();//function f(){return scope;}
+foo();
+console.log(foo()) // <span class="x">"local scope"</span>
+        </code>
+    </pre>
+</div>
+
+
+<!--底部-->
 <footer class="site-footer">
 
     <div class="wrapper">
@@ -87,4 +358,71 @@ event.preventDefault(); //阻止横向触摸事件的默认行为
 
 </footer>
 </body>
+<script>
+//    var Person = function(name, age) {
+//        this.name = name;
+//        this.age = age;
+//        this.getName = function() {
+//            return this.name;
+//        }
+//    }
+//
+//    // 将构造函数以参数形式传入
+//    function New(func) {
+//
+//        // 声明一个中间对象，该对象为最终返回的实例
+//        var res = {};
+//        if (func.prototype !== null) {
+//
+//            // 将实例的原型指向构造函数的原型
+//            res.__proto__ = func.prototype;
+//            console.log(res.__proto__)
+//        }
+//
+//        // ret为构造函数执行的结果，这里通过apply，将构造函数内部的this指向修改为指向res，即为实例对象
+//        var ret = func.apply(res, Array.prototype.slice.call(arguments, 1));
+//        console.log(Array.prototype.slice.call(arguments, 1)) //['tom', 20]
+//
+//        // 当我们在构造函数中明确指定了返回对象时，那么new的执行结果就是该返回对象
+//        if ((typeof ret === "object" || typeof ret === "function") && ret !== null) {
+//            return ret;
+//        }
+//
+//        // 如果没有明确指定返回对象，则默认返回res，这个res就是实例对象
+//        return res;
+//    }
+//
+//    // 通过new声明创建实例，这里的p1，实际接收的正是new中返回的res
+//    var p1 = New(Person, 'tom', 20);
+//    console.log(p1);
+//
+//    // 当然，这里也可以判断出实例的类型了
+//    console.log(p1 instanceof Person); // true
+var data = [];
+
+for (var i = 0; i<3; i++) {
+    data[i] = function () {
+        console.log(i);
+    };
+}
+
+
+data[0]();
+data[1]();
+data[2]();
+
+var scope = "global scope";
+function checkscope(){
+    var scope = "local scope";
+    function f(){
+        return scope;
+    }
+    return f;
+}
+
+var foo = checkscope();
+foo();
+console.log(checkscope()) //"local scope"
+
+</script>
 </html>

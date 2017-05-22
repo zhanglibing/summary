@@ -26,7 +26,7 @@ h1{
 }
 pre{
     overflow: auto;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.4;
     background-color: #f7f7f7;
     border-radius: 5px;
@@ -43,7 +43,7 @@ code{
     border: 0;
 }
 ol li{
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     line-height:1.5;
     color:#999;
