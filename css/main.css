@@ -105,7 +105,7 @@ blue      #268bd2  reserved keywords
 cyan      #2aa198  strings, numbers
 green     #859900  operators, other keywords
 */
-.highlight { background-color: #f7f7f7; color: #93a1a1;line-height: 1.5; }
+.highlight { background-color: #f7f7f7; color: #93a1a1;line-height: 1.5;padding-left: 5px; }
 
 .highlight .c { color: #586e75; }
 

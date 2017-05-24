@@ -12,12 +12,6 @@ h1{
     padding:10px;
     text-align: center;
 }
-.wrapper{
-    width:90%;
-    height:auto;
-    border-bottom:1px solid #999;
-    margin:5px auto;
-}
 .wrapper:last-child{
     margin-bottom:30px;
 }

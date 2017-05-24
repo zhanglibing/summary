@@ -27,7 +27,31 @@
             <p>字符串</p>
             <pre class="highlight">
                 <code>
+var str = "ABCDECDF";
+str.<span class="x">search(/CD/i)</span>//或str.search("CD");结果：2
+返回与正则表达式查找内容匹配的第一个字符串的位置
 
+str.<span class="x">substr</span>(start[,length]) 返回一个从指定位置开始的指定长度的子字符串。
+str.<span class="x">substring</span>(start,end) 返回位于String对象中指定位置的子字符串。
+str.<span class="x">slice</span>(start[,end])  返回字符串的片段。
+   var str = "ABCDEF";
+   str.slice(2,4); //"CD"
+str.<span class="x">charAt</span>(index) 返回指定索引位置处的字符。如果超出有效范围的索引值返回空字符串。
+str.<span class="x">fromCharCode</span>(65,66,112) 从一些Unicode字符串中返回一个字符串
+str.<span class="x">charCodeAt</span>(index) 返回一个整数，代表指定位置字符的Unicode编码。
+    var str = "ABC";
+    str.charCodeAt(0);结果：65
+
+str.<span class="x">indexOf</span>(substr,[startIndex]) 第一次出现子字符串位置
+str.<span class="x">lastIndexOf</span>(substr,[startIndex]) 最后一次出现子字符串位置
+    substr要查找的字符串 startIndex开始查找的位置
+    如果没有找到子字符串，则返回-1。
+<span class="x">toLowerCase 小写</span>返回值为字符串
+<span class="x">toUpperCase 大写</span>返回值为字符串
+<span class="x">str.concat([string1[,string2...]])</span>连接字符串
+<span class="k">转化为数组</span>
+var str= "abcd"
+var arr=str. <span class="x">split("")</span>//["a", "b", "c", "d"]
                 </code>
             </pre>
         </li>
@@ -83,9 +107,14 @@
     arr.map()可以用于转换数据，而不污染数据源
     var arr3=arr1.map(n=>n+"HI");
     //  ["aHI","bHI","catHI","dHI"]
+ (7)arr.<span class="x">reverse</span>();将数组中元素颠倒顺序
+ arr.<span class="x">sort</span>();();数组按照字母顺序排序
+ (8)转化为字符串
+  var ss=["a","b","c","d"]
+  var s = ss.<span class="x">toString()</span>;//a,b,c,d
+  var s = ss.<span class="x">join("")</span>;//"abcd"  <span class="gr">join(",")可以加分隔符</span>
                 </code>
             </pre>
-
         </li>
     </ol>
 </div>
@@ -240,18 +269,18 @@ testFn();<span class="x">//undefined</span>
             <p>this方法</p>
             <pre class="highlight">
                <code>
-   谁调用指向谁 <br>
-   var checkThis = function(){
-        alert( this.x);
-   };
-    var x = 'this is a property of window';
-    <span class="k">//var window.x</span> = 'this is a property of window';
-    var obj = {};
-    obj.x = 100;
-    obj.y = function(){ alert( this.x ); };
-    obj.y(); <span class="x">// 100</span>
-    checkThis();  <span class="x">//'this is a property of window'</span>
-    <span class="k">全局变量都是window对象的属性</span>
+ 谁调用指向谁 <br>
+ var checkThis = function(){
+      alert( this.x);
+ };
+ var x = 'this is a property of window';
+ <span class="k">//var window.x</span> = 'this is a property of window';
+ var obj = {};
+ obj.x = 100;
+ obj.y = function(){ alert( this.x ); };
+ obj.y(); <span class="x">// 100</span>
+ checkThis();  <span class="x">//'this is a property of window'</span>
+ <span class="k">全局变量都是window对象的属性</span>
                </code>
             </pre>
         </li>
@@ -312,11 +341,25 @@ new demo();  // <span class="x"> demo</span>
     </ol>
 </div>
 
+<div class="wrapper">
+    <p>let、const、var区别</p>
+    <pre class="highlight">
+        <code>
+ <span class="x">const</span>定义的变量不可以修改，而且必须初始化。
+   const b = 2;//正确
+   const b;//错误，必须初始化
+ <span class="x">var</span>定义的变量可以修改，如果不初始化会输出undefined，不会报错。
+ <span class="x">let</span>是块级作用域，函数内部使用let定义后，对函数外部无影响。
+        </code>
+    </pre>
+</div>
 <!--闭包-->
 <div class="wrapper">
     <h1>闭包</h1>
     <pre class="highlight">
         <code>
+好处(1)读取函数内部的变量，
+   (2)让这些变量的值始终保持在内存中。
 var scope = "global scope";
 function checkscope(){
     var <span class="k">scope</span>  = "local scope";
@@ -328,6 +371,53 @@ function checkscope(){
 var foo = checkscope();//function f(){return scope;}
 foo();
 console.log(foo()) // <span class="x">"local scope"</span>
+
+function f1(){
+　　var n=999;
+　　nAdd=function(){n+=1}
+　　function f2(){
+　　　　alert(n);
+　　}
+　　return f2;
+}
+var result=f1();
+result();  <span class="x">// 999</span>
+nAdd();
+result(); <span class="x"> //1000</span>
+    f1是f2的父函数，而f2被赋给了一个全局变量，
+这导致f2始终在内存中，而f2的存在依赖于f1，因此
+f1也始终在内存中，不会在调用结束后，被垃圾回收
+机制（garbage collection）回收。
+"nAdd=function(){n+=1}"这一行，首先在nAdd
+前面没有使用var关键字，因此 <span class="x">nAdd是一个全局变量</span>，
+而不是局部变量。其次，nAdd的值是一个匿名函数，
+而这个匿名函数本身也是一个闭包，所以nAdd相当于
+是一个setter，可以在函数外部对函数内部的局部变量进行操作。
+
+理解闭包：
+var name = "The Window";
+var object = {
+　　name : "My Object",
+　　getNameFunc : function(){
+     <span class="x">//var that=this;</span>
+　　　　return function(){
+　　　　　　return this.name;
+　　　<span class="x">//return that.name; //"My Object"</span>
+　　　　};
+　　}
+};
+alert(object.getNameFunc()()); // <span class="x">"The Window"</span>
+
+function outerFun(){
+    //没有var
+    a =0;
+    alert(a);
+}
+var a=4;
+outerFun();// <span class="x">0</span>
+alert(a); // <span class="x">0</span>
+ 作用域链是描述一种路径的术语,沿着该路径可以确定变量的值
+当执行a=0时,因为没有使用var关键字,因此赋值操作会沿着作用域
         </code>
     </pre>
 </div>
