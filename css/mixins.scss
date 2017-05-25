@@ -17,16 +17,25 @@
   left:0;
   right: 0;
   bottom:0;
-  margin:0;
+  margin:auto;
 }
-//定位+移动居中 （IE兼容有问题）
+//定位+移动居中 （IE兼容9以下不支持）
 @mixin middle(){
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate3d(-50%,-50%,0);
 }
-//定宽高
+//flex布局居中  pc端IE10以上支持、 手机端兼容
+@mixin flexMiddle(){
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+//固定宽高居中方法
 @mixin center($width,$height){
   width: $width;
   height: $height;
@@ -38,30 +47,23 @@
 }
 
 //正方形
-@mixin square1($size){
+@mixin rect($size){
   width: $size;
   height: $size;
 }
-@mixin square2($size,$bg){
-  width: $size;
-  height: $size;
-  background: $bg;
-}
-@mixin square3($w,$h,$bg){
-  display: block;
+@mixin rectBg($w,$h,$bg){
   width: $w;
   height: $h;
   background: $bg;
 }
 //圆
-@mixin circle($size,$bg){
+@mixin circle($size){
   width: $size;
   height: $size;
-  background: $bg;
-  border-radius: $size/2;
+  @include borderRadius($size/2);
 }
 
-/*背景图片-尺寸100% */
+//背景图片-尺寸100% /
 @mixin bgImg($w,$h,$url){
   width:$w;
   height:$h;
@@ -69,26 +71,21 @@
   background-size: 100% 100%;
 }
 
-//圆角
-@mixin borderRadius($r){
-  border-radius: $r;
-  -webkit-border-radius: $r;
-  -moz-border-radius:$r;
-}
 
-//按钮
+//按钮基础样式
 @mixin btn($w,$h,$bg){
   width:$w;
   height:$h;
   background:$bg;
-  color: #fff;
   text-align: center;
-  border-radius:$h/2;
   line-height: $h;
+  font-weight: bold;
+  color: #fff;
+  @include borderRadius($h/2);
   box-sizing: border-box;
 }
 
-/*三角形*/
+//三角形
 @mixin triangle($w,$h,$borderColor){
   display: block;
   width:0;
@@ -99,4 +96,45 @@
   border-bottom:$h/2 solid $borderColor;
 }
 
+//1px边框
+@mixin border-1px($color){
+  position:relative;
+  &:after{
+    display:block;
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    border-top:1px solid $color;
+    content:'';
+    @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
+      &{
+        -webkit-transform: scaleY(0.7);
+        transform: scaleY(0.7);
+      }
+    }
+    @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2){
+      &{
+        -webkit-transform: scaleY(0.5);
+        transform:scaleY(0.5);
+      }
+    }
+  }
+
+
+//*************************************************兼容***************************************************
+//圆角兼容
+@mixin borderRadius($r){
+  border-radius: $r;
+  -webkit-border-radius: $r;
+  -moz-border-radius:$r;
+}
+
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
 

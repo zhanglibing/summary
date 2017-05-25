@@ -24,7 +24,7 @@
     <ol>
         <li>
             <p class="title">文本溢出</p>
-            <pre><code>
+            <pre class="highlight"><code>
   .inaline{ //单行文本溢出
       overflow:hidden
       white-space:nowarp;
@@ -42,9 +42,8 @@
         </li>
         <li>
             <p>input和textarea中placeholder的字体设置</p>
-            <pre>
+            <pre class="highlight">
                   <code>
-
      input:-moz-placeholder {
      color:#2b2b2b !important;
      }
@@ -56,14 +55,13 @@
      }
                   </code>
               </pre>
-
         </li>
         <li>
             div元素之后紧跟的第一个同级p元素div+p{样式}
         </li>
         <li>
             <p>均匀分布问题</p>
-            <pre>
+            <pre class="highlight">
                   <code>
    父元素text-align: justify;
    父元素::after{content: ''; display: inline-block;height: 0;width: 100%;}
@@ -80,7 +78,7 @@
         <li>
             <p>手机端1像素边框问题</p>
             给父元素类border-1px
- <pre>
+ <pre class="highlight">
      <code>
  border-1px($color)
   position:relative
@@ -115,18 +113,16 @@
     <ol>
         <li>
             <p>js求图片的原始尺寸</p>
-            var img = new Image();<br>
-            img.src = 图片路径、ajax请求回来的连接;<br>
-            img.onload=function(){ <br>
-                var imgWidth = img.width;<br>
-                var imgHeight = img.height;<br>
-            根据图片宽高和图片外框宽高之比确定具体样式（可以加不同类设置两种类型样式） <br>
-            }
-
-
+  <pre class="highlight"><code>
+  var img = new Image();
+  img.src = 图片路径、ajax请求回来的连接;
+  img.onload=function(){ //图片加载完成后判断
+      var imgWidth = img.width;
+      var imgHeight = img.height;
+      根据图片宽高和图片外框宽高之比确定具体样式（可以加不同类设置两种类型样式）
+  }
+    </code></pre>
         </li>
-
-
     </ol>
 
 </div>
@@ -149,9 +145,121 @@
             border-radius: 22px;<br>
             behavior: url(js/PIE.htc);//相对于页面的路径
         </li>
+        <li>
+            <p>苹果浏览器 微信浏览器 textarea标签 内阴影解决办法 </p>
+            textarea  { <br>
+            box-shadow:0px 0px 0px rgba(0,0,0,0); <br>
+            -webkit-appearance:none; <br>
+            } <br>
+
+
+        </li>
 
     </ol>
 
+</div>
+
+<!--flex布局-->
+<div class="wrapper">
+   <h1>Flex布局</h1>
+    <p>pc端IE兼容性差、手机端可以使用</p>
+    <a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" style="font-size: 12px;">阮一峰语法篇</a>
+    <ul>
+        <li>
+            <p> 兼容方案：父级flex布局</p>
+            <pre class="highlight">
+                <code>
+  Flex 布局以后，子元素的 <span class="gr">float、clear和vertical-align</span>属性将失效。
+  容器的6个属性:
+  flex-direction
+  flex-wrap
+  flex-flow
+  justify-content
+  align-items
+  align-content
+
+  子元素的6个属性
+  <span class="x">order</span>：number 定义项目的排列顺序。数值越小，排列越靠前，默认为0
+  flex-grow
+  <span class="x">flex-shrink</span>：number 定义了项目的缩小比例  0的时候不缩放
+  flex-basis
+  flex
+  align-self
+                </code>
+            </pre>
+            <pre class="highlight">
+                <code>
+ display: -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6 */
+ display: -moz-box;  /* OLD - Firefox 19- H5不用考虑 */
+ display: -ms-flexbox; /* TWEENER IE 10 */
+ display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p>水平垂直居中</p>
+            <pre class="highlight">
+                <code>
+.box {
+  display: flex;
+  <span class="x">justify-content</span>:center; 水平方向
+  <span class="x">align-items</span>:center;  垂直方向
+}
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p>平均分布</p>
+            <pre class="highlight">
+                <code>
+  .parent{
+    display: flex;
+  }
+  .child {
+    flex: <span class="x">1</span>;
+  }
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p>有一个宽度固定</p>
+            <pre class="highlight">
+                <code>
+  .box {
+    display: flex;
+    align-items: center;
+  }
+  .other {
+      width:150px;
+      <span class="x">flex-shrink:0</span>; //设置缩放为0
+  }
+  .item {
+      flex: 1;
+  }
+                </code>
+            </pre>
+        </li>
+        <li>
+            <p>固定底栏</p>
+            <pre class="highlight">
+                <code>
+ body {
+    display: flex;
+    <span class="x">min-height</span>:100vh;
+    <span class="x">flex-direction</span>:column;
+  }
+  .content {
+    flex: 1;
+  }
+<span class="x">html结构：标签</span>
+body
+    header
+    .content
+    footer
+                </code>
+            </pre>
+        </li>
+    </ul>
 </div>
 <footer class="site-footer">
 
