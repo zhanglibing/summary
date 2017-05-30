@@ -114,9 +114,9 @@
         <li>
             <p>js求图片的原始尺寸</p>
   <pre class="highlight"><code>
-  var img = new Image();
+  var img = <span class="k">new Image</span>();
   img.src = 图片路径、ajax请求回来的连接;
-  img.onload=function(){ //图片加载完成后判断
+  img.<span class="x">onload</span>=function(){ //图片加载完成后判断
       var imgWidth = img.width;
       var imgHeight = img.height;
       根据图片宽高和图片外框宽高之比确定具体样式（可以加不同类设置两种类型样式）
@@ -147,10 +147,13 @@
         </li>
         <li>
             <p>苹果浏览器 微信浏览器 textarea标签 内阴影解决办法 </p>
-            textarea  { <br>
-            box-shadow:0px 0px 0px rgba(0,0,0,0); <br>
-            -webkit-appearance:none; <br>
-            } <br>
+            <pre class="highlight"><code>
+    textarea  {
+     <span class="x">box-shadow</span> :0px 0px 0px rgba(0,0,0,0);
+     <span class="x">-webkit-appearance</span>:none;
+    }
+            </code></pre>
+
 
 
         </li>
@@ -251,11 +254,12 @@
   .content {
     flex: 1;
   }
-<span class="x">html结构：标签</span>
-body
-    header
-    .content
-    footer
+<span class="x">html结构</span>
+<span class="nt">&lt;body&gt;</span>
+ <span class="nt">&lt;header&gt;</span><span class="nt">&lt;/header&gt;</span>
+ <span class="nt">&lt;div</span> class="content" <span class="nt">&gt;</span><span class="nt">&lt;/div&gt;</span>
+ <span class="nt">&lt;footer&gt;</span><span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
                 </code>
             </pre>
         </li>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebPack</title>
+</head>
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/main.css">
+<body>
+<header class="site-header">
+    <div class="wrapper">
+        <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
+
+    </div>
+</header>
+<div class="wrapper">
+    <h1>WebPack</h1>
+    <p class="post-meta"><time datetime="2017-05-20T00:00:00+00:00" itemprop="datePublished">May 20, 2017</time></p>
+</div>
+
+<div class="wrapper">
+    <ul>
+        <li>
+            <pre class="highlight">
+                <code>
+  1.cnpm/npm install webpack -g <span class="k">全局安装</span>
+  2.cd到要打包的文件夹    <span class="x">mkdir</span> webpack 当前文件夹创建webpack文件夹
+  3.cd webpack
+  4.<span class="x">npm init</span> <span class="k">(初始化)</span> 一直按回车
+  5.npm install webpack --save-dev <span class="k">（下载依赖）</span>
+  6.npm install css-loader style-loader --save-dev
+  7.webpack hello.js hello.bundle.js 回车打包
+  webpack hello.js hello.bundle.js --module-bind "css=style-loader!css-loader" 打包  requre('style-loader!css-loader!style.css') 直接写 requre('style.css')
+  webpack hello.js hello.bundle.js --module-bind 'css=style-loader!css-loader'  --watch   代码变化自动打包  注意为单引号
+
+  创建文件  src 源代码
+            dist 静态代码
+            webpack.config.js
+ module.exports= {
+    <span class="x">entry</span>: {
+        main: './src/script/main.js',
+        a: ['./src/script/a.js', './src/script/b.js'] //a\b两个js打包到一起
+    },
+    <span class="x">output</span>: {
+        filename: './dist/js/[name]-[hash].js'
+    }
+}
+
+ module.exports={
+  entry: {
+    main: './src/script/main.js',
+    a: './src/script/a.js',
+    b: './src/script/b.js'
+  },
+  output: {
+    filename: '[name].[hash].js',
+    path: __dirname + '/dist/js'
+  }
+}
+  命令行中 webpack 进行打包
+
+  <span class="x">npm install html-webpack-plugin --save-dev</span> 安装打包html的依赖
+                </code>
+            </pre>
+  <a href="http://webpack.github.io/docs/configuration.html">config配置github文档</a>
+        </li>
+    </ul>
+</div>
+
+<footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper">
+            <div class="footer-col">
+                <ul class="social-media-list">
+                    <li>
+                        <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">zhanglibing</span></a>
+
+                        <span>fullstack web developer
+</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
