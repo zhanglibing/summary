@@ -36,9 +36,9 @@
             <p>创建vue项目</p>
             <pre class="highlight">
                 <code>
- <span class="x">npm install -g vue-cli</span>(如果电脑已安装过直接跳过)vue init webpack myapp(项目名称)
- 都选择no,项目生成好后cd到当前项目
- npm install，安装所有依赖到node_modules目录中 （npm版本过低用npm install npm -g升级）
+ <span class="x">npm install -g vue-cli</span>(如果电脑已安装过直接跳过)
+ <span class="x">vue init webpack myapp</span>(项目名称)都选择no,项目生成好后cd到当前项目
+ <span class="x">npm install</span>，安装所有依赖到node_modules目录中 （npm版本过低用npm install npm -g升级）
  <span class="x">npm run dev</span>运行项目
                 </code>
             </pre>
@@ -76,6 +76,42 @@
  {{ message.split('').reverse().join('') }}
  有个限制就是，每个绑定都只能包含单个表达式
  <span class="nt">&lt;div</span> v-bind:id="'list-' + id"<span class="nt">&gt;</span><span class="nt">&lt;div&gt; </span>
+  
+ 6.<span class="x">v-model</span> 指令 数据双向绑定
+<span class="nt">&lt;div</span> id="app"<span class="nt">div&gt;</span>
+  <span class="nt">&lt;p&gt;</span><span class="x">{{ message }}</span><span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;input</span> <span class="x">v-model</span>="message"<span class="nt">&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})  
+
+7.过滤器
+{{ message | <span class="x">capitalize</span> }}  过滤器函数总接受表达式的值作为第一个参数。   
+new Vue({
+  // ...
+  filters: {
+    capitalize: function (<span class="x">value</span>) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  }
+})
+过滤器可以串联：
+{{ message | filterA | filterB }}
+过滤器是 JavaScript 函数，因此可以接受参数：
+{{ message | filterA('arg1', arg2) }}
+这里，字符串 'arg1' 将传给过滤器作为<span class="x">第二个</span>参数， arg2 表达式的值将被求值然后传给过滤器作为<span class="第三个"></span>参数
+
+修饰符
+修饰符（Modifiers）是以半角句号 . 指明的特殊后缀，
+用于指出一个指定应该以特殊方式绑定。例如，.prevent
+修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()：
+<span class="nt">&lt;form</span>  v-on:submit.prevent="onSubmit"<span class="nt">&gt;</span> <span class="nt">&lt;/form&gt;</span>
         </code>
     </pre>
 </div>
@@ -87,10 +123,10 @@
                 <ul class="social-media-list">
                     <li>
                         <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
-</span><span class="username">zhanglibing</span></a>
+ </span><span class="username">zhanglibing</span></a>
 
                         <span>fullstack web developer
-</span>
+ </span>
                     </li>
                 </ul>
             </div>
