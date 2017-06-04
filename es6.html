@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ECMAScript 6</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header class="site-header">
+
+    <div class="wrapper">
+
+        <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
+
+    </div>
+
+</header>
+<h1>ECMAScript6</h1>
+<div class="wrapper">
+    <p>let、const、var区别</p>
+    <pre class="highlight">
+        <code>
+ <span class="x">const</span>定义的变量不可以修改，而且必须初始化。
+   const b = 2;//正确
+   const b;//错误，必须初始化
+ <span class="x">var</span>定义的变量可以修改，如果不初始化会输出undefined，不会报错。
+ <span class="x">let:</span>
+    (1)是块级作用域，函数内部使用let定义后，对函数外部无影响。
+    (2)<span class="x">不存在变量提升</span>
+    (3)<span class="x">不允许</span> 在相同作用域内，<span class="x">重复声明</span>同一个变量。
+ // 报错
+function () {
+  let a = 10;
+  var a = 1;
+}
+// 报错
+function () {
+  let a = 10;
+  let a = 1;
+}
+ for循环的计数器很合适使用let命令。
+ for (<span class="x">let</span> i = 0; i < 10; i++) {}
+
+ <span class="x">为什么需要块级作用域</span>？
+ ES5 只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。
+   第一种场景，<span class="x">内层变量可能会覆盖外层变量</span>。
+var <span class="k">tmp</span> = new Date();
+function f() {
+  console.log(tmp);
+  if (false) {
+    var <span class="k">tmp</span> = 'hello world';
+  }
+}
+f(); // <span class="x">undefined</span>
+
+第二种场景，用来计数的<span class="x">循环变量泄露为全局变量</span>。
+var s = 'hello';
+for (var i = 0; i < s.length; i++) {
+  console.log(s[i]);
+}
+console.log(i); // 5
+        </code>
+    </pre>
+</div>
+<div class="wrapper">
+    <p>ES6 的块级作用域</p>
+    <pre class="highlight"><code>
+let实际上为 JavaScript 新增了<span class="x">块级作用域</span>。
+function f1() {
+  let n = 5;
+  if (true) {
+    let n = 10;
+  }
+  console.log(n); <span class="x">// 5  if条件里边也是一个块级</span>
+}
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <p>Babel 转码器</p>
+    <pre class="highlight"><code>
+Babel 是一个广泛使用的 ES6 转码器，可以将 ES6 代码转为 ES5 代码，
+从而在现有环境执行。这意味着，你可以用 ES6 的方式编写程序，
+又不用担心现有环境是否支持。下面是一个例子。
+// 转码前
+input.map(item => item + 1);
+// 转码后
+input.map(function (item) {
+  return item + 1;
+});
+    </code></pre>
+</div>
+
+
+<div class="wrapper">
+    <p>函数的扩展</p>
+    <pre class="highlight"><code>
+<span class="k">1.函数参数的默认值</span>  参数默认值的<span class="x">位置最后</span>一个
+function log(x, <span class="x">y = 'World'</span>) {
+  console.log(x, y);
+}
+<span class="x">es5中写法</span>
+function log(x, y) {
+  // y = y || 'World'; 如果参数y赋值了，但是对应的布尔值为false，则该赋值不起作用。取下面方法
+  if (<span class="x">typeof y === 'undefined'</span>) {
+     y = 'World';
+  }
+  console.log(x, y);
+}
+log('Hello') // Hello World
+log('Hello', 'China') // Hello China
+<span class="k">参数变量是默认声明的</span>，所以不能用let或const再次声明。
+function foo(x = 5) {
+  let x = 1; // <span class="x"> error</span>
+  const x = 2; // <span class="x"> error</span>
+}
+<span class="k">函数的length属性</span>:
+ 指定了默认值以后，将返回没有指定默认值的参数个数
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <pre class="highlight"><code>
+<a href="http://es6.ruanyifeng.com/#docs/destructuring">ECMAScript 6 详解</a>
+    </code></pre>
+</div>
+<footer class="site-footer">
+
+    <div class="wrapper">
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col">
+                <ul class="social-media-list">
+
+                    <li>
+                        <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span><span class="username">zhanglibing</span></a>
+                        <span>fullstack web developer</span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+</html>

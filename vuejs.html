@@ -43,6 +43,9 @@
                 </code>
             </pre>
         </li>
+        <li>
+            <a href="http://blog.csdn.net/qq_33008701/article/details/56486893">Webstorm中设置支持vue语法...点击进入</a>
+        </li>
     </ul>
 
 </div>
@@ -112,6 +115,47 @@ new Vue({
 用于指出一个指定应该以特殊方式绑定。例如，.prevent
 修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()：
 <span class="nt">&lt;form</span>  v-on:submit.prevent="onSubmit"<span class="nt">&gt;</span> <span class="nt">&lt;/form&gt;</span>
+        </code>
+    </pre>
+</div>
+
+
+
+<div class="wrapper">
+    <pre class="highlight">
+        <code>
+new Vue({//new一个vue实例
+  el: "#app",
+  <span class="x">data</span>: {
+
+  },
+  <span class="x">filters</span>: { //过滤器
+    formatMoney: function(value){
+      return "￥"+value.toFixed(2);
+    }
+  },
+  <span class="x">mounted</span>: function(){
+    <span class="x">this.$nextTick</span>(function(){//页面加载完成后执行
+        this.cartView();
+    })
+  },
+  <span class="x">methods</span>: {
+  	cartView:function(){
+     /**
+      * <span class="x">箭头函数</span>=>相当于一个function
+      * <span class="x">作用域指向外层</span>可以直接使用外面的this
+      */
+     this.$http.get("data/cartData.json",{<span class="x">可以添加参数</span>}).then(res=>{
+  	 	this.productList=res.data.result.list;
+  	 })
+  	}
+  },
+  <span class="x">created()</span> {
+  },
+  <span class="x">components</span>: {//注册组件
+      cartcontrol
+  }
+});
         </code>
     </pre>
 </div>
