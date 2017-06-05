@@ -1,42 +1,125 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>微信小程序</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/main.css">
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>微信小程序</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 <header class="site-header">
-    <div class="wrapper">
-        <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
-    </div>
+  <div class="wrapper">
+    <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
+  </div>
 </header>
 <div class="wrapper">
     <h1>微信小程序</h1>
 </div>
+<div class="wrapper">
+    <h3>小程序适合的应用</h3>
+    <pre class="highlight"><code>
+1.业务逻辑简单、用完即走的应用
+2.使用频率低的应用
+3.性能要求低的应用
+跨平台、流程简单、成本低
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h3>数据绑定</h3>
+    <pre class="highlight"><code>
+Page({
+  <span class="x">data</span>: {
+     message: 'Hello MINA!'，
+     id: 0,
+    condition: true
+  }
+})
+<span class="k">内容:</span><span class="nt">&lt;view&gt;</span> {{ message }} <span class="nt">&lt;/view&gt;</span>
+<span class="k">组件属性:</span>(需要在双引号之内)
+<span class="nt">&lt;view</span>id="item-<span class="x">{{id}}</span>" <span class="nt">&gt; &lt;/view&gt;</span>
+<span class="k">控制属性:</span><span class="nt">&lt;view</span><span class="x">  wx:if="{{condition}}"</span> <span class="nt">&gt; &lt;/view&gt;</span>
+
+<span class="k">关键字:</span>(需要在双引号之内)
+true:boolean 类型的 true，代表真值。
+false:boolean 类型的 false，代表假值。
+<span class="nt">&lt;checkbox</span><span class="x">  checked="{{false}}"</span><span class="nt">&gt;&lt;/checkbox&gt;</span>
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h3>运算</h3>
+    <pre class="highlight"><code>
+<span class="k">三元运算</span>
+<span class="nt"> &lt;view</span>  hidden="{{flag ? true : false}}"<span class="nt"> &gt</span>  Hidden  <span class="nt"> &lt;/view&gt;</span>
+<span class="k">算数运算</span>
+<span class="nt"> &lt;view&gt;</span>  {{a + b}} + {{c}} + d <span class="nt"> &lt;/view&gt;</span>
+<span class="k">逻辑判断</span>
+ <span class="nt"> &lt;view</span> wx:if="{{length > 5}}" <span class="nt">&gt; &lt;/view&gt;</span>
+<span class="k">字符串运算</span>
+<span class="nt">&lt;view&gt;</span>{{"hello" + name}}<span class="nt">&lt;/view&gt;</span>
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>条件渲染</h3>
+    <pre class="highlight"><code>
+<span class="nt"> &lt;view</span> wx:if="{{condition}}"<span class="nt"> &gt;</span> True <span class="nt">&lt;/view&gt;</span>
+也可以用 wx:elif 和 wx:else 来添加一个 else 块：
+<span class="nt"> &lt;view</span> wx:if="{{length > 5}}"<span class="nt"> &gt;</span> 1 <span class="nt">&lt;/view&gt;</span>
+<span class="nt"> &lt;view</span> wx:elif="{{length > 2}}"<span class="nt"> &gt;</span> 2 <span class="nt">&lt;/view&gt;</span>
+<span class="nt"> &lt;view</span> wx:else<span class="nt"> &gt;</span> 3 <span class="nt">&lt;/view&gt;</span>
+<span class="x">wx:if vs hidden</span>
+ wx:if 有更高的切换消耗而 hidden 有更高的初始渲染消耗。
+因此，如果需要频繁切换的情景下，用 hidden 更好，如果
+在运行时条件不大可能改变则 wx:if 较好。
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>WXSS</h2>
+    <pre class="highlight"><code>
+1.规定屏幕宽度为<span class="x">750rpx</span>
+2.WXSS 具有 CSS 大部分特性
+3.支持的选择器有：类名、id、标签、::after、::befor
+4.app.wxss 中的样式为全局样式，作用于每一个页面。
+  在 page 的 wxss 文件中定义的样式为局部样式，
+  只作用在对应的页面，并会覆盖 app.wxss 中相同的选择器。
+5.样式导入：@import "common.wxss";
+6.内联样式
+ <span class="nt">&lt;view</span> style="color:{{color}};" <span class="nt">/&gt;</span>
+ <span class="nt">&lt;view  </span> class="normal_view"<span class="nt">/&gt;</span>
+
+    </code></pre>
+</div>
+<div class="wrapper">
+    <pre class="highlight"><code>
+<a href="https://zhuanlan.zhihu.com/oldtimes">知乎跟新</a>
+    </code></pre>
+</div>
 
 <footer class="site-footer">
 
-    <div class="wrapper">
+  <div class="wrapper">
 
-        <div class="footer-col-wrapper">
-            <div class="footer-col">
-                <ul class="social-media-list">
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">zhanglibing</span></a>
 
-                    <li>
-                        <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span><span class="username">zhanglibing</span></a>
-                        <span>fullstack web developer</span>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-
+            <span>fullstack web developer
+</span>
+          </li>
+          
+        </ul>
+      </div>
     </div>
+
+  </div>
 
 </footer>
 </body>
