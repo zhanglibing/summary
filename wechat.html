@@ -96,9 +96,57 @@ false:boolean 类型的 false，代表假值。
 <div class="wrapper">
     <pre class="highlight"><code>
 <a href="https://zhuanlan.zhihu.com/oldtimes">知乎跟新</a>
+<a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/">小程序api</a>
+    AppId:wxe4953f7367c8a2b7
     </code></pre>
 </div>
 
+<div class="wrapper">
+    <h3>app.json配置</h3>
+    <pre class="highlight"><code>
+ {
+  <span class="x">"pages"</span>: [ //指定小程序由哪些页面组成。数组的第一项代表小程序的初始页面。
+    小程序中新增/减少页面，都需要对 pages 数组进行修改。
+    "pages/index/index",
+    "pages/logs/index"
+  ],
+  <span class="x">"window"</span>: {//用于设置小程序的状态栏、导航条、标题、窗口背景色
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"#fff"
+  },
+  <span class="x">"tabBar"</span>: {//客户端窗口的底部或顶部有 tab 栏可以切换页面
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/logs/logs",
+      "text": "日志"
+    }]
+  },
+  <span class="x">"networkTimeout"</span>: {//可以设置各种网络请求的超时时间。
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  <span class="x">"debug"</span>: true //可以在开发者工具中开启 debug 模式，
+        在开发者工具的控制台面板，调试信息以 info 的形式给出，
+        其信息有Page的注册，页面路由，数据更新，事件触发
+}
+
+<span class="x">page.json</span>
+每一个小程序页面也可以使用.json文件来对本页面的窗口表现进行配置。
+ 只设置window值会覆盖 app.json 的 window 中相同的配置
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "微信接口功能演示",
+  "backgroundColor": "#eeeeee",
+  "backgroundTextStyle": "light"
+        ...
+}
+    </code></pre>
+</div>
 <footer class="site-footer">
 
   <div class="wrapper">
