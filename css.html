@@ -161,7 +161,14 @@
     </ol>
 
 </div>
-
+<div class="wrapper">
+      <pre class="highlight"><code>
+手机端rem rpx布局 <span class="x">垂直方向</span>距离尽量用px
+<span class="nt">&lt;img</span> src="../../images/a.png" alt=""<span class="nt">&gt;</span> /*相对路径
+<span class="nt">&lt;img</span> src="/images/a.png" alt=""<span class="nt">&gt;</span> /*绝对路径 直接到根目录下
+vertical-align: middle; 图片和文本在一行显示时居中设置
+      </code></pre>
+</div>
 <!--flex布局-->
 <div class="wrapper">
    <h1>Flex布局</h1>
@@ -207,6 +214,12 @@
   display: flex;
   <span class="x">justify-content</span>:center; 水平方向
   <span class="x">align-items</span>:center;  垂直方向
+}
+.parent{
+   display: flex;
+   <span class="k">flex-direction</span>: <span class="x">column</span>;//垂直布局  <span class="x">row</span>水平
+   align-items: center;//居中
+   /*水平布局时 <span class="x">justify-content</span>: center;*/
 }
                 </code>
             </pre>
