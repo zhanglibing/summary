@@ -28,6 +28,11 @@
     </code></pre>
 </div>
 <div class="wrapper">
+    <pre class="highlight"><code>
+        alt+shift+f 格式化代码格式
+    </code></pre>
+</div>
+<div class="wrapper">
     <h3>数据绑定</h3>
     <pre class="highlight"><code>
 Page({
@@ -62,6 +67,23 @@ false:boolean 类型的 false，代表假值。
     </code></pre>
 </div>
 
+<div class="wrapper">
+    <h3>循环</h3>
+    <pre class="highlight"><code>
+默认数组的当前项的下标变量名默认为index，数组当前项的变量名默认为item
+<span class="nt">&lt;view</span>< <span class="x">wx:for="{{array}}"</span><span class="nt">&gt;</span>
+  {{index}}: {{item.message}}
+<span class="nt">&lt;/view&gt;</span>
+<span class="nt">&lt;view</span>< <span class="x">wx:for="{{array}}"   wx:for-index="idx" wx:for-item="itemName"</span><span class="nt">&gt;</span>
+指定数组当前元素的变量名和下标，
+
+wx:for用在<span class="nt">&lt;/block&gt;</span>标签上，以渲染一个<span class="x">包含多节点</span>的结构块。例如：
+<span class="nt">&lt;block</span> wx:for="{{[1, 2, 3]}}"<span class="nt">&gt;</span>
+  <span class="nt">&lt;view&gt;</span> {{index}}: <span class="nt">&lt;/view&gt;</span>
+  <span class="nt">&lt;view&gt;</span> {{item}} <span class="nt">&lt;/view&gt;</span>
+<span class="nt">&lt;/block&gt;</span>
+    </code></pre>
+</div>
 <div class="wrapper">
     <h3>条件渲染</h3>
     <pre class="highlight"><code>
@@ -101,6 +123,18 @@ false:boolean 类型的 false，代表假值。
     </code></pre>
 </div>
 
+<div class="wrapper">
+    <pre class="highlight"><code>
+ Page({
+  data: {
+  },
+  <span class="x">onLoad</span>: function () {
+    <span class="x">this.setData</span>({//将数据跟新到data中
+       postList:postsData.postList
+      });
+  },
+    </code></pre>
+</div>
 <div class="wrapper">
     <pre class="highlight"><code>
  swirpe 组件
@@ -154,6 +188,61 @@ false:boolean 类型的 false，代表假值。
   "backgroundTextStyle": "light"
         ....
 }
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>导航</h3>
+    <pre class="highlight"><code>
+<span class="x">wx.navigateTo</span>({ //跳转到子页面 到子页面后有返回按钮
+  url: 'path?id=1'
+})
+ wx.navigateTo({ //完整 下同
+   url: 'String',
+   success: function(res){
+     // 页面跳转成功
+   },
+   fail: function() {
+     // 页面跳转失败
+   },
+   complete: function() {
+     // 无论成功与否
+   }
+ })
+路径后可以<span class="x">带参数</span>。参数与路径之间使用?分隔，参数键与参数
+值用=相连，不同参数用&分隔；如 'path?key=value&key2=value2'
+
+<span class="x">wx.redirectTo</span>({//关闭当前跳转到同级页面 无返回按钮
+  url: 'test?id=1'
+})
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <p>事件</p>
+    <pre class="highlight"><code>
+<span class="x">bind</span>事件绑定不会阻止冒泡事件向上冒泡，
+<span class="x">catch</span>事件绑定可以阻止冒泡事件向上冒泡。
+ 类型：
+<span class="k">touchstart</span>	手指触摸动作开始
+<span class="k">touchmove</span>	手指触摸后移动
+<span class="k">touchcancel</span>	手指触摸动作被打断，如来电提醒，弹窗
+<span class="k">touchend</span>	手指触摸动作结束
+<span class="k">tap</span>	手指触摸后马上离开
+<span class="k">longtap</span>	手指触摸后，超过350ms再离开
+
+<span class="nt">&lt;view</span>  bindtap="tapName"<span class="nt">&gt;</span> Click me! <span class="nt">&lt;/view&gt;</span>
+Page({
+  tapName: function(<span class="x">event</span>) {
+    console.log(event)
+  }
+})
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <pre class="highlight"><code>
+
     </code></pre>
 </div>
 <footer class="site-footer">
