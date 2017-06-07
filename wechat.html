@@ -29,7 +29,7 @@
 </div>
 <div class="wrapper">
     <pre class="highlight"><code>
-        alt+shift+f 格式化代码格式
+ alt+shift+f 格式化代码样式
     </code></pre>
 </div>
 <div class="wrapper">
@@ -241,8 +241,20 @@ Page({
 </div>
 
 <div class="wrapper">
+        <h3>自定义属性</h3>
     <pre class="highlight"><code>
-
+自定义属性必须绑定到data上
+<span class="nt">&lt;view</span> catchtap="onPostTap" <span class="x">data</span>-postId="{{item.postId}}"<span class="nt">&gt;</span>
+ 获取属性
+onPostTap: function (event) {
+  var postId = <span class="x">event</span>.currentTarget.dataset.<span class="x">postid</span>;
+}
+    </code></pre>
+</div>
+<div class="wrapper">
+    <pre class="highlight"><code>
+ <span class="nt">&lt;template</span> is="postItem" data="{{ <span class="x">...item</span>}}"/ <span class="nt">&gt;</span>
+ <span class="x">...item</span>将item展开 模板中引用时不需要item.image ...
     </code></pre>
 </div>
 <footer class="site-footer">
