@@ -84,6 +84,8 @@ wx:for用在<span class="nt">&lt;/block&gt;</span>标签上，以渲染一个<sp
 <span class="nt">&lt;/block&gt;</span>
     </code></pre>
 </div>
+
+<!--条件渲染-->
 <div class="wrapper">
     <h3>条件渲染</h3>
     <pre class="highlight"><code>
@@ -99,6 +101,7 @@ wx:for用在<span class="nt">&lt;/block&gt;</span>标签上，以渲染一个<sp
     </code></pre>
 </div>
 
+<!--样式-->
 <div class="wrapper">
     <h2>WXSS</h2>
     <pre class="highlight"><code>
@@ -144,6 +147,7 @@ wx:for用在<span class="nt">&lt;/block&gt;</span>标签上，以渲染一个<sp
     </code></pre>
 </div>
 
+<!--app.json配置-->
 <div class="wrapper">
     <h3>app.json配置</h3>
     <pre class="highlight"><code>
@@ -191,6 +195,7 @@ wx:for用在<span class="nt">&lt;/block&gt;</span>标签上，以渲染一个<sp
     </code></pre>
 </div>
 
+<!--导航-->
 <div class="wrapper">
     <h3>导航</h3>
     <pre class="highlight"><code>
@@ -215,9 +220,23 @@ wx:for用在<span class="nt">&lt;/block&gt;</span>标签上，以渲染一个<sp
 <span class="x">wx.redirectTo</span>({//关闭当前跳转到同级页面 无返回按钮
   url: 'test?id=1'
 })
+navigateTo, redirectTo 只能打开 <span class="x">非 tabBar 页面</span>。
+<span class="x">switchTab</span> 只能打开 tabBar 页面。
+reLaunch 可以打开任意页面。
+页面底部的 tabBar 由页面决定，即只要是定义为 tabBar 的页面，底部都有 tabBar。
+
+<span class="x">调用页面</span>路由带的参数可以在目标页面的onLoad中获取。
+  <span class="x">onLoad</span>: function (<span class="x">option</span>) {
+        var postId = option.id;  传递过来的值都在option中
+        var postData = postsData.postList[postId];
+        this.setData({
+            postData: postData
+        })
+  }
     </code></pre>
 </div>
 
+<!--事件-->
 <div class="wrapper">
     <p>事件</p>
     <pre class="highlight"><code>
@@ -240,6 +259,7 @@ Page({
     </code></pre>
 </div>
 
+<!--自定义属性-->
 <div class="wrapper">
         <h3>自定义属性</h3>
     <pre class="highlight"><code>
@@ -251,12 +271,95 @@ onPostTap: function (event) {
 }
     </code></pre>
 </div>
+
+<!--模块化-->
+<div class="wrapper">
+    <h2>模块化</h2>
+    <h3>文件作用域</h3>
+    <pre class="highlight"><code>
+通过 <span class="x">全局函数 getApp()</span> 可以获取全局的应用实例，如果需要全局的数据可以在 App() 中设置
+// <span class="k">app.js</span>
+App({
+  globalData: 1
+})
+// <span class="k">a.js</span>
+var app = getApp();
+app.globalData++
+
+将一些公共的代码抽离成为一个单独的 js 文件，作为一个模块。
+模块只有通过 <span class="x">module.exports </span>或者 <span class="x">exports</span> 才能对外暴露接口
+// <span class="x">common.js</span>
+function sayHello(name) {
+  console.log(`Hello ${name} !`)
+}
+function sayGoodbye(name) {
+  console.log(`Goodbye ${name} !`)
+}
+module.exports.sayHello = sayHello
+exports.sayGoodbye = sayGoodbye
+​在需要使用这些模块的文件中，使用 require(path) 将公共代码引入
+var common = <span class="x">require</span>('common.js')
+Page({
+  helloMINA: function() {
+    <span class="x">common</span>.sayHello('MINA')
+  },
+  goodbyeMINA: function() {
+    common.sayGoodbye('MINA')
+  }
+})
+      </code></pre>
+</div>
+
 <div class="wrapper">
     <pre class="highlight"><code>
+1.template模板  只有wxml、wxss文件 不能写脚本文件
+<span class="nt">&lt;/template</span> <span class="x">name="postItem"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/view</span> class="post-container"<span class="nt">&gt;</span>
+     .......
+    <span class="nt">&lt;/view&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+2.引入模板时wxml中要引入template模板的wxml
+<span class="nt">&lt;import</span> src="path" <span class="nt">/&gt;</span>
+ <span class="nt">&lt;block</span> wx:for="{{postList}}" wx:for-item="item" wx:for-index="idx"<span class="nt">&gt;</span>
+        //template  is="postItem"指明那个模板   data="{{...item}}"传递数据
+        <span class="nt">&lt;view</span> catchtap="onPostTap" data-postId="{{item.postId}}"<span class="nt">&gt;</span>
+             <span class="nt">&lt;/template;</span> <span class="x">is="postItem"</span> <span class="x">data="{{...item}}"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/view&gt;</span>
+<span class="nt">&lt;/block&gt;</span>
  <span class="nt">&lt;template</span> is="postItem" data="{{ <span class="x">...item</span>}}"/ <span class="nt">&gt;</span>
- <span class="x">...item</span>将item展开 模板中引用时不需要item.image ...
+ <span class="x">...item</span>将item展开 模板中引用时不需要item.image ...    直接{{image}}
+wxss中要引入template模板的wxss
+<span class="x">@import</span> "path"; 要加 <span class="x">.wxss</span>
     </code></pre>
 </div>
+
+
+<!--数据缓存-->
+<div class="wrapper">
+    <h3>数据缓存</h3>
+    <pre class="highlight"><code>
+同一个微信用户，同一个小程序 storage <span class="x">上限为 10MB</span>
+<span class="x">wx.setStorage</span> 异步   一一对应
+<span class="x">wx.setStorageSync</span> 同步
+<span class="x">wx.getStorage</span> 获取
+<span class="x">wx.removeStorage</span> 删除某一个 wx.removeStorage(key: 'key')
+<span class="x">wx.clearStorage</span>  全部删除  wx.clearStorage()
+wx.getStorageInfo
+wx.getStorageInfoSync同步<span class="x">获取当前</span>storage的相关信息
+wx.setStorage({
+  key:"key",
+  data:"value"
+})
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <pre class="highlight"><code>
+
+    </code></pre>
+</div>
+
 <footer class="site-footer">
 
   <div class="wrapper">
