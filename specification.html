@@ -33,7 +33,41 @@ set
     </pre>
 
 </div>
+<div class="wrapper">
+    <h3>css样式顺序</h3>
+    <pre class="highlight"><code>
+<span class="x">结构属性</span>：
+1.display
+2.position,left,top,right,top,
+3.overflow,float,clear
+4.margin,padding
+<span class="x">表现性属性</span>
+background,border
+font,text
+    </code></pre>
+</div>
 
+<div class="wrapper">
+    <h3>尽量使用直接子元素</h3>
+    <pre class="highlight"><code>
+ <span class="x">推荐</span>：.content >.title{}
+ 不推荐：.content  .title{} 这种写法耗性能
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <pre class="highlight"><code>
+<span class="x">0</span>后不要带单位
+
+简单的if、else尽量用三元运算符 如果复杂不推荐使用三元运算符
+if(x===10){
+  return "aa"
+}else{
+  return "bb"
+}
+<span class="x">推荐</span>：return x===10?"aa":"bb";
+    </code></pre>
+</div>
 <footer class="site-footer">
 
     <div class="wrapper">

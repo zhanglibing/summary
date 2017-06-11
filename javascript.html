@@ -148,6 +148,34 @@ var arr=str. <span class="x">split("")</span>//["a", "b", "c", "d"]
 </div>
 
 <div class="wrapper">
+    <h3>对象</h3>
+    <pre class="highlight"><code>
+键值对：
+
+创建对象的三种方法：
+（1）字面量 var obj={x:1};
+（2）var obj=new Foo();
+（3）var obj=Object.create({x:1});
+属性操作：
+读写obj.x
+   obj[x] 键为变量时用中括号方法取值
+   for(p in obj){} 可能会把对象原型链上的属性也读取出来、并且顺序是不确定的
+删除 <span class="x">delete</span>
+1.var val=(1,2,3); //val =3;逗号运算符
+2.var obj={x:1};
+   <span class="x">delete</span> pbj.x;
+   obj.x;//undefined
+3.ie9 开始  var obj={};
+  <span class="x">Object.defineProperty</span>(obj,'x',{
+  <span class="x">configurable</span>:false,
+  value:1
+});
+<span class="x">delete</span> obj.x;//false
+obj.x;//1
+    </code></pre>
+</div>
+
+<div class="wrapper">
     <h1>事件</h1>
     <ol>
         <li>
