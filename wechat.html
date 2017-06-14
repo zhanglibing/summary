@@ -234,7 +234,7 @@ navigateTo, redirectTo 只能打开 <span class="x">非 tabBar 页面</span>。
 reLaunch 可以打开任意页面。
 页面底部的 tabBar 由页面决定，即只要是定义为 tabBar 的页面，底部都有 tabBar。
 
-<span class="x">调用页面</span>路由带的参数可以在目标页面的onLoad中获取。
+<span class="x">调用页面路由带的参数</span>可以在目标页面的onLoad中获取。
   <span class="x">onLoad</span>: function (<span class="x">option</span>) {
         var postId = option.id;  传递过来的值都在option中
         var postData = postsData.postList[postId];
@@ -318,7 +318,6 @@ Page({
 })
       </code></pre>
 </div>
-
 <div class="wrapper">
     <pre class="highlight"><code>
 1.template模板  只有wxml、wxss文件 不能写脚本文件
@@ -328,7 +327,7 @@ Page({
     <span class="nt">&lt;/view&gt;</span>
 <span class="nt">&lt;/template&gt;</span>
 
-2.引入模板时wxml中要引入template模板的wxml
+2.引入模板时wxml中要引入template模板的wxml <span class="x">数据传递</span>
 <span class="nt">&lt;import</span> src="path" <span class="nt">/&gt;</span>
  <span class="nt">&lt;block</span> wx:for="{{postList}}" wx:for-item="item" wx:for-index="idx"<span class="nt">&gt;</span>
         //template  is="postItem"指明那个模板   data="{{...item}}"传递数据
@@ -337,9 +336,18 @@ Page({
         <span class="nt">&lt;/view&gt;</span>
 <span class="nt">&lt;/block&gt;</span>
  <span class="nt">&lt;template</span> is="postItem" data="{{ <span class="x">...item</span>}}"/ <span class="nt">&gt;</span>
- <span class="x">...item</span>将item展开 模板中引用时不需要item.image ...    直接{{image}}
+<span class="x">数据传递</span>
+<span class="x">...item</span>将item展开 子模板中引用时不需要item.image ...    直接引用<span class="x">键</span>{{image}}
 wxss中要引入template模板的wxss
 <span class="x">@import</span> "path"; 要加 <span class="x">.wxss</span>
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h3>模板嵌套</h3>
+    <pre class="highlight"><code>
+<span class="x">模板嵌套一般从里到外</span>
+<span class="x">模板间数据传递从外到里</span>
+模板循环一般写到<span class="x">block</span>标签中（习惯写法）
     </code></pre>
 </div>
 
