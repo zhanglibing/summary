@@ -516,7 +516,15 @@ vue建议我们为片段添加一个根节点，这样方便传递props和过渡
 <div class="wrapper">
     <h3>vue-router 利用url传递参数</h3>
     <pre class="highlight"><code>
-
+1在配置文件里以冒号的形式设置参数。我们在/src/router/index.js文件里配置路由。
+{
+path:'/params/<span class="x">:newsId/:newsTitle</span>',
+component:Params
+}
+<span class="nt">&lt;router-link</span>  to="/params <span class="x">/198/jspang</span>"<span class="nt">&gt;</span> params<span class="nt">&lt;/router-link&gt;</span>
+接收参数
+{{ <span class="x">$route.params.newsId</span>}}
+{{ $route.params.newsTitle}}
     </code></pre>
 </div>
 <footer class="site-footer">
