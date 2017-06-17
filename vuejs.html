@@ -460,6 +460,65 @@ new Vue({//new一个vue实例
      <span class="x">Vue.use</span>(VueRouter)
     </code></pre>
 </div>
+
+<div class="wrapper">
+    <h3>vue中常见的问题</h3>
+    <pre class="highlight"><code>
+<span class="x">eslint</span>静态检查
+vue-cli创建工程的时候，会有一项，使用使用eslint，如果选择了y，那么工程就会安装并启用eslint
+多余的分号、定义了却未使用的变量、结尾多余空格、超过一行的空行、代码尾行应该有空行
+
+<span class="x">sass使用</span>
+首先安装依赖 npm i node-sass sass-loader -D
+然后在vue的style里添加
+<span class="nt">&lt;style</span>  <span class="k">lang="scss" scoped</span><span class="nt"> &gt;</span>
+
+vue建议我们为片段添加一个根节点，这样方便传递props和过渡效果，也可以让dom
+更好的溯源，所以，解决方法很简单，在 <span class="x">template的内部套一层div</span>即可
+
+<span class="x">v-cloak</span>
+如果出现{{}}的短暂出现的情况，可以通过添加v-cloak来处理。
+这个指令保持在元素上直到关联实例结束编译。和 CSS 规则如 [v-cloak] { display: none } 一起用时，这个指令可以隐藏未编译的 Mustache 标签直到实例准备完毕。
+
+<span class="x">转场动画</span>
+在vue中有个很好用的指令，transition，通过它我们可以实现自定义的router切换中的动画
+方法就是在
+<span class="nt">&lt;router-view</span> transition="fade"<span class="nt">&gt;&lt;router-view&gt;</span>
+加入自定义的class fade-transition , fade-leave , fade-enter即可。
+      </code></pre>
+</div>
+
+
+<!--vue-router-->
+
+<h1>vue-router</h1>
+<div class="wrapper">
+    <h3>vue-router如何参数传递</h3>
+    <pre class="highlight"><code>
+ <span class="x">一、用name传递参数</span>
+1在路由文件src/router/index.js里<span class="x">配置name</span>属性。
+ routes: [
+    {
+      path: '/',
+      name: 'Hello',
+      component: Hello
+    }
+ ]
+2模板里(src/App.vue)用 <span class="x">$router.name的形式接收</span>，比如直接在模板中显示：
+<span class="nt">&lt;p&gt;</span>{{ <span class="x">$route.name</span>}}<span class="nt">&lt;/p&gt;</span> //name为hello
+
+<span class="x">二、通过<span class="nt">&lt;router-link&gt;</span> 标签中的to传参</span>
+<span class="nt">&lt;router-link&gt;</span> <span class="x">:to</span>="<span class="k">{name:xxx,params:{key:value}}</span>" <span class="nt">&gt;</span>valueString<span class="nt">&lt;/router-link&gt;</span>
+在xxx模板中{{ <span class="x">$route.params</span>.username}}进行接收
+注意：此处to前面带有冒号 此处用path：‘xxx’无效   只能用name形式路由
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h3>vue-router 利用url传递参数</h3>
+    <pre class="highlight"><code>
+
+    </code></pre>
+</div>
 <footer class="site-footer">
     <div class="wrapper">
         <div class="footer-col-wrapper">

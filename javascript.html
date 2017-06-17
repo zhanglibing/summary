@@ -466,7 +466,66 @@ alert(a); // <span class="x">0</span>
     </pre>
 </div>
 
+<div class="wrapper">
+    <h3>Location 对象属性</h3>
+    <pre class="highlight"><code>
+hash	    设置或返回从井号 (#) 开始的 URL（锚）。
+host	    设置或返回主机名和当前 URL 的端口号。
+hostname	设置或返回当前 URL的 <span class="x">主机名、域名</span>。
+href	    设置或返回完整的 URL。
+pathname	设置或返回当前 URL 的<span class="x">路径部分</span>。
+port	    设置或返回当前 URL 的端口号。
+protocol	设置或返回当前 URL 的 <span class="x">协议</span> (http\https)。
+search	    设置或返回从问号 (?) 开始的 URL <span class="x">（查询部分）</span>。
+assign()	加载新的文档。
+reload()	重新加载当前文档。
+replace()	用新的文档替换当前文档。
+    </code></pre>
+</div>
+<div class="wrapper">
+    <pre class="highlight"><code>
+<span class="x">搜索功能</span>
+<span class="x">window.location.href</span>='doct_index.html?keyword='value; value为搜索值
+ var url = <span class="x">window.location.search</span>; //获取url中"?"符后的字串
+var theRequest = new Object();
+if (url.indexOf("?") != -1) {
+    var str = url.substr(1);
+    strs = str.split("&");
+    for (var i = 0; i < strs.length; i++) {
+        theRequest[strs[i].split("=")[0]] = <span class="x">decodeURI</span>(strs[i].split("=")[1]);
+        //之前用了unescape() <span class="x">decodeURI</span>将url进行解码
+    }
+ }
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h3>解析xml文件</h3>
+    <pre class="highlight"><code>
+javascript解析xml文件时xml文件只能有一个跟标签 否则加载xml文件会失败
+$.ajax({
+    url:'PatientID.xml', //相对html的路径
+    type: 'GET',
+    dataType: 'xml',
+    timeout: 1000,  //设定超时  
+    cache: false,   //禁用缓存 
+    error: function(xml) {
+        alert("加载XML文档出错!");
+    },
+    success:getXml
+});
+function getXml(xml){
+    var xmlDom=xml;
+    var elements = <span class="x">$(xmlDom).find("标签名")</span> ;
+    $.each(elements,function(i,v){
+        var name=<span class="x">$(this)[0].firstChild.nodeValue</span>; //获取值得方法
+        createHtml(name,path);
+    })
+    setImageSize()
+}
 
+<span class="x">桌面html引入c盘某个文件下的图片</span>   C:/Users/Administrator/AppData/Roaming/ClearBos/201705050003/Data1/45Profile.jpg
+    </code></pre>
+</div>
 <!--底部-->
 <footer class="site-footer">
 

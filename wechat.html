@@ -373,6 +373,17 @@ wx.setStorage({
 
 <div class="wrapper">
     <pre class="highlight"><code>
+模板中添加事件要在父组件中注册事件
+
+<span class="x">动态设置导航栏标题</span>
+设置导航栏不能再onload事件中设置此时页面正在初始化  onShow中也不能设置        应在onRead函数中设置或者后续的函数中设置
+wx.setNavigationBarTitle({
+title: this.data.navigateTitle
+})
+    </code></pre>
+</div>
+<div class="wrapper">
+    <pre class="highlight"><code>
 
     </code></pre>
 </div>
