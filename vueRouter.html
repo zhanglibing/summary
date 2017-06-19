@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-Router</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="wrapper">
+        <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
+    </div>
+</header>
+<div class="wrapper">
+    <h1>vue-router</h1>
+</div>
+
+<!--vue-router-->
+<div class="wrapper">
+    <h3>路由以及子路由</h3>
+    <pre class="highlight"><code>
+export default new Router({
+  <span class="x">routes</span>: <span class="x">[</span>             //配置路由，这里是个数组
+    {                      //每一个链接都是一个对象
+      path: '/',           //链接路径
+      name: 'Hello',      //路由名称，
+      component: Hello    //对应的组件模板
+    },{
+      path:'/hi',
+      component:Hi,
+      <span class="x">children</span>:<span class="x">[</span>  // <span class="x">子路由</span>
+        {path:'hi1',component:Hi1},
+        {path:'hi2',component:Hi2},
+      <span class="x">]</span>
+    }
+ <span class="x">]</span>
+})
+
+<span class="nt">&lt;p&gt;</span>导航 ：
+      <span class="nt">&lt;router-link</span> <span class="x">to</span>="/" <span class="nt">&gt;</span>首页<span class="nt">&lt;/router-link&gt;</span>
+      <span class="nt">&lt;router-link</span> to="/hi"<span class="nt">&gt;</span>Hi页面<span class="nt">&lt;/router-link&gt;</span>
+      <span class="nt">&lt;router-link</span> to="/hi/hi1"<span class="nt">&gt;</span>-Hi页面1<span class="nt">&lt;/router-link&gt;</span>
+      <span class="nt">&lt;router-link</span> to="/hi/hi2"<span class="nt">&gt;</span>-Hi页面2<span class="nt">&lt;/router-link&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;router-view&gt;</span><span class="nt">&lt;/router-view&gt;</span>  渲染路径匹配到的<span class="x">视图组件</span>
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>单页面多路由区域操作</h3>
+    <pre class="highlight"><code>
+<span class="nt">&lt;router-view&gt;</span><span class="nt">&lt;/router-view&gt;</span>
+<span class="nt">&lt;router-view</span> <span class="x">name="left"</span> style="float:left;.."<span class="nt">&gt;</span><span class="nt">&lt;/router-view&gt;</span>
+<span class="nt">&lt;router-view</span> <span class="x">name="right"</span> style="float:right;.."<span class="nt">&gt;</span><span class="nt">&lt;/router-view&gt;</span>
+routes: [
+    {
+      path: '/',
+      components: {
+        <span class="x">default:Hello</span>,
+        <span class="x">left:Hi1,</span>
+        <span class="x">right:Hi2</span>
+      }
+    },{
+      path: '/Hi',
+      components: {
+        default:Hello,
+        left:Hi2,
+        right:Hi1
+      }
+    }
+  ]
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>vue-router如何传递参数</h3>
+    <pre class="highlight"><code>
+ <span class="x">一、用name传递参数</span>
+1在路由文件src/router/index.js里<span class="x">配置name</span>属性。
+ routes: [
+    {
+      path: '/',
+      name: 'Hello',
+      component: Hello
+    }
+ ]
+2模板里(src/App.vue)用 <span class="x">$router.name的形式接收</span>，比如直接在模板中显示：
+<span class="nt">&lt;p&gt;</span>{{ <span class="x">$route.name</span>}}<span class="nt">&lt;/p&gt;</span> //name为hello
+
+<span class="x">二、通过<span class="nt">&lt;router-link&gt;</span> 标签中的to传参</span>
+<span class="nt">&lt;router-link&gt;</span> <span class="x">:to</span>="<span class="k">{name:xxx,params:{key:value}}</span>" <span class="nt">&gt;</span>valueString<span class="nt">&lt;/router-link&gt;</span>
+在xxx模板中{{ <span class="x">$route.params</span>.username}}进行接收
+注意：此处to前面带有冒号 此处用path：‘xxx’无效   只能用name形式路由
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>vue-router 利用url传递参数</h3>
+    <pre class="highlight"><code>
+1在配置文件里以冒号的形式设置参数。我们在/src/router/index.js文件里配置路由。
+{
+path:'/params/<span class="x">:newsId/:newsTitle</span>',
+component:Params
+}
+<span class="nt">&lt;router-link</span>  to="/params <span class="x">/198/jspang</span>"<span class="nt">&gt;</span> params<span class="nt">&lt;/router-link&gt;</span>
+接收参数
+{{ <span class="x">$route.params.newsId</span>}}
+{{ $route.params.newsTitle}}
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>编程式导航</h3>
+    <pre class="highlight"><code>
+this.<span class="x">$router.go(-1)</span> 后退
+this.<span class="x">$router.go(1)</span>  前进
+this.<span class="x">$router.push</span>(‘/...’) 跳转到指定页面
+<span class="nt">&lt;button</span> @click="goHome"<span class="nt">&gt;</span>回到首页 <span class="nt">&lt;button&gt;</span>
+methods:{
+    goback(){
+      this.$router.go(-1);
+    },
+    <span class="x">goHome()</span>{
+      this.$router.push('/');
+    }
+}
+      </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>路由中的钩子</h3>
+    <pre class="highlight"><code>
+<span class="x">路由配置文件中的钩子函数</span>
+{
+    path:'/params/:newsId(\\d+)/:newsTitle',
+    component:Params,
+    <span class="x">beforeEnter</span>:(to,from,next)=>{
+        console.log('我进入了params模板');
+        console.log(to);
+        console.log(from);
+        next();
+    }
+},
+<span class="x">三个参数</span>：
+to:路由将要跳转的路径信息，信息是包含在对像里边的。
+from:路径跳转前的路径信息，也是一个对象的形式。
+next:路由的控制参数，常用的有next(true)和next(false)。
+<span class="x">写在模板中的钩子函数</span>
+export default {
+  name: 'params',
+  data () {
+    return {
+      msg: 'params page'
+    }
+  },
+  <span class="x">beforeRouteEnter</span>:(to,from,next)=>{
+    console.log("准备进入路由模板");
+    next();
+  },
+  <span class="x">beforeRouteLeave</span>: (to, from, next) => {
+    console.log("准备离开路由模板");
+    next();
+  }
+}
+在配置文件中的钩子函数，只有一个钩子-beforeEnter，如果我们写在模板中就可以有两个钩子函数可以使用：
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>404页面的处理</h3>
+    <pre class="highlight"><code>
+设置我们的路由配置文件（/src/router/index.js）：
+{
+   path:<span class="x">'*'</span>,
+   component:Error
+}
+<span class="nt">&lt;router-link</span> to="/bbbbbb"<span class="nt">&gt;</span>瞎写个连接测试<span class="nt">&lt;/router-link&gt;</span>
+ 写一个erroe.vue页面
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>vue-router 的重定向-redirect</h3>
+    <pre class="highlight"><code>
+ 在路由配置文件中（/src/router/index.js）把原来的component换成<span class="x">redirect</span>参数就可以
+routes: [
+    {
+      path: '/',
+      component: Hello
+    },{
+      path:'/params/:newsId(\\d+)/:newsTitle',
+      component:Params
+    },{
+      <span class="x">path:'/goback'</span>,
+      <span class="x">redirect:'/'</span>
+    }
+  ]
+<span class="x">重定向时传递参数</span>
+{
+  path:'/params/:newsId(\\d+)/:newsTitle',
+  component:Params
+},{
+  path:'/goParams/:newsId(\\d+)/:newsTitle',
+  redirect:'/params/:newsId(\\d+)/:newsTitle'
+}
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>重定向时传递参数</h3>
+    <pre class="highlight"><code>
+  { //在路由配置文件里
+    path: '/hi1',
+    component: Hi1,
+    alias:'/aa' //自己定一个
+ }
+ <span class="nt">&lt;router-link</span>< to="/jspang"<span class="nt">&gt;</span>aa<span class="nt">&lt;/router-link&gt;</span>
+  区别：
+<span class="x">redirect</span>：仔细观察URL，redirect是直接改变了url的值，把url变成了真实的path路径。
+<span class="x">alias</span>：URL路径没有别改变，这种情况更友好，让用户知道自己访问的路径，只是改变了<span class="nt">&lt;router-view&gt;</span>中的内容。
+
+<span class="x">小坑坑：</span>
+{
+  path: <span class="x">'/'</span>,
+  component: Hello,
+  alias:'/home' // <span class="x">不起作用</span>
+}
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>路由的过渡动画</h3>
+    <pre class="highlight"><code>
+<span class="nt">&lt;transition</span> <span class="x">name="fade"</span><span class="nt">&gt; </span>
+  <span class="nt">&lt;router-view&gt;</span><span class="nt">&lt;/router-view&gt;</span>
+<span class="nt">&lt;/transition&gt;</span>
+fade-enter 分别添加样式
+fade-enter-active
+fade-leave
+fade-leave-active
+
+<a href="http://jspang.com/2017/04/13/vue-router/" style="color:blue;font-size: 20px">技术支持</a>
+    </code></pre>
+</div>
+
+
+<footer class="site-footer">
+
+    <div class="wrapper">
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col">
+                <ul class="social-media-list">
+
+                    <li>
+                        <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span><span class="username">zhanglibing</span></a>
+                        <span>fullstack web developer</span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+</html>

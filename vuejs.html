@@ -488,45 +488,8 @@ vue建议我们为片段添加一个根节点，这样方便传递props和过渡
       </code></pre>
 </div>
 
+<h1><a href="vueRouter.html">VUE-Router</a></h1>
 
-<!--vue-router-->
-
-<h1>vue-router</h1>
-<div class="wrapper">
-    <h3>vue-router如何参数传递</h3>
-    <pre class="highlight"><code>
- <span class="x">一、用name传递参数</span>
-1在路由文件src/router/index.js里<span class="x">配置name</span>属性。
- routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    }
- ]
-2模板里(src/App.vue)用 <span class="x">$router.name的形式接收</span>，比如直接在模板中显示：
-<span class="nt">&lt;p&gt;</span>{{ <span class="x">$route.name</span>}}<span class="nt">&lt;/p&gt;</span> //name为hello
-
-<span class="x">二、通过<span class="nt">&lt;router-link&gt;</span> 标签中的to传参</span>
-<span class="nt">&lt;router-link&gt;</span> <span class="x">:to</span>="<span class="k">{name:xxx,params:{key:value}}</span>" <span class="nt">&gt;</span>valueString<span class="nt">&lt;/router-link&gt;</span>
-在xxx模板中{{ <span class="x">$route.params</span>.username}}进行接收
-注意：此处to前面带有冒号 此处用path：‘xxx’无效   只能用name形式路由
-    </code></pre>
-</div>
-<div class="wrapper">
-    <h3>vue-router 利用url传递参数</h3>
-    <pre class="highlight"><code>
-1在配置文件里以冒号的形式设置参数。我们在/src/router/index.js文件里配置路由。
-{
-path:'/params/<span class="x">:newsId/:newsTitle</span>',
-component:Params
-}
-<span class="nt">&lt;router-link</span>  to="/params <span class="x">/198/jspang</span>"<span class="nt">&gt;</span> params<span class="nt">&lt;/router-link&gt;</span>
-接收参数
-{{ <span class="x">$route.params.newsId</span>}}
-{{ $route.params.newsTitle}}
-    </code></pre>
-</div>
 <footer class="site-footer">
     <div class="wrapper">
         <div class="footer-col-wrapper">
