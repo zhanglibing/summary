@@ -20,6 +20,7 @@
 
 </header>
 <h1>ECMAScript6</h1>
+<!--let、val、const申明-->
 <div class="wrapper">
     <p>let、const、var区别</p>
     <pre class="highlight">
@@ -66,6 +67,8 @@ console.log(i); // 5
         </code>
     </pre>
 </div>
+
+<!--块级作用域-->
 <div class="wrapper">
     <p>ES6 的块级作用域</p>
     <pre class="highlight"><code>
@@ -80,6 +83,7 @@ function f1() {
     </code></pre>
 </div>
 
+<!--转码器-->
 <div class="wrapper">
     <p>Babel 转码器</p>
     <pre class="highlight"><code>
@@ -95,7 +99,7 @@ input.map(function (item) {
     </code></pre>
 </div>
 
-
+<!--函数的扩展-->
 <div class="wrapper">
     <p>函数的扩展</p>
     <pre class="highlight"><code>
@@ -120,6 +124,132 @@ function foo(x = 5) {
 }
 <span class="k">函数的length属性</span>:
  指定了默认值以后，将返回没有指定默认值的参数个数
+    </code></pre>
+</div>
+
+<!--箭头函数-->
+<div class="wrapper">
+    <h3>箭头函数</h3>
+    <pre class="highlight"><code>
+不需要function关键字来创建函数
+省略return关键字
+继承当前上下文的 this 关键字
+//例如：
+[1,2,3].map( <span class="x">x => x + 1 </span>)
+//等同于：
+[1,2,3].map((function(x){
+return x + 1
+}).bind(this))
+
+当你的函数 <span class="x">有且仅有一个参数</span>的时候，是 <span class="x">可以省略掉括号</span>的。当你 <span class="x">函数返回有且仅有一个表达式的时候</span>可以省略{}；
+var people = <span class="x">name => 'hello' + name</span>//参数name就没有括号
+var people = <span class="x">(name, age) => {</span>
+    const fullName = 'h' + name
+    return fullName
+<span class="x">}</span>
+//如果缺少()或者{}就会报错
+    </code></pre>
+</div>
+
+<!--展开运算符-->
+<div class="wrapper">
+    <h3>展开运算符</h3>
+    <pre class="highlight"><code>
+ // <span class="x">数组</span>
+const color = ['red', 'yellow']
+const colorful = [<span class="x">...color</span>, 'green', 'pink']
+console.log(colorful) //[red, yellow, green, pink]
+// <span class="x">对象</span>
+const alp = { fist: 'a', second: 'b'}
+const alphabets = {<span class="x">...alp</span>, third: 'c' }
+console.log(alphabets) //{ "fist": "a", "second": "b", "third": "c"
+
+相对于对象如果有重复属性右边覆盖左边
+const first = {
+    a: 1,
+    b: 2,
+    c: 6,
+}
+const second = {
+    c: 3,
+    d: 4
+}
+const total = { ...first, ...second }
+console.log(total) // { a: 1, b: 2, c: 3, d: 4 }
+    </code></pre>
+</div>
+
+<!--拓展的对象功能-->
+<div class="wrapper">
+    <h3>拓展的对象功能</h3>
+    <pre class="highlight"><code>
+1.function people(name, age) {
+    return {
+        name: name,
+        age: age
+    };
+}
+<span class="x">键值对重名，ES6可以简写</span>如下：
+function people(name, age) {
+    return {
+        name,
+        age
+    };
+}
+
+2.ES6 同样改进了为<span class="x">对象字面量方法赋值的语法</span>。ES5为对象添加方法：
+const people = {
+    name: 'lux',
+    getName: function() {
+        console.log(this.name)
+    }
+}
+ES6通过省略冒号与 function 关键字，将这个语法变得更简洁
+const people = {
+    name: 'lux',
+    <span class="x">getName ()</span> {
+        console.log(this.name)
+    }
+}
+
+3.ES6 对象提供了 <span class="x">Object.assign()</span>这个方法来实现浅复制。Object.assign()可以把 <span class="x">任意多个源对象</span>
+自身可枚举的属性拷贝给目标对象，然后返回目标对象。第一参数即为目标对象。在实际项目中，我们为了 <span class="x">不改变源对象</span>。
+一般会把目标对象传为{}
+const obj = Object.assign({}, objA, objB)
+    </code></pre>
+</div>
+
+<!--更方便的数据访问--解构-->
+<div class="wrapper">
+    <h3>更方便的数据访问--解构</h3>
+    <pre class="highlight"><code>
+解构能让我们从对象或者数组里取出数据存为变量
+//<span class="x">对象</span>
+const people = {
+    name: 'lux',
+    age: 20
+}
+const <span class="x">{ name, age }</span> = people
+console.log( `<span class="x">${name}</span> --- <span class="x">${age}</span>`)  <span class="x">此处不是单引号 esc下面那个键</span>
+
+
+//<span class="x">数组</span>
+const color = ['red', 'blue']
+const <span class="x">[first, second]</span> = color
+console.log(first) //'red'
+console.log(second) //'blue'
+    </code></pre>
+</div>
+
+<!--import 和 export-->
+<div class="wrapper">
+    <h3>import 和 export</h3>
+    <pre class="highlight"><code>
+import导入模块、export导出模块
+//<span class="x">全部导入</span>
+import people from './example'
+//<span class="x">导入部分</span>
+import {name, age} from './example'
     </code></pre>
 </div>
 
