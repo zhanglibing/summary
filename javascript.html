@@ -172,6 +172,19 @@ var arr=str. <span class="x">split("")</span>//["a", "b", "c", "d"]
 });
 <span class="x">delete</span> obj.x;//false
 obj.x;//1
+
+ <span class="x">对象合并方法</span>
+ 1 <span class="x">遍历赋值</span>
+ var extend=function(o,n){
+     for (var p in n){
+        if(<span class="x">n.hasOwnProperty</span>(p) && ( <span class="x">!o.hasOwnProperty</span>(p) ))
+             o[p]=n[p];
+     }
+ };
+2 var obj = Object.<span class="x">assign({},o1, o2, o3);</span>  //IE9以下不支持
+3 <span class="x">jquery方法</span>
+ o3 = $.<span class="x">extend</span>(o1, o2)  // 合并 o1 和 o2， 将结果返回给 o3. 注意： 此时，o1 == o3! 即 o1 被修改
+ o3 = $.extend({}, o1, o2) // 合并 o1 和 o2， 将结果返回给 o3. 注意： 此时，o1 ！= o3! 即 o1 没有被修改
     </code></pre>
 </div>
 
