@@ -148,6 +148,39 @@ var arr=str. <span class="x">split("")</span>//["a", "b", "c", "d"]
 </div>
 
 <div class="wrapper">
+    <p>数组去重</p>
+<pre class="highlight"><code>
+var arr=[1,2,5,8,9,58,58,3,2,5,6,8,8,78,98,54,58,98];
+<span class="x">方法一</span>：
+function aa(arr){
+ var newarr=[];
+ var obj={};
+ for(var i=0;i&lt;arr.length;i++){
+   if(!obj[arr[i]]){
+    newarr.push(arr[i]);
+    obj[array[i]]=true;
+   }
+ }
+ return newarr
+}
+console.log(aa(arr))
+
+<span class="x">方法二：</span>
+ function aa(array){
+    var newarr=[];
+    for(var i=0;i&lt;array.length;i++){
+       if(newarr.<span class="x">indexOf</span>(array[i])==-1){
+         newarr.push(array[i])
+       }
+    }
+   return newarr
+ }
+
+console.log(aa(arr))
+    </code></pre>
+</div>
+
+<div class="wrapper">
     <p>jquery操作数组方法</p>
     <pre class="highlight"><code>
 1.遍历 <span class="x">$.each</span>(arr, callback(key, val));
