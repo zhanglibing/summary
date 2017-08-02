@@ -147,6 +147,35 @@ var arr=str. <span class="x">split("")</span>//["a", "b", "c", "d"]
     </ol>
 </div>
 
+<div class="wrapper">
+    <p>jquery操作数组方法</p>
+    <pre class="highlight"><code>
+1.遍历 <span class="x">$.each</span>(arr, callback(key, val));
+2. 筛选$.grep(arr, callback, invert)
+invert为false表示对callback的筛选取反。 默认为true。
+var a = [1, 2, 3, 4];
+<span class="x">$.grep</span>(a, function(val, key) {  //不能链式调用，返回[],所以可以加上return实现链式,返回满足条件的副本
+　　if (a[key] > 2) {
+　　　　console.log(key);
+　　}
+　　return val;
+});
+console.log(a)//[3,4]
+3.转换 <span class="x">$.map</span>(arr,callback(key,val))
+var a = [1, 2, 3, 4];
+$.map(a, function(val, key) { //不能链式调用，返回[],同grep加上return即可放回副本
+    if (a[key] > 2) {
+        a[key]=val+1;
+    }
+    return val;              //可以链式调用，返回处理后的数组(也可用于筛选)
+});
+console.log(a) //[2, 3, 4, 5]
+4 <span class="x">$.merge</span>(arr1,arr2)  合并数组 arr1后面加上arr2后 <span class="k">返回arr1</span>
+5 <span class="x">$.unique</span>(arr)//过滤Jquery对象数组中重复的元素
+6 <span class="x">$.inArray</span>(val,arr)  <span class="k">判断val是否在arr里面返回val对应的下标   如果没有找到则返回-1</span>
+    </code></pre>
+</div>
+
 <!--对象-->
 <div class="wrapper">
     <h3>对象</h3>
@@ -189,12 +218,13 @@ obj.x;//1
     </code></pre>
 </div>
 
+<!--数组排序以及数组对象排序-->
 <div class="wrapper">
     <p>sort数组排序</p>
     <pre class="highlight"><code>
 <span class="x">数字数组排序</span>
 var arr=[1,2,8,2,9,52];
-arr.sort(function(a,b){return a-b});
+arr.sort(function(a,b){return <span class="x">a-b</span>}); <span class="k">此处用a-b或者b-a  若a-b>0或者a-b<0时排序有误</span>
 arr.sort();
 
 <span class="x">数组对象排序</span>
@@ -625,71 +655,5 @@ function getXml(xml){
 
 </footer>
 </body>
-<script>
-//    var Person = function(name, age) {
-//        this.name = name;
-//        this.age = age;
-//        this.getName = function() {
-//            return this.name;
-//        }
-//    }
-//
-//    // 将构造函数以参数形式传入
-//    function New(func) {
-//
-//        // 声明一个中间对象，该对象为最终返回的实例
-//        var res = {};
-//        if (func.prototype !== null) {
-//
-//            // 将实例的原型指向构造函数的原型
-//            res.__proto__ = func.prototype;
-//            console.log(res.__proto__)
-//        }
-//
-//        // ret为构造函数执行的结果，这里通过apply，将构造函数内部的this指向修改为指向res，即为实例对象
-//        var ret = func.apply(res, Array.prototype.slice.call(arguments, 1));
-//        console.log(Array.prototype.slice.call(arguments, 1)) //['tom', 20]
-//
-//        // 当我们在构造函数中明确指定了返回对象时，那么new的执行结果就是该返回对象
-//        if ((typeof ret === "object" || typeof ret === "function") && ret !== null) {
-//            return ret;
-//        }
-//
-//        // 如果没有明确指定返回对象，则默认返回res，这个res就是实例对象
-//        return res;
-//    }
-//
-//    // 通过new声明创建实例，这里的p1，实际接收的正是new中返回的res
-//    var p1 = New(Person, 'tom', 20);
-//    console.log(p1);
-//
-//    // 当然，这里也可以判断出实例的类型了
-//    console.log(p1 instanceof Person); // true
-var data = [];
 
-for (var i = 0; i<3; i++) {
-    data[i] = function () {
-        console.log(i);
-    };
-}
-
-
-data[0]();
-data[1]();
-data[2]();
-
-var scope = "global scope";
-function checkscope(){
-    var scope = "local scope";
-    function f(){
-        return scope;
-    }
-    return f;
-}
-
-var foo = checkscope();
-foo();
-console.log(checkscope()) //"local scope"
-
-</script>
 </html>
