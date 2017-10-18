@@ -247,6 +247,16 @@ fade-leave-active
     </code></pre>
 </div>
 
+<div class="wrapper">
+    <h2>解决路由传参刷新消失</h2>
+    <pre class="highlight"><code>
+ 将参数传递到url里边
+ this.<span class="x">$router</span>.push({ <span class="x">name</span>:'casesProcess', <span class="x">query</span>:{emrCode:this.show.emrCode,...}})
+
+ 接收:
+ this.<span class="x">$route.query.emrCode</span>
+    </code></pre>
+</div>
 
 <footer class="site-footer">
 

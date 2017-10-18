@@ -230,6 +230,8 @@ new Vue({
 <span class="nt">&lt;form</span>  v-on:submit.prevent="onSubmit"<span class="nt">&gt;</span> <span class="nt">&lt;/form&gt;</span>
         </code></pre>
 </div>
+
+<!--父组件向子组件传值-->
 <div class="wrapper">
 <p>组件</p>
     <pre class="highlight"><code>
@@ -293,20 +295,67 @@ prop 是父组件用来传递数据的一个自定义属性。
     }
   }
 
+<span class="x">**父组件向子组件传异步数据时
+ 子组件有时候获取不到值得情况</span>
+ 可以通过 <span class="x">watch监控</span>props里接受值  当监控到有值时进行处理数据、渲染（初始化组件数据）、
     </code></pre>
 </div>
+
+<!--组件之间数据传递-->
 <div class="wrapper">
 <p>子组件向父组件传递数据</p>
     <pre class="highlight"><code>
 子组件发送
-this.<span class="x">$emit</span>('<span class="x">child-info</span>', type);
+<span class="nt">&lt;button @click="event"</span><span class="nt">&gt;</span>点击向父组件传递数据<span class="nt">&lt;/button</span><span class="nt">&gt;</span>
+methods: {
+    <span class="x">event</span> () {
+        this.<span class="x">$emit</span>('<span class="x">child-info</span>', data);
+    }
+}
+
 父组件接收：
 <span class="nt">&lt;ratingselect</span>  <span class="x">@child-info</span>="<span class="x">get</span>"<span class="nt">&gt;</span><span class="nt">&lt;/ratingselect&gt;</span>
 methods: {
-    <span class="x">get</span> (msg) {
-        console.log(msg);
+    <span class="x">get</span> (data) {
+        console.log(data);
     }
 }
+
+<span class="x">**如果能通过点击事件传值</span>尽量通过点击事件
+如果子组件中没有点击事件可以通过 <span class="x">watch监控数据 </span>
+data:{
+   return{
+      aa:'',
+      array:[],
+      object:{}
+   }
+  },
+  watch: {
+    aa(newValue, oldValue) {
+        console.log(newValue)
+        <span class="x">传值</span>this.<span class="x">$emit</span>('<span class="x">child-info</span>', data);
+    },
+    object: {
+　　　　handler(newValue, oldValue) {
+　　　　　　console.log(newValue)
+         <span class="x">传值</span>this.<span class="x">$emit</span>('<span class="x">child-info</span>', data);
+　　　　},
+　　　　deep: true
+　　},
+    array(newValue, oldValue) {
+        <span class="x">传值</span>this.<span class="x">$emit</span>('<span class="x">child-info</span>', data);
+　　　　　　for (let i = 0; i < newValue.length; i++) {
+　　　　　　　　if (oldValue[i] != newValue[i]) {
+　　　　　　　　　　console.log(newValue)
+　　　　　　　　}
+　　　　　　}
+    deep: true
+　　},
+　　　　
+  }
+}
+<span class="x">watch监控数组和对象</span>
+ 注意区别普通watch 数组和对象
     </code></pre>
 </div>
 
@@ -488,7 +537,40 @@ vue建议我们为片段添加一个根节点，这样方便传递props和过渡
       </code></pre>
 </div>
 
-<h1><a href="vueRouter.html">VUE-Router</a></h1>
+
+<div class="wrapper">
+    <h2>vue引入全局jquery</h2>
+    <pre class="highlight"><code>
+1 首先在 <span class="x">package.json</span>里加入，
+    dependencies:{
+     <span class="x">"jquery" : "^2.2.3"</span>
+    }
+    然后 nmp install 或者cnpm install
+
+2 在 <span class="x">webpack.base.conf.js</span>里加入
+  var webpack = require(" <span class="x">webpack</span>")
+
+3 在<span class="x">module.exports</span>的最后加入
+    plugins: [
+     new webpack.optimize.CommonsChunkPlugin('common.js'),
+     new webpack.ProvidePlugin({
+         jQuery: "<span class="x">jquery</span>",
+         $: "<span class="x">jquery</span>"
+     })
+    ]
+
+4. 然后一定要重新 <span class="x">run dev</span>
+5. 在main.js 引入就ok了
+   import $ from '<span class="x">jquery</span>'
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2 style="text-align: left;">1.  <a href="http://element.eleme.io/#/zh-CN/component/input-number">PC端element ui</a><span style="font-size: 14px;">(图片上传、日期插件...)</span></h2>
+
+    <h1><a href="vueRouter.html">VUE-Router</a></h1>
+</div>
+
 
 <footer class="site-footer">
     <div class="wrapper">
