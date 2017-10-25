@@ -537,7 +537,7 @@ vue建议我们为片段添加一个根节点，这样方便传递props和过渡
       </code></pre>
 </div>
 
-
+<!--引入全局jquery-->
 <div class="wrapper">
     <h2>vue引入全局jquery</h2>
     <pre class="highlight"><code>
@@ -562,6 +562,24 @@ vue建议我们为片段添加一个根节点，这样方便传递props和过渡
 4. 然后一定要重新 <span class="x">run dev</span>
 5. 在main.js 引入就ok了
    import $ from '<span class="x">jquery</span>'
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>引入公共组件 component</h2>
+    <pre class="highlight"><code>
+1.在 <span class="x">main.js</span>里import singleSelect from './components/functional_select/single_select' //引入
+2.<span class="x">Vue.component</span>('singleSelect', singleSelect) //注册
+3.<span class="x">所有路由页面</span>都可以使用singleSelect了
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>路由中引入静态js</h2>
+    <pre class="highlight"><code>
+1.引入全局的静态js库，建立一个与src<span class="x">同级的目录</span>例如static
+2.直接在根目录的index.html中引入，其他路由页面就都可以用了
+<span class="nt">&lt;</span>script src="<span class="x">./static/js/</span>lib/jQuery.min.js"<span class="nt">&gt;</span><span class="nt">&lt;/script&gt;</span>
     </code></pre>
 </div>
 
