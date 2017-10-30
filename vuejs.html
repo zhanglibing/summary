@@ -584,6 +584,31 @@ vue建议我们为片段添加一个根节点，这样方便传递props和过渡
 </div>
 
 <div class="wrapper">
+    <h2>注意问题</h2>
+    <pre class="highlight"><code>
+ 1 在<span class="x">filters</span>过滤器中不能直接调用this.data 中的数据
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>Vue调试神器vue-devtools安装</h2>
+    <pre class="highlight"><code>
+<span class="x">第一步：</span>找到vue-devtools的github项目，并将其clone到本地. vue-devtools
+    git <span class="x">clone</span> https://github.com/vuejs/vue-devtools.git
+<span class="x">第二步：</span>cd vue-devtools目录 安装项目所需要的npm包
+    npm install //如果太慢的话，可以安装一个cnpm, 然后命令换成 cnpm install
+<span class="x">第三步：</span>编译项目文件
+    npm run <span class="x">build</span>
+<span class="x">第四步：</span>添加至chrome游览器
+游览器输入地址“<span class="x">chrome://extensions/</span>”进入扩展程序页面，点击“加载已解压的扩展程序...”按钮，选择vue-devtools>shells下的chrome文件夹。
+
+/**
+*如果看不见“加载已解压的扩展程序...”按钮，则需要勾选“开发者模式”。
+*/
+    </code></pre>
+</div>
+
+<div class="wrapper">
     <h2 style="text-align: left;">1.  <a href="http://element.eleme.io/#/zh-CN/component/input-number">PC端element ui</a><span style="font-size: 14px;">(图片上传、日期插件...)</span></h2>
 
     <h1><a href="vueRouter.html">VUE-Router</a></h1>
