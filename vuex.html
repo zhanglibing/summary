@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>vuex使用方法</title>
+  <meta name="description" content="全局配置">
+
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
+  </div>
+</header>
+
+<!--安装-->
+<div class="wrapper">
+    <h3>1.安装</h3>
+    <pre class="highlight"><code>
+<span class="sb">配置文件加入</span> "vuex": "^2.2.0",
+npm install 或者直接  npm install vuex <span class="nf">--save</span>（--save生产环境局部安装）
+    </code></pre>
+</div>
+
+<!--下载依赖以及引用-->
+<div class="wrapper">
+    <h3>2.入口文件main.js引入</h3>
+    <pre class="highlight"><code>
+<span class="nf">import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);</span>
+<span class="x">新建vuex文件夹并创建store.js</span>
+
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h3>使用</h3>
+    <pre class="highlight"><code>
+<span class="x">store.js</span>中先引入vue  vuex
+import <span class="nf">Vue</span> from 'vue';
+import <span class="nf">Vuex</span> from 'vuex';
+Vue.use(Vuex)
+
+const <span class="nf">state</span>={ //<span class="x">保存状态</span>
+    role:getRole(),
+}
+const <span class="nf">mutations</span>={ //<span class="x">修改状态</span>
+  setRole(state,val){ //
+  state.role=val;
+  },
+}
+const <span class="nf">getters</span> = { //<span class="x">计算过滤操作</span>
+
+}
+const <span class="nf">actions</span> ={//<span class="x">actions异步修改状态</span>
+
+}
+
+//将方法暴露出去
+export default <span class="x">new Vuex.Store</span>({
+  state,mutations,getters,actions
+})
+    </code></pre>
+</div>
+
+<!--使用状态方法-->
+<div class="wrapper">
+   <h3>组件中使用状态方法</h3>
+   <pre class="highlight"><code>
+<span class="x">模板中用{{$store.state.role}}role 的值。</span> 调用vuex中的状态
+<span class="nt"> &lt;script&gt;</span>
+    import <span class="x">store</span> from '@/vuex/store'
+    export default{
+        data(){
+            return{
+                msg:'Hello Vuex',
+            }
+        },
+        store  //挂载到实例中
+    }
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="x">状态赋值简化</span>
+组件中import <span class="x">{mapState}</span> from <span class="x">'vuex'</span>;
+<span class="nf">computed</span>:mapState([<span class="x">"role"</span>,...])
+ <span class="x">html中直接使用role  js中用this.role</span>
+如果computed中还有其他计算属性
+ <span class="nf">computed</span>:{
+    ...mapState([<span class="x">"role"</span>,...]),
+    calc(){},... // <span class="x">其他计算属性方法</span>
+ }
+   </code></pre>
+</div>
+
+<!--组件中修改状态方法-->
+<div class="wrapper">
+    <h3>组件中修改状态方法</h3>
+    <pre class="highlight"><code>
+ Vuex提供了<span class="x">commit</span>方法来修改状态
+ <span class="nt">&lt;button</span> @click="<span class="x">$store.commit('add')</span>"<span class="nt">&gt;button</span>+<span class="nt">&lt;/button&gt;</span>
+js中this.$store.commit('add',<span class="x">val</span>);
+<span class="x">简化方法</span>
+import <span class="x">{ mapState,mapMutations,mapGetters  }</span> from 'vuex';
+<span class="nf">methods</span>:mapMutations([
+    'setRole','reduce'
+]),
+<span class="nf">methods</span>:{
+   ...mapMutations([
+      'setRole','reduce'
+   ]),
+ }
+----------------------类似上面使用方法-------
+ <span class="x">mapGetters</span>简化写到computed 计算属性中
+    </code></pre>
+</div>
+
+<div class="wrapper">
+   <h3>全局使用方法</h3>
+   <pre class="highlight"><code>
+1.<span class="x">main.js</span>中import <span class="x">store</span> form 'path' 引入store.js
+挂到全局实例中 其他组件直接使用
+new Vue({
+  el: '#app',
+  router,
+  <span class="x">store</span>,
+  ...
+})
+组件中要使用简化方法时
+需要引入vuex
+   </code></pre>
+</div>
+<footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="social-media-list">
+          <li>
+            <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">zhanglibing</span></a>
+
+            <span>fullstack web developer
+</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+</html>

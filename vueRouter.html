@@ -132,7 +132,7 @@ methods:{
 </div>
 
 <div class="wrapper">
-    <h3>路由中的钩子</h3>
+    <h2>路由中的钩子</h2>
     <pre class="highlight"><code>
 <span class="x">路由配置文件中的钩子函数</span>
 {
@@ -171,7 +171,7 @@ export default {
 </div>
 
 <div class="wrapper">
-    <h3>404页面的处理</h3>
+    <h2>404页面的处理</h2>
     <pre class="highlight"><code>
 设置我们的路由配置文件（/src/router/index.js）：
 {
@@ -184,7 +184,7 @@ export default {
 </div>
 
 <div class="wrapper">
-    <h3>vue-router 的重定向-redirect</h3>
+    <h2>vue-router 的重定向-redirect</h2>
     <pre class="highlight"><code>
  在路由配置文件中（/src/router/index.js）把原来的component换成<span class="x">redirect</span>参数就可以
 routes: [
@@ -211,7 +211,7 @@ routes: [
 </div>
 
 <div class="wrapper">
-    <h3>重定向时传递参数</h3>
+    <h2>重定向时传递参数</h2>
     <pre class="highlight"><code>
   { //在路由配置文件里
     path: '/hi1',
@@ -233,7 +233,7 @@ routes: [
 </div>
 
 <div class="wrapper">
-    <h3>路由的过渡动画</h3>
+    <h2>路由的过渡动画</h2>
     <pre class="highlight"><code>
 <span class="nt">&lt;transition</span> <span class="x">name="fade"</span><span class="nt">&gt; </span>
   <span class="nt">&lt;router-view&gt;</span><span class="nt">&lt;/router-view&gt;</span>
@@ -247,6 +247,7 @@ fade-leave-active
     </code></pre>
 </div>
 
+<!--路由query传参解决刷新消失-->
 <div class="wrapper">
     <h2>解决路由传参刷新消失</h2>
     <pre class="highlight"><code>
@@ -257,6 +258,28 @@ fade-leave-active
  this.<span class="x">$route.query.emrCode</span>
     </code></pre>
 </div>
+
+<!--登录权限设置-->
+<div class="wrapper">
+    <h2>登录权限设置未登录禁止访问</h2>
+    <pre class="highlight"><code>
+ //全局判断登录访问权限
+先在路由中添加<span class="x">meta</span>:{auth:true}
+router.<span class="x">beforeEach</span>((to,from,next) => {
+  if(to.matched.some( m => m.meta.auth)){
+    // 对路由进行验证
+    if(store.state.authorizd) { // 已经登陆
+      next()
+    }else{
+      next({path:'/'})
+    }
+  }else{
+    next()
+  }
+})
+    </code></pre>
+</div>
+
 
 <footer class="site-footer">
 

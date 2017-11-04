@@ -15,11 +15,16 @@
         <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
     </div>
 </header>
+
+<div class="wrapper">
+     <h2><a href="http://cn.vuejs.org/v2/guide/">1.VUE API</a></h2>
+     <h2><a href="vueRouter.html">2.VUE-Router</a></h2>
+     <h2><a href="vuex.html">3.VUEX</a></h2>
+</div>
+
 <!--vue-->
 <div class="wrapper">
-<h2><a href="http://cn.vuejs.org/v2/guide/">VUE API</a></h2>
     <h1>VUEJS</h1>
-
     <ul>
         <li>
           <p>手机端测试方法</p>
@@ -43,7 +48,6 @@
                 </code></pre>
         </li>
     </ul>
-
 </div>
 <div class="wrapper">
     <p>1.数据渲染</p>
@@ -303,7 +307,7 @@ prop 是父组件用来传递数据的一个自定义属性。
 
 <!--组件之间数据传递-->
 <div class="wrapper">
-<p>子组件向父组件传递数据</p>
+<h3>子组件向父组件传递数据$emrt()</h3>
     <pre class="highlight"><code>
 子组件发送
 <span class="nt">&lt;button @click="event"</span><span class="nt">&gt;</span>点击向父组件传递数据<span class="nt">&lt;/button</span><span class="nt">&gt;</span>
@@ -321,7 +325,7 @@ methods: {
     }
 }
 
-<span class="x">**如果能通过点击事件传值</span>尽量通过点击事件
+<span class="x">**如果能通过点击事件传值</span>尽量通过点击事件或者失焦等其他事件(watch监控传值频繁)
 如果子组件中没有点击事件可以通过 <span class="x">watch监控数据 </span>
 data:{
    return{
@@ -356,6 +360,16 @@ data:{
 }
 <span class="x">watch监控数组和对象</span>
  注意区别普通watch 数组和对象
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h3>父组件调用子组件方法ref、$refs</h3>
+    <pre class="highlight"><code>
+父组件中引用的子组件
+<span class="nt">&lt;child-model</span> <span class="x">ref="child"</span> <span class="nt">&gt;</span><span class="nt">&lt;child-model&gt;</span>
+在父组件中调用子组件方法
+this.<span class="x">$refs.child.</span>childMethods();
+<span class="x">childMethods()</span>为子组件中的方法
     </code></pre>
 </div>
 
@@ -619,7 +633,6 @@ import Vue from 'vue';
 import Mint from 'mint-ui';
 Vue.use(Mint);;
     </code></pre>
-    <h1><a href="vueRouter.html">VUE-Router</a></h1>
 </div>
 
 
