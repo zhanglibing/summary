@@ -635,6 +635,17 @@ Vue.use(Mint);;
     </code></pre>
 </div>
 
+<div class="wrapper">
+    <h2>屏蔽滑动的遮罩层</h2>
+    <pre class="highlight"><code>
+  1.移动端 在遮罩层添加touchmove.prevent
+   <span class="nt">&lt;div</span> class="overlayer" <span class="x">@touchmove.prevent </span><span class="nt">&gt;div</span>
+    <span class="nt">&lt;div&gt;</span>
+  2.PC端方案
+   <span class="nt">&lt;div</span> class="overlayer" <span class="x">@@scroll.prevent </span><span class="nt">&gt;div</span>
+   <span class="nt">&lt;div&gt;</span>
+    </code></pre>
+</div>
 
 <footer class="site-footer">
     <div class="wrapper">
