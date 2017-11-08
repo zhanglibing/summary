@@ -254,6 +254,60 @@ import {name, age} from './example'
 </div>
 
 <div class="wrapper">
+    <h3>es6数组操作</h3>
+      <pre class="highlight"><code>
+<span class="b">reduce累加</span>数组从左到右  <span class="x">reduceRight</span>(从右到左累加) 使用方法相同
+var arr = [10, 20, 30];
+var total = arr.<span class="x">reduce</span>(function(first, second) {
+    return first + second;
+}, 0);
+console.log(total) // Prints 60
+
+<span class="b">some(或)</span>
+function isNumber(value){
+return typeof value == 'number';
+}
+var a1 = [1, 2, 3];
+console.log(a1.some(isNumber)); // logs true
+var a2 = [1, '2', 3];
+console.log(a2.some(isNumber)); // logs true
+var a3 = ['1', '2', '3'];
+console.log(a3.some(isNumber)); // logs false
+
+<span class="b">every(且)</span>
+function isNumber(value){
+    return typeof value == 'number';
+}
+var a1 = [1, 2, 3];
+console.log(a1.every(isNumber)); // logs true
+var a2 = [1, '2', 3];
+console.log(a2.every(isNumber)); // logs false
+
+<span class="b">filter过滤筛选</span>
+var a1 = ['a', 10, 'b', 20, 'c', 30];
+var a2 = a1.filter(function(item) {
+    return typeof item == 'number';
+});
+<span class="x">简写a2 = a1.filter(item=>typeof item == 'number');</span>
+console.log(a2); // logs 10,20,30
+
+<span class="b">map映射（一一对应）</span>
+var a1 = ['a', 'b', 'c'];
+var a2 = a1.map(function(item) {
+    return item.toUpperCase();
+});
+<span class="x">修改值返回 修改后的数组</span>
+console.log(a2); // logs A,B,C
+
+<span class="b">forEach遍历数组</span>
+var colors = ['red', 'green', 'blue'];
+colors.forEach(function(color) {
+    console.log(color);
+});
+      </code></pre>
+</div>
+
+<div class="wrapper">
     <pre class="highlight"><code>
 <a href="http://es6.ruanyifeng.com/#docs/destructuring">ECMAScript 6 详解</a>
     </code></pre>
