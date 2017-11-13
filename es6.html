@@ -504,6 +504,131 @@ colors.forEach(function(color) {
 </div>
 
 <div class="wrapper">
+    <h2>用Proxy进行预处理</h2>
+    <pre class="highlight"><code>
+  <span class="k">Proxy的存在就可以让我们给函数加上这样的钩子函数，可以理解为在执行方法前预处理一些代码。
+  可以简单的理解为他是函数或者对象的生命周期。</span>
+  <span class="b">声明Proxy</span>
+ <span class="x">new Proxy（{},{}）</span>;
+ <span class="k">注意的是这里是两个花括号，第一个花括号就相当于我们方法的主体，
+ 后边的花括号就是Proxy代理处理区域，相当于我们写钩子函数的地方。</span>
+    </code></pre>
+</div>
+
+<!--promise对象的使用-->
+<div class="wrapper">
+    <h2>promise对象的使用</h2>
+    <pre class="highlight"><code>
+  <span class="k">ES6中的promise的出现给我们很好的解决了回调地狱的问题，在使用ES5的时候，
+在多层嵌套回调时，写完的代码层次过多，很难进行维护和二次开发，ES6认识到了这点问题，
+现在promise的使用，完美解决了这个问题</span>
+let state=1;
+
+function step1(<span class="x">resolve,reject</span>){
+    console.log('1.开始-洗菜做饭');
+    if(state==1){
+        <span class="x">resolve</span>('洗菜做饭--完成');
+    }else{
+        reject('洗菜做饭--出错');
+    }
+}
+
+function step2(<span class="x">resolve,reject</span>){
+    console.log('2.开始-坐下来吃饭');
+    if(state==1){
+        resolve('坐下来吃饭--完成');
+    }else{
+        reject('坐下来吃饭--出错');
+    }
+}
+
+function step3(<span class="x">resolve,reject</span>){
+    console.log('3.开始-收拾桌子洗完');
+     if(state==1){
+        resolve('收拾桌子洗完--完成');
+    }else{
+        reject('收拾桌子洗完--出错');
+    }
+}
+
+<span class="x">new Promise</span>(step1)<span class="k">.then</span>(function(val){
+    console.log(val);  // <span class="x">val为resolve、reject的返回值</span>
+    <span class="x">return new Promise(step2)</span>;
+
+})<span class="k">.then</span>(function(val){
+     console.log(val);
+    <span class="x">return new Promise(step3)</span>;
+})<span class="k">.then</span>(function(val){
+    console.log(val);
+    return val;
+});
+    </code></pre>
+</div>
+
+<!--class类的使用-->
+<div class="wrapper">
+    <h2>class类的使用</h2>
+    <pre class="highlight"><code>
+<span class="b">1.类的使用</span>
+ <span class="k">声明了一个类，并在类里声明了name方法，现在要实例化类，并使用类中的方法。</span>
+<span class="x">class</span> Coder{
+    <span class="k">name</span>(val){
+        console.log(val);
+    }
+}
+let jspang= new Coder;
+jspang.name('jspang');
+
+<span class="b">2.类的多方法声明</span>
+<span class="x">class</span> Coder{
+    <span class="k">name</span>(val){
+        console.log(val);
+        return val;
+    }
+    <span class="k">skill</span>(val){
+        console.log(this.name('jspang')+':'+'Skill:'+val);
+    }
+}
+
+let jspang= new Coder;
+jspang.name('jspang');
+jspang.skill('web');
+<span class="k">需要注意的是两个方法中间不要写逗号了，还有这里的this指类本身，还有要注意return 的用法。</span>
+
+<span class="b">3.类的传参</span>
+<span class="x">class</span> Coder{
+    <span class="k">name</span>(val){
+        console.log(val);
+        return val;
+    }
+    <span class="k">skill</span>(val){
+        console.log(this.name('jspang')+':'+'Skill:'+val);
+    }
+
+    <span class="x">constructor(a,b){ // 接受参数
+        this.a=a;
+        this.b=b;
+    }
+
+    add(){
+        return this.a+this.b;
+    }</span>
+}
+let jspang= <span class="k">new Coder(1,2)</span>;
+console.log(jspang.add());
+<span class="k">用constructor来约定了传递参数</span>
+
+<span class="b">class的继承</span>
+class <span class="x">htmler</span> <span class="k">extends Coder</span>{
+
+}
+let pang=<span class="x">new htmler</span>;
+pang.name('技术胖');
+
+
+    </code></pre>
+</div>
+<div class="wrapper">
     <pre class="highlight"><code>
 <a href="http://es6.ruanyifeng.com/#docs/destructuring">ECMAScript 6 详解</a>
     </code></pre>
