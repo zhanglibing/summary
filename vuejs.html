@@ -647,6 +647,25 @@ Vue.use(Mint);;
     </code></pre>
 </div>
 
+<div class="wrapper">
+    <h2>项目中遇到的问题</h2>
+    <pre class="highlight"><code>
+ <span class="b">1.图片缓存问题</span>
+  视图不及时跟新服务器图片  解决办法 在图片链接后添加随机数  <span class="x">:src="path...?${Math.random()}</span>"
+
+  <span class="b">2.css均匀分布 text-align: justify</span>
+  子元素如果是<span class="x">v-if</span>渲染   <span class="k">均匀分布失效</span>
+
+  <span class="b">3.苹果手机input聚焦光标乱窜</span>
+  遮罩或者父元素使用了<span class="k">position:fixed</span>  解决办法 使用绝对定位
+
+  <span class="b">4.Vue.set 监控对象属性变化并及时实现view视图的更新。</span>
+  <span class="b">5.子组件接受值动态监听对象、数组方法</span>
+  <span class="b">6.beforeUpdate、updated</span>
+
+    </code></pre>
+</div>
+
 <footer class="site-footer">
     <div class="wrapper">
         <div class="footer-col-wrapper">
