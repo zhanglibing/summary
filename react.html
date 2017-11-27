@@ -17,8 +17,141 @@
 </header>
 
 <h1>React</h1>
+<!--环境搭建-->
+<div class="wrapper">
+  <h2>create-react-app 快速脚手架</h2>
+    <pre class="highlight"><code>
+npm install -g <span class="x">create-react-app </span> 全局安装脚手架依赖
+<span class="x">create-react-app my-app</span>  创建项目
+<span class="x">npm start</span> 启动服务
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>generator-react-webpack构建</h2>
+    <pre class="highlight"><code>
+<span class="b">安装</span>
+npm install -g yo  安装yeoman
+cnpm install -g generator-react-webpack
+<span class="b">创建目录</span>
+mkdir new-react-demo
+cd new-react-demo
+yo react-webpack 生成项目目录
+npm start 启动服务
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>webpack一步一步构建01</h2>
+    <pre class="highlight"><code>
+<span class="b">新建文件夹</span>
+mkdir react-webpack
+cd react-webpack
+<span class="b">项目进行初始化</span>
+<span class="x">npm init</span> 或者 <span class="k">npm init -y</span>
+
+npm install --save-dev webpack
+<span class="b">配置webpack.config.js</span>
+var path =require('path');
+module.exports = {
+    //入口文件
+    <span class="k">entry</span>:'./src/index.js',
+    //出口文件
+    <span class="k">output</span>:{
+        filename:'index.js',
+        path:path.resolve(__dirname,'dist')
+    }
+}
+<span class="b">根目录下新建src和dist文件夹</span>
+src中新建index.html   引入./dist/index.js
+
+<span class="b">加入打包命令</span>
+打开package.json文件，在scripts属性中加入build命令。
+"scripts": {
+    <span class="x">"build": "webpack"</span>
+ },
+在终端中输入 <span class="k">npm run build</span>
+
+<span class="b">开发服务器配置</span>
+cnpm install --save-dev webpack-dev-server
+配置webpack.config.js文件。
+<span class="k">devServer</span>:{
+    contentBase:'./',
+    host:'localhost',
+    compress:true,
+    port:1717
+}
+配置好后再packeage.json里增加一个scripts命令，我们起名叫server。
+ "scripts": {
+    "build": "webpack",
+    <span class="x">"server": "webpack-dev-server --open"</span>
+  },
+<span class="b">自动刷新浏览器</span>
+output:{
+    filename:'index.js',
+    path:path.resolve(__dirname,'dist'),
+    <span class="x">publicPath:'temp/'</span>  <span class="k">增加公用文件路径</span>
+},
+
+index.html文件引入JS
+<span class="nt">&lt;script</span> src="<span class="x">./temp/index.js</span>"<span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="b">Babel安装配置</span>
+cnpm install --save-dev babel-core babel-loader babel-preset-es2015 babel-preset-react
+安装完成后，可以到webpack.config.js里配置module，也就是配置我们常说的loader。
+<span class="k">module</span>:{
+    loaders:[
+        {
+            test:/\.js$/,
+            exclude:/node_modules/,
+            loaders:"babel-loader",
+            query:{
+                presets:['es2015','react']
+            }
+        }
+    ]
+}
+<span class="b">编写React</span>
+cnpm install --save <span class="x">react react-dom</span>
+<span class="x">index.js</span>
+import React from 'react';
+import ReactDOM from 'react-dom';
+ReactDOM.render(
+    <span class="nt">&lt;div&gt;</span>Hello JSPang<span class="nt">&lt;/div&gt;</span>,
+    document.getElementById("app")
+);
+
+<span class="b">className转化class</span>
+"babel-plugin-react-html-attrs"  //安装
+ <span class="k">配置webpack.config.js</span>
+ loaders: [
+      {
+        test: /\.js?$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015'],
+          <span class="x">plugins: ['react-html-attrs']</span>, //添加组件的插件配置 将className转化为class
+        }
+      },
+      //下面是使用 ant-design 的配置文件
+      { test: /\.css$/, loader: 'style-loader!css-loader' }
+]
+
+<span class="b">css样式</span>
+npm install --save-dev <span class="k">style-loader css-loader</span>
+<span class="k">配置webpack.config.js中loaders</span>
+{
+    test:/\.css$/,
+    loader:[ <span class="x">'style-loader','css-loader'</span>]
+}
+<span class="b">UI组件</span>
+"antd"  npm安装
+使用方法 https://ant.design/components/avatar-cn/
+
+    </code></pre>
+</div>
 <div class="wrapper">
    <h2>环境搭建</h2>
+    <pre class="highlight"><code>
   npm install -g webpack  //全局安装webpack
   cnpm install -g webpack-dev-server  //安装server
 
@@ -31,7 +164,104 @@
     3.webpack-dev-server
     4.webpack-dev-server --contentbase -src --inline --hot  自动监控 不需要刷新页面（暂时还有问题）
     4.webpack-dev-server --content-base --inline --hot  自动监控 不需要刷新页面
+    </code></pre>
 
+</div>
+
+<!--react特点-->
+<div class="wrapper">
+    <h2>React特点</h2>
+    <pre class="highlight"><code>
+<span class="b">虚拟DOM: </span>
+  React也是以数据驱动的，每次数据变化React都会扫码整个虚拟DOM树，自动计算与上次虚拟DOM的差异变化，然后针对需要变化的部分进行实际的浏览器DOM更新。
+<span class="b">组件化</span>：
+  React可以从功能角度横向划分，将UI分解成不同组件，各组件都独立封装，整个UI是由一个个小组件构成的一个大组件，每个组件只关系自身的逻辑，彼此独立。
+<span class="b">单项数据流</span>：
+  React设计者认为数据双向绑定虽然便捷，但在复杂场景下副作用也是很明显，所以React更倾向于单向的数据流动-从父节点传递到子节点。（使用ReactLink也可以实现双向绑定，但不建议使用）
+    </code></pre>
+</div>
+
+<!--react生命周期-->
+<div class="wrapper">
+    <h2>react生命周期</h2>
+    <pre class="highlight"><code>
+<span class="x">componentWillMount()
+componentDidMount()
+componentWillUpdate()
+componentDidUpdate()
+componentWillUnmount()</span>
+    </code></pre>
+</div>
+
+<!--实例-->
+<div class="wrapper">
+    <h2>实例</h2>
+    <pre class="highlight"><code>
+<span class="k">import</span> <span class="x">React</span> from 'react';
+<span class="k">import</span> <span class="x">ReactDOM</span> from 'react-dom';
+<span class="x">export default</span> class Index <span class="x">extends</span> React.Component {
+	render() {
+		return (
+			<span class="k">&lt;div&gt;</span>content内容<span class="k">&lt;/div&gt;</span>
+		);
+	};
+}
+
+<span class="k">用于将模板转为HTML语言，并插入指定的DOM节点。</span>
+<span class="x">ReactDOM.render</span>( <span class="k">&lt;Index/&gt;</span>, document.getElementById('mainContainer'));
+
+    </code></pre>
+
+</div>
+
+
+<div class="wrapper">
+    <h2>react路由</h2>
+    <pre class="highlight"><code>
+<span class="x">npm install --save react-router </span> 先下载依赖  react-router-dom 包更轻巧一些
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import {BrowserRouter as Router , Route} from 'react-router-dom';
+
+import PageA from './js/a';
+import PageB from './js/b';
+import PageC from './js/c';
+import Nav from './js/nav';
+
+export default class Root extends React.Component{
+    render(){
+        return(
+        <span class="nt">&lt;Router&gt;</span>
+		<span class="nt">&lt;div&gt;</span>
+		    <span class="nt">&lt;Nav/&gt;</span>
+                      <span class="nt">&lt;Route  exact path="/" component={PageA} /&gt;</span>
+                      <span class="nt">&lt;Route  path="/b" component={PageB} /&gt;</span>
+                      <span class="nt">&lt;Route  path="/c" component={PageC} /&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;/Router&gt;</span>
+        );
+    }
+}
+ReactDOM.render(
+	<span class="nt">&lt;Root&gt;/</span>,
+    document.getElementById("app")
+);
+
+
+<span class="x">nav.js</span>
+import React from 'React';
+import {NavLink} from 'react-router-dom';
+const NavBar = () =>(
+    <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;NavLink</span> exact to='/'<span class="nt">&gt;</span>pagea<span class="nt">&lt;/NavLink&gt;</span>
+        <span class="nt">&lt;NavLink</span>  to='/b'<span class="nt">&gt;</span>pageb<span class="nt">&lt;/NavLink&gt;</span>
+        <span class="nt">&lt;NavLink</span>  to='/c'<span class="nt">&gt;</span>pagec<span class="nt">&lt;/NavLink&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+)
+
+export default NavBar;
+    </code></pre>
 </div>
 
 <footer class="site-footer">
