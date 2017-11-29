@@ -112,6 +112,7 @@ green     #859900  operators, other keywords
 /* Comment */
 .highlight .err { color: #93a1a1; }
 .highlight .b { color: #4f55ff;font-weight: bold;font-size: 16px; }
+.highlight .bo { color: #666;font-weight: bold;font-size: 14px; }
 /* Error */
 .highlight .g { color: #93a1a1; }
 

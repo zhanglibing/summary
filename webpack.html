@@ -70,17 +70,179 @@
     </ul>
 </div>
 
+<div class="wrapper">
+    <h2>webpack</h2>
+    <pre class="highlight"><code>
+<span class="x">打包</span>：可以把多个Javascript文件打包成一个文件，减少服务器压力和下载带宽。
+<span class="x">转换</span>：把拓展语言转换成为普通的JavaScript，让浏览器顺利运行。
+<span class="x">优化</span>：前端变的越来越复杂后，性能也会遇到问题，而WebPack也开始肩负起了优化和提升性能的责任。
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2></h2>
+    <pre class="highlight"><code>
+//全局安装
+<span class="k">npm install -g webpack</span>
+npm init 初始化项目
+npm install --save-dev webpack
+这里的参数 <span class="x">–save</span>是要保存到package.json中，<span class="x">dev</span>是在开发时使用这个包，而生产环境中不使用。
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>webpack.config.js</h2>
+    <pre class="highlight"><code>
+const path = require('<span class="x">path</span>');  //必须引入
+module.exports={
+    //入口文件的配置项
+    entry:{
+        //里面的entery是可以随便写的
+        entry:'./src/entry.js'
+    },
+    //出口文件的配置项
+    output:{
+         //打包的路径文职
+        path:path.resolve(__dirname,'dist'),
+        //打包的文件名称
+        filename:'bundle.js'
+    },
+    //模块：例如解读CSS,图片如何转换，压缩
+    module:{},
+    //插件，用于生产模版和各项功能
+    plugins:[],
+    //配置webpack开发服务功能
+    devServer:{}
+}
+
+<span class="k">path.resolve(__dirname,’dist’)就是获取了项目的绝对路径</span>
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>多入口、多出口配置</h2>
+    <pre class="highlight"><code>
+    entry:{
+        entry:'./src/entry.js',
+        //这里我们又引入了一个入口文件
+        <span class="x">entry2:'./src/entry2.js'</span>
+    },
+    //出口文件的配置项
+    output:{
+        //输出的路径，用了Node语法
+        path:path.resolve(__dirname,'dist'),
+        //输出的文件名称
+        <span class="x">filename:'[name].js'</span>
+    },
+    <span class="x">[name]</span>的意思是根据入口文件的名称，打包成相同的名称，有几个入口文件，就可以打包出几个文件。
+    </code></pre>
+</div>
+<!--服务和热更新-->
+<div class="wrapper">
+    <h2>服务和热更新</h2>
+    <pre class="highlight"><code>
+<span class="x">npm install webpack-dev-server --save-dev</span> 安装
+<span class="bo">webpack.config.js中配置</span>
+<span class="x">devServer</span>:{
+    //设置基本目录结构
+    <span class="x">contentBase</span>:path.resolve(__dirname,'dist'),
+    //服务器的IP地址，可以使用IP也可以使用localhost 建议使用本机IP
+    <span class="x">host</span>:'localhost',
+    //服务端压缩是否开启
+    <span class="x">compress</span>:true,
+    //配置服务端口号  随便写个
+    <span class="x">port</span>:1717
+}
+
+<span class="bo">package.js中配置</span>
+"scripts": {
+    <span class="x">"server":"webpack-dev-server"</span>
+ },
+<span class="x">npm  run  server  打开服务器</span>
+
+这里<span class="x">webpack3.6以上</span>版本支持
+    </code></pre>
+</div>
+<!--模块：CSS文件打包-->
+<div class="wrapper">
+    <h2>模块：CSS文件打包</h2>
+    <pre class="highlight"><code>
+<span class="x">style-loader:</span>它是用来处理css文件中的url()等
+<span class="x">css-loader:</span>它是用来将css插入到页面的style标签
+<span class="bo">安装</span>
+npm install style-loader --save-dev
+npm install --save-dev css-loader
+<span class="bo">webpack.config.js中配置</span>
+<span class="x">module</span>:{
+    <span class="x">rules</span>: [
+        {
+          test: /\.css$/,
+          <span class="bo">use</span>: [ 'style-loader', 'css-loader' ]  <span class="k">//写法一</span>
+          //<span class="bo">loader</span>:['style-loader','css-loader'] <span class="k">//写法二</span>
+          //<span class="bo">use</span>: [ <span class="k">//写法三</span>
+            { loader: "style-loader"},
+            { loader: "css-loader"}
+          //]
+        }
+      ]
+},
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>配置JS压缩</h2>
+    <pre class="highlight"><code>
+<span class="x">注意</span>：虽然uglifyjs是插件，但是webpack版本里默认已经集成，不需要再次安装。
+const uglify = require('<span class="x">uglifyjs-webpack-plugin</span>');
+<span class="x">plugins</span>:[
+    new uglify()
+],
+    </code></pre>
+</div>
+<!--HTML文件的发布-->
+<div class="wrapper">
+    <h2>HTML文件的发布</h2>
+    <pre class="highlight"><code>
+<span class="x">npm install --save-dev html-webpack-plugin</span>  安装
+
+const htmlPlugin= require('<span class="x">html-webpack-plugin</span>');
+<span class="bo">webpack.config.js里的plugins里进行插件配置</span>
+new htmlPlugin({
+    minify:{
+        removeAttributeQuotes:true
+    },
+    hash:true,
+    template:'./src/index.html'
+})
+<span class="x">minify</span>：是对html文件进行压缩，removeAttrubuteQuotes是却掉属性的双引号。
+<span class="x">hash</span>：为了开发中js有缓存效果，所以加入hash，这样可以有效避免缓存JS。
+<span class="x">template</span>：是要打包的html模版路径和文件名称。
+    </code></pre>
+</div>
+
+<!--CSS中的图片处理-->
+<div class="wrapper">
+    <h2>CSS中的图片处理</h2>
+    <pre class="highlight"><code>
+<span class="x">npm install --save-dev file-loader url-loader</span>  安装file-loader 和url-loader
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2></h2>
+    <pre class="highlight"><code>
+
+    </code></pre>
+</div>
+
 <footer class="site-footer">
     <div class="wrapper">
         <div class="footer-col-wrapper">
             <div class="footer-col">
                 <ul class="social-media-list">
                     <li>
-                        <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
-</span><span class="username">zhanglibing</span></a>
-
-                        <span>fullstack web developer
-</span>
+                        <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span><span class="username">zhanglibing</span></a>
+                        <span>fullstack web developer</span>
                     </li>
                 </ul>
             </div>
