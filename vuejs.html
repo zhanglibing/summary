@@ -631,7 +631,7 @@ npm install mint-ui -S
  // 引入全部组件
 import Vue from 'vue';
 import Mint from 'mint-ui';
-Vue.use(Mint);;
+Vue.use(Mint);
     </code></pre>
 </div>
 
@@ -644,6 +644,40 @@ Vue.use(Mint);;
   2.PC端方案
    <span class="nt">&lt;div</span> class="overlayer" <span class="x">@@scroll.prevent </span><span class="nt">&gt;div</span>
    <span class="nt">&lt;div&gt;</span>
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>Vue.directive自定义指令</h2>
+    <pre class="highlight"><code>
+<span class="b">组件中使用</span><span class="nt">&lt;div</span> <span class="x">v-title</span> <span class="nt">&gt;</span>诊前详情 <span class="nt">&lt;/div&gt;</span>
+
+//全局title
+<span class="b">Vue</span>.<span class="x">directive</span>('<span class="x">title</span>', {
+  inserted:(el, binding)=> {
+    document.title = el.innerText
+    $(el).css({display:'none'});
+  },
+  update:(el, binding)=>{//组件更新后重新赋值
+    document.title = el.innerText
+  },
+})
+<span class="b">自定义指令中传递的三个参数</span>
+<span class="x">el</span>: 指令所绑定的元素，可以用来直接操作DOM。
+<span class="x">binding</span>:  一个对象，包含指令的很多信息。
+<span class="x">vnode</span>: Vue编译生成的虚拟节点。
+
+<span class="b">自定义指令的生命周期</span>
+<span class="x">bind</span>:function(){//被绑定时调用  只调用一次
+},
+<span class="x">inserted</span>:function(){//绑定到节点
+},
+<span class="x">update</span>:function(){//组件更新
+},
+<span class="x">componentUpdated</span>:function(){//组件更新完成
+},
+<span class="x">unbind</span>:function(){//解绑时调用
+}
     </code></pre>
 </div>
 

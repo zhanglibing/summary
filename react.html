@@ -403,7 +403,6 @@ export default class BodyIndex extends React.Component {
     </code></pre>
 </div>
 
-<span class="nt">&lt;&gt;</span>
 <!--css样式-->
 <div class="wrapper">
     <h2>css样式</h2>
@@ -487,6 +486,46 @@ export default class ComponentHeader extends React.Component{
 }
     </code></pre>
 </div>
+
+<div class="wrapper">
+    <h2>表单的事件响应和bind复用</h2>
+    <pre class="highlight"><code>
+<span class="x">getInitialState</span>:function(){
+    return{
+        username:'',
+        gender:'man',
+        checked:true
+    }
+},
+<span class="bo">handleChange</span>:function(name,event){
+    var newState={};
+    newState<span class="x">[name]</span>=name=="checked"?event.target.<span class="x">checked</span>:event.target.<span class="x">value</span>;
+    this.<span class="x">setState</span>(newState);
+    console.log(newState);
+},
+<span class="bo">submitHandler</span>:function(e){
+   <span class="x">e.preventDefault()</span>;
+   var is = this.state.checked?'是':'不是';
+   var gender= this.state.gender == "man" ? "帅哥":"美女";
+   alert(this.state.username+ is + gender +'.' );
+},
+render:function(){
+   return (
+    <span class="nt">&lt;form</span> onSubmit={this.submitHandler}<span class="nt">&gt;</span>
+       <span class="nt">&lt;label</span> <span class="x">htmlFor</span>="username"<span class="nt">&gt;</span>情输入您的姓名：<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> type="text" name="username" <span class="x">onChange={this.handleChange.bind(this,"username")}</span> value={this.state.username} id="username"  <span class="nt">/&gt;</span>
+        <span class="nt">&lt;input</span>  type="checkbox" value="是否" name="checked" <span class="x">onChange={this.handleChange.bind(this,"checked")}</span> <span class="k">checked</span>={this.state.checked}  <span class="nt">/&gt;</span>
+       <span class="nt">&lt;select</span> name="gender" onChange={this.handleChange.bind(this,"gender")} value={this.state.gender}>
+            <span class="nt">&lt;option</span> value="man"<span class="nt">&gt;</span>帅哥<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option</span> value="woman"<span class="nt">&gt;</span>美女<span class="nt">&lt;/option&gt;</span>
+       <span class="nt">&lt;/select&gt;</span>
+       <span class="nt">&lt;button</span> type="submit" <span class="nt">&gt;</span>提交<span class="nt">&lt;/button&gt;</span>
+   <span class="nt">&lt;/form&gt;</span>
+  )
+}
+    </code></pre>
+</div>
+
 <div class="wrapper">
     <h2>组件的return 函数里返回的HTML节点必须是一个</h2>
 </div>
