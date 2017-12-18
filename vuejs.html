@@ -598,6 +598,30 @@ vue建议我们为片段添加一个根节点，这样方便传递props和过渡
 </div>
 
 <div class="wrapper">
+    <h2>axios请求</h2>
+    <pre class="highlight"><code>
+cnpm install --save <span class="x">qs axios</span>  安装依赖
+<span class="b">入口js引入</span>
+import <span class="x">qs</span> from 'qs'
+import <span class="x">axios</span> from 'axios'
+<span class="b">设置基本配置</span>
+axios.defaults.<span class="x">baseURL</span> = 'http://www.clearbos.cn/';   全局设置默认host
+axios.defaults.timeout = 5000;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';//POST传参序列化
+axios.interceptors.request.use((config) => {
+  if(config.method  === 'post'){
+    config.data = qs.stringify(config.data);
+  }
+  return config;
+},(error) =>{
+  alert("错误的传参");
+  return Promise.reject(error);
+});
+Vue.prototype.<span class="x">$http</span> = axios;  挂载到 Vue上
+    </code></pre>
+</div>
+
+<div class="wrapper">
     <h2>注意问题</h2>
     <pre class="highlight"><code>
  1 在<span class="x">filters</span>过滤器中不能直接调用this.data 中的数据
