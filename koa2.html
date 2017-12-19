@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>canvas</title>
+    <title>node-KOA2</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -17,8 +17,98 @@
 </header>
 <h1>Koa2</h1>
 <div class="wrapper">
-  
+  <h2>Koa开发环境搭建</h2>
+    <pre class="highlight"><code>
+  <span class="x">版本大于v7.6</span>
+  <span class="b">1.新建文件夹</span>
+  <span class="b">2.npm init -y</span>
+  <span class="b">3.npm install --save koa</span>
+更目录新建 index.js
+<span class="kd">const</span> Koa = require('<span class="x">koa</span>')
+<span class="kd">const</span> app = new Koa()
+<span class="k">app.use</span>( async ( <span class="x">ctx</span> ) => {
+  ctx<span class="x">.body</span> = 'hello koa2'
+})
+app<span class="x">.listen</span>(3000)
+console.log('[demo] start-quick is starting at port 3000')
+命令行输入<span class="b">node index.js</span>
+    </code></pre>
 
+</div>
+
+<div class="wrapper">
+  <h2>async/await的使用方法</h2>
+    <pre class="highlight"><code>
+ <span class="k">async是异步的简写，而await可以堪称async wait的简写。明白了两个单词，就很好理解了
+     async是声明一个方法是异步的，await是等待异步方法完成。注意的是await必须在async
+     方法中才可以使用因为await访问本身就会造成程序停止堵塞，所以必须在异步方法中才可以使用。</span>
+
+<span class="x">async</span> function testAsync(){
+    return 'Hello async';
+}
+const <span class="kd">result</span> = testAsync();
+console.log(<span class="kd">result</span>);
+终端里用node执行这段代码，输出了 <span class="x">Promise { ‘Hello async’ }</span>，这时候会发现它返回的是Promise。
+
+ <span class="b">await</span>一般在等待async方法执行完毕，但是其实await等待的只是一个表达式，这个表达式在
+   官方文档里说的是Promise对象，可是它也可以接受普通值
+<span class="kc">function</span> getSomething(){
+    return 'something';
+}
+
+async <span class="kc">function</span> testAsync(){
+    return 'Hello async';
+}
+
+async <span class="kc">function</span> test(){
+    const v1=<span class="kd">await</span> getSomething();
+    const v2=<span class="kd">await</span> testAsync();
+    console.log(v1,v2);
+}
+
+test();
+
+    </code></pre>
+
+</div>
+
+<!--Get请求的接收-->
+<div class="wrapper">
+    <h2>Get请求的接收</h2>
+    <pre class="highlight"><code>
+ <span class="b">query和querystring区别</span>
+ 在<span class="kd">koa2</span>中GET请求通过 <span class="kd">request接收</span>，但是接受的方法有两种：query和querystring。
+  <span class="x">query</span>：返回的是格式化好的<span class="k">参数对象</span>。
+  <span class="x">querystring</span>：返回的是请求<span class="k">字符串</span>。
+
+<span class="kd">const</span> Koa = require('koa');
+<span class="kd">const</span> app = new Koa();
+app.<span class="kd">use</span>(async(ctx)=>{
+    let url =<span class="x">ctx.url</span>;
+        //从request中获取GET请求
+    let request = <span class="x">ctx.request</span>;
+    let req_query = <span class="x">request.query</span>;
+    let req_querystring = request.querystring;
+        //从上下文中直接获取
+    let ctx_query = ctx.query;
+    let ctx_querystring = ctx.querystring;
+    <span class="x">ctx.body={
+        url,
+        req_query,
+        req_querystring,
+        ctx_query,
+        ctx_querystring
+    }</span>
+
+});
+
+app.listen(3000,()=>{
+    console.log('[demo] server is starting at port 3000');
+});
+在终端中使用node demo1.js启动服务
+<span class="kc">http://127.0.0.1:3000?user=zhanglibing&age=18</span>来进行访问
+获得GET请求的方式有两种， <span class="x">一种是从request中获得，一种是一直从上下文中获得</span>。获得的格式也有两种：query和querystring。
+    </code></pre>
 </div>
 
 <footer class="site-footer">
