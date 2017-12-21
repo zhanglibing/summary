@@ -528,6 +528,15 @@ render:function(){
 
 <div class="wrapper">
     <h2>组件的return 函数里返回的HTML节点必须是一个</h2>
+    <span class="b">react</span>
+onClick 等事件，与原生 HTML 不同，on 之后第一个字母是大写的！
+比如本章实例中，如果将 onClick={this.handleClick} 换成 onclick={this.handleClick} 则点击事件不再生效。
+ 通过 <span class="x">getDefaultProps()</span> 方法为 props 设置默认值
+ getDefaultProps: function() {
+    return {
+      name: 'Runoob'
+    };
+  },
 </div>
 
 <div class="wrapper">

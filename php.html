@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PHP</title>
+  <meta name="description" content="fullstack web developer">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
+  </div>
+</header>
+
+<div class="wrapper">
+    <h2>Php</h2>
+    <pre class="highlight"><code>
+WAMPServer集成环境下载和安装
+W: windows
+A:Apache
+M:MySQL
+P:php
+www.wampserver.com/en/#begin-wrapper
+ <span class="b">1.代码标识</span>
+ <span class="x">&lt;?php  代码  ?&gt;</span>
+ <span class="b">2.echo语句</span>
+ <span class="x">echo</span> "Welcome to imooc!";  注意echo关键字与字符串之间至少要有一个空格
+ <span class="b">3.字符串连接</span>
+ <span class="kc">1  .</span>  ：它返回将右参数附加到左参数后面所得的字符串。
+ <span class="x">2  .=</span>  ：它将右边参数附加到左边的参数后。
+    $b = "东边日出西边雨";
+    $b <span class="x">.= </span>",道是无晴却有晴";
+    $c = "东边日出西边雨";
+    $c = $c<span class="x">.</span>",道是无晴却有晴";
+<span class="b">4.PHP语句结束符</span>
+  注意在每一条PHP代码行结尾处都会有一个<span class="x">分号;</span>
+<span class="b">5.用双斜杠注释</span>
+<span class="b">6.定义变量</span>
+  <span class="x">$var_name</span> = “苹果”;
+  <span class="x">$n</span> = 10;
+  <span class="b">7.变量名的命名规则和js一样</span>
+  <span class="b">8.变量的数据类型</span>
+  <span class="kd">字符串类型</span>，<span class="kd">整型</span>，<span class="kd">浮点型</span>和 <span class="kd">数组</span>
+  <span class="b">9.标量类型—布尔类型</span>
+      布尔类型（boolean）它不区分大小写
+ <span class="b">10.字符串类型</span>
+    字符串包含引号的情况
+    $str_string1 = '甲问："你在哪里学的PHP？"';
+    $str_string2 = "乙毫不犹豫地回答：'当然是慕课网咯！'";
+    $str_string3 = '甲问:\'能告诉我网址吗？\'';
+    $str_string4 = "乙答道:\"www.imooc.com\"";
+
+    $love = "I love you!";
+    $string1 = "test,$love"; //test,I love you!
+    $string2 = 'test,$love'; //test,$love
+    <span class="k">当双引号中包含变量时，变量会与双引号中的内容连接在一起；
+    当单引号中包含变量时，变量会被当做字符串输出。</span>
+
+ <span class="b">11.常量</span>
+    <span class="k">常量主要功效是可以避免重复定义，篡改变量值。</span>
+    <span class="x">define</span>("PI",3.14);  注意为双引号
+     echo PI;
+ <span class="b">系统常量</span>
+ <span class="x">__FILE__</span> :php程序文件名。它可以帮助我们获取当前文件在服务器的物理位置。
+ <span class="x">__LINE__</span> :PHP程序文件行数。它可以告诉我们，当前代码在第几行。
+ <span class="x">PHP_VERSION</span>:当前解析器的版本号。它可以告诉我们当前PHP解析器的版本号，我们可以提前知道我们的PHP代码是否可被该PHP解析器解析。
+ <span class="x">PHP_OS</span>：执行当前PHP版本的操作系统名称。它可以告诉我们服务器所用的操作系统名称，我们可以根据该操作系统优化我们的代码。
+ <span class="b">常量如何取值</span>
+ <span class="x">第一种</span>是使用常量名直接获取值
+ <span class="x">第二种</span>是使用constant()函数  函数可以动态的输出不同的常量，在使用上要灵活、方便
+ $height = "中";
+//根据精度返回常量名，将常量变成了一个可变的常量
+if($height == "中"){
+    $p = "PI1";
+}else if($height == "低"){
+	$p = "PI2";
+}
+$r=1;
+$area=constant($p)*$r*$r;
+echo $area;
+<span class="b">如何判定常量是否被定义</span>
+<span class="kd">defined()</span>函数可以帮助我们判断一个常量是否已经定义
+define("PI1",3.14);
+$p = "PI1";
+$is1 = <span class="x">defined</span>($p);
+echo ($is1);
+<span class="b">运算符</span>
+ <span class="x">+  -  * / </span>
+赋值运算符有两种
+ <span class="x"> =  &</span>
+<span class="x">&</span>：引用赋值，意味着两个变量都指向同一个数据。它将使两个变量共享一块内存，如果这个内存存储的数据变了，
+ 那么两个变量的值都会发生变化。
+$a = "aaaa！";
+$b = $a;
+$c = &$a;
+$a = "changeaaa！";
+echo $b;  //aaaa！
+echo $c;  // changeaaa！
+
+==  === != <>不等于 !==不等于、或者类型不同  <  > <=  >=
+<span class="b">三元运算符</span>
+$b = $a >= 60 ? "及格": "不及格";
+<span class="b">逻辑运算符</span>
+ ||  &&  !
+ <span class="x">and  or  xor</span>异或（只能有一个正确的）
+    $a = TRUE; //A同意
+    $b = TRUE; //B同意
+    $c = FALSE; //C反对
+    $d = FALSE; //D反对
+    echo <span class="b">(</span>$a and $b <span class="b">)</span>?"通过":"不通过";
+    echo ($a or $c)?"通过":"不通过";
+    echo ($a xor $c xor $d xor $b)?"通过":"不通过"; <span class="kd">//不通过</span>
+    echo ($a xor $c xor $d)?"通过":"不通过";  <span class="kd">//通过</span>
+    echo $b || $c || $d?"通过":"不通过"
+
+ <span class="b">错误控制运算符</span>
+<span class="k">PHP中提供了一个错误控制运算符“@”，对于一些可能会在运行过程中出错的表达式时，我们不希望出错的时候给客户
+显示错误信息，这样对用户不友好。于是，可以将@放置在一个PHP表达式之前，该表达式可能产生的任何错误信息都被忽略掉</span>；
+<span class="x">注意：错误控制前缀“@”不会屏蔽解析错误的信息，不能把它放在函数或类的定义之前，也不能用于条件结构例如if和foreach等。</span>
+ $conn =<span class="x">@</span> mysql_connect("localhost","username","password");
+ echo "出错了，错误原因是：".<span class="x">$php_errormsg</span>;
+ <span class="b">语句结构</span>
+    if(){} else{}
+    if else if  else
+    <span class="x">switch</span>switch (条件){
+        case 条件值一:
+          //任务一
+          break;
+        case 条件值二:
+          //任务二
+          break;
+        default:
+          //默认任务
+    }
+   <span class="x">while</span>(条件){
+     //执行任务
+   }
+   do{
+     //执行任务
+   }while(条件)
+   <span class="b">for语句写法</span>
+    for($i = 1,$sum = 0;$i<=100;$i++){
+        $sum = $sum + $i; //	累加求和
+    }
+<span class="b">foreach</span>
+foreach($students as $v){
+    echo $v;//输出（打印）姓名
+}
+foreach($students as $key => $v){
+    echo $v;//输出（打印）姓名
+    echo $key;//输出下标
+}
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>php连接Mysql</h2>
+    <pre class="highlight"><code>
+php内置Mysql函数
+mysql_fetch_row()取一条数据产生的索引数组  请求速度比array快的多
+mysql_fetch_array()默认状态下取一条数据产生一个索引数组和一个关联数组
+&lt;?php
+  header("Content-type:teat/html;charset=utf-8");
+   //连接数据库、选择数据库、设定字符集
+  mysql_connect('localhost','root','123456'); 域名、账号、密码
+  mysql_select_db('info');//选择数据库
+  mysql_query('set names utf8');   //设定字符集 设置一下当前连接使用的字符编码
+  //发指令、获取数据
+  $query = mysql_query('select * from test'); 根据sql语句获取数据
+  $arr=mysql_fetch_array($query);
+  mysql_fetch_array的第二个参数
+        1.MYSQL_ASSOC -关联数组
+        1.MYSQL_NUM -索引数组
+        1.MYSQL_BOTH -默认
+  $arr=mysql_fetch_array($query,MYSQL_ASSOC);
+  print_r($arr);
+?&gt;
+    </code></pre>
+</div>
+<footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="social-media-list">
+          <li>
+            <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path
+                    fill="#828282"
+                    d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span><span
+                    class="username">zhanglibing</span></a>
+          <span>fullstack web developer</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+</body>
+</html>
