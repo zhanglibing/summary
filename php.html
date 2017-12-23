@@ -155,6 +155,303 @@ foreach($students as $key => $v){
 }
     </code></pre>
 </div>
+<!--Array-->
+<div class="wrapper">
+    <h2>数组</h2>
+    <pre class="highlight"><code>
+$arr = <span class="x">array()</span>;表示创建一个空数组，并把创建的空数组赋值给变量$arr。
+ PHP有两种数组：索引数组、关联数组。
+<span class="b">索引数组</span>，索引数组是指数组的键是整数的数组，并且键的整数顺序是从0开始，依次类推
+$fruit = <span class="x">array</span>("苹果","香蕉","菠萝");
+print_r($fruit);
+Array
+(
+    [0] => 苹果
+    [1] => 香蕉
+    [2] => 菠萝
+)
+<span class="b">索引数组赋值三种方法</span>
+<span class="x">$arr[0]</span>='苹果';
+<span class="x">array</span>('0'=>'苹果');
+array('苹果');
+<span class="b">访问索引数组内容</span>
+$fruit = array('苹果','香蕉');
+$fruit0 = $fruit<span class="x">[0]</span>;
+print_r($fruit0);//结果为苹果
+<span class="b">for循环访问索引数组里的值</span>
+$fruit=array('苹果','香蕉','菠萝');
+for($i=0; $i<3; $i++){
+    echo '数组第'.$i.'值是：'.$fruit[$i];
+}
+<span class="b">foreach循环访问索引数组里的值</span>
+$fruit=array('苹果','香蕉','菠萝');
+foreach($fruit as $k=>$v){
+    echo '<br>第'.$k.'值是：'.$v;
+}
+
+<span class="b">关联数组初始化 </span>
+$fruit = array(
+    'apple'=>"苹果",
+    'banana'=>"香蕉",
+    'pineapple'=>"菠萝"
+);
+<span class="b">关联数组赋值两种方法</span>
+$arr['apple']='苹果';
+$arr=array('apple'=>'苹果');
+
+<span class="b">取值</span>
+$arr = array('apple'=>"苹果",'banana'=>"香蕉",'pineapple'=>"菠萝");
+$arr0=$arr['apple'] ;
+foreach循环访问关联数组里的值和索引数组类似
+    </code></pre>
+</div>
+<!--Object\Class-->
+<div class="wrapper">
+    <h2>类和对象</h2>
+    <pre class="highlight"><code>
+//定义一个类
+<span class="x">class</span> Car {
+    <span class="x">var</span> $name = '汽车';  <span class="k">类里边记得var</span>
+    function getName() {
+        return $this<span class="x">-></span>name;
+    }
+}
+//实例化一个car对象
+$car = new Car();
+<span class="x">$car->name = '奥迪A6'</span>; //设置对象的属性值
+echo $car<span class="x">->getName()</span>;  //调用对象的方法 输出对象的名字
+
+<span class="b">类和对象之类的属性</span>
+<span class="k">属性声明是由关键字 public，protected 或者 private 开头，后面跟一个普通的变量声明来组成。
+    属性的变量可以设置初始化的默认值，默认值必须是常量</span>
+<span class="x">public</span>：公开的
+<span class="x">protected</span>：受保护的
+<span class="x">private</span>：私有的
+ <span class="kd">class</span> Car {
+    //定义公共属性
+    public $name = '汽车';
+    //定义受保护的属性
+    protected $corlor = '白色';
+    //定义私有属性
+    private $price = '100000';
+}
+<span class="kd">$car</span> = new Car();
+echo <span class="kd">$car->name</span>;   //调用对象的属性
+echo <span class="kd">$car->color</span>;  <span class="x">//错误 受保护的属性不允许外部调用</span>
+echo <span class="kd">$car->price</span>;  <span class="x">//错误 私有属性不允许外部调用</span>
+<span class="b">类和对象之定义类的方法</span>
+<span class="kd">class</span> Car {
+    public <span class="kc">function</span> <span class="kd">getName</span>() {
+        return '汽车';
+    }
+​}
+$car = new Car();
+echo <span class="kd">$car->getName()</span>;
+
+<span class="b">类和对象之构造函数和析构函数</span>
+<span class="k">使用__construct()定义一个构造函数，具有构造函数的类，会在每次对象创建的时候调用该函数，
+ 因此常用来在对象创建的时候进行一些初始化工作。</span>
+
+<span class="b">类和对象之Static静态关键字</span>
+<span class="k">静态属性与方法可以在不实例化类的情况下调用，直接使用类名::方法名的方式进行调用。
+静态属性不允许对象使用->操作符调用。</span>
+<span class="kd">class</span> Car {
+    private static $speed = 10;
+    public static function getSpeed() {
+        return <span class="x">self::$speed</span>;
+    }
+}
+echo <span class="kd">Car::getSpeed()</span>;  //调用静态方法
+<span class="kc">静态方法也可以通过变量来进行动态调用</span>
+$func = 'getSpeed';
+$className = 'Car';
+echo <span class="kd">$className::$func();</span>  //动态调用静态方法
+<span class="kc">静态方法中，$this伪变量不允许使用。可以使用self，parent，static在
+   内部调用静态方法与属性。</span>
+class Car {
+    private static $speed = 10;
+
+    public static function getSpeed() {
+        return self::$speed;
+    }
+
+    public static function speedUp() {
+        return self::$speed+=10;
+    }
+}
+class BigCar extends Car {
+    public static function start() {
+        <span class="x">parent::speedUp()</span>;
+    }
+}
+BigCar::start();
+echo BigCar::getSpeed();
+<span class="b">类和对象之访问控制</span>
+访问控制通过关键字public，protected和private来实现。
+被定义为公有的类成员可以在任何地方被访问。
+被定义为受保护的类成员则可以被其自身以及其子类和父类访问。
+被定义为私有的类成员则只能被其定义所在的类访问。
+<span class="x">类属性必须定义</span>为公有、受保护、私有之一。
+ 为兼容PHP5以前的版本，如果采用 var 定义，则被视为公有。
+<span class="kd">class</span> Car {
+    $speed = 10; <span class="x">//错误 属性必须定义访问控制</span>
+    public $name;   //定义共有属性
+}
+
+<span class="b">类和对象之对象继承</span>
+class Car {
+    public $speed = 0; //汽车的起始速度是0
+    public function speedUp() {
+        $this->speed += 10;
+        return $this->speed;
+    }
+}
+//定义继承于Car的Truck类
+class Truck extends Car{
+    public function speedUp() {
+        <span class="x">parent::speedUp();</span>
+        $this->speed += 50;
+        return $this->speed;
+    }
+}
+
+$car = new Truck();
+$car->speedUp();
+echo $car->speed;
+
+<span class="b">类和对象之重载</span>
+PHP中的重载指的是动态的创建属性与方法，是通过魔术方法来实现的。
+<span class="x">属性的重载通过</span>__set，__get，__isset，__unset来分别实现
+对不存在属性的赋值、读取、判断属性是否设置、销毁属性。
+class Car {
+    private $ary = array();
+
+    public function __set($key, $val) {
+        $this->ary[$key] = $val;
+    }
+
+    public function __get($key) {
+        if (isset($this->ary[$key])) {
+            return $this->ary[$key];
+        }
+        return null;
+    }
+
+    public function __isset($key) {
+        if (isset($this->ary[$key])) {
+            return true;
+        }
+        return false;
+    }
+
+    public function __unset($key) {
+        unset($this->ary[$key]);
+    }
+}
+$car = new Car();
+$car->name = '汽车';  //name属性动态创建并赋值
+echo $car->name;
+
+<span class="x">方法的重载通过__call来实现</span>，当调用不存在的方法的时候，将会转为参数调用__call方法，
+当调用不存在的静态方法时会使用__callStatic重载。
+<span class="kd">class</span> Car {
+    public $speed = 0;
+
+    public function <span class="kd">__call</span>($name, $args) {
+        if ($name == 'speedUp') {
+            $this->speed += 10;
+        }
+    }
+}
+$car = new Car();
+<span class="x">$car->speedUp()</span>; //调用不存在的方法会使用重载
+echo $car->speed;
+<span class="b">类和对象之对象的高级特性</span>
+<span class="x">对象比较</span>
+当<span class="kd">同一个类的两个实例</span>的所有属性都相等时，可以使用比较运算符==进行判断，
+当需要判断<span class="kd">两个变量是否为同一个对象的引用</span>时，可以使用全等运算符===进行判断。
+<span class="kd">class</span> Car {
+}
+$a = new Car();
+$b = new Car();
+if ($a == $b) echo '==';   <span class="x">//true</span>
+if ($a === $b) echo '==='; <span class="x">//false</span>
+
+<span class="x">对象复制</span>
+ 在一些特殊情况下，可以通过关键字clone来复制一个对象，这时__clone方法会被调用，
+ 通过这个魔术方法来设置属性的值。
+class Car {
+    public $name = 'car';
+
+    public function __clone() {
+        $obj = new Car();
+        $obj->name = $this->name;
+    }
+}
+$a = new Car();
+$a->name = 'new car';
+$b = clone $a;
+var_dump($b);
+<span class="x">对象序列化</span>
+可以通过serialize方法将对象序列化为字符串，用于存储或者传递数据，
+然后在需要的时候通过unserialize将字符串反序列化成对象进行使用。
+class Car {
+    public $name = 'car';
+}
+$a = new Car();
+$str = serialize($a); //对象序列化成字符串
+echo $str.'<br>';
+$b = unserialize($str); //反序列化为对象
+var_dump($b);
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>正则表达式</h2>
+    <pre class="highlight"><code>
+<span class="b">preg_match</span>
+`$p = '/apple/';
+$str = "apple banna";
+if (preg_match($p, $str)) {
+    echo 'matched';
+}
+PCRE库函数中，正则匹配模式使用分隔符与元字符组成，分隔符可以是非数字、非反斜线、非空格的任意字符。
+经常使用的分隔符是正斜线(/)、hash符号(#) 以及取反符号(~)，例如：
+/foo bar/
+#^[^0-9]$#
+~php~
+<span class="x">如果模式中包含分隔符</span>，则分隔符需要使用反斜杠（\）进行转义。
+/http:\/\//
+<span class="x">如果模式中包含较多的分割字符</span>，建议更换其他的字符作为分隔符，也可以采用preg_quote进行转义。
+
+$p = 'http://';
+$p = '/'.<span class="kd">preg_quote</span>($p, '/').'/';
+echo $p;
+分隔符后面可以使用模式修饰符，模式修饰符包括：<span class="x">i, m, s, x</span>等，
+例如使用i修饰符可以忽略大小写匹配：
+$str = "Http://www.imooc.com/";
+if (preg_match('/http/i', $str)) {
+    echo '匹配成功';
+}
+
+<span class="b">元字符与转义</span>
+<span class="kd">\</span> 一般用于转义字符
+<span class="kd">^</span> 断言目标的开始位置(或在多行模式下是行首)
+<span class="kd">$</span> 断言目标的结束位置(或在多行模式下是行尾)
+<span class="kd">.</span> 匹配除换行符外的任何字符(默认)
+<span class="kd">[</span> 开始字符类定义
+<span class="kd">]</span> 结束字符类定义
+<span class="kd">|</span> 开始一个可选分支
+<span class="kd">(</span> 子组的开始标记
+<span class="kd">)</span> 子组的结束标记
+<span class="kd">?</span> 作为量词，表示 0 次或 1 次匹配。位于量词后面用于改变量词的贪婪特性。 (查阅量词)
+<span class="kd">*</span> 量词，0 次或多次匹配
+<span class="kd">+</span> 量词，1 次或多次匹配
+<span class="kd">{</span> 自定义量词开始标记
+<span class="kd">}</span> 自定义量词结束标记
+
+
+    </code></pre>
+</div>
 
 <div class="wrapper">
     <h2>php连接Mysql</h2>
