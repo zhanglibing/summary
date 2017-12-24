@@ -11,13 +11,9 @@
 </head>
 <body>
 <header class="site-header">
-
     <div class="wrapper">
-
         <a class="site-title" href="https://github.com/zhanglibing">zhanglibing</a>
-
     </div>
-
 </header>
 <!--//画布-->
 <div class="wrapper">
@@ -38,45 +34,120 @@
      context.drawImage( image , 0 , 0 )
  }
           </code></pre>
-
             cxt.drawImage(img,x,y); <br>
             cxt.drawImage(img,x,y,width,height); <br>
             cxt.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
         </li>
-        <li>
-            <p>清空矩形区域画布</p>ctx.clearRect(0,0,100,100);（起始坐标）
-        </li>
-        <li>
-            <p>创建矩形</p>ctx.rect(20,20,150,100);
-        </li>
-        <li>
-            <p>创建圆</p>ctx.arc(100,75,50半径,0起始角,2*Math.PI结束角，counterclockwise);	counterclockwise：可选。规定应该逆时针还是顺时针绘图。False = 顺时针，true = 逆时针。
-        </li>
     </ol>
+</div>
+<div class="wrapper">
+    <h2></h2>
+    <pre class="highlight"><code>
+<span class="b">清空矩形区域画布</span>
+ ctx.<span class="kd">clearRect</span>(0,0,100,100);（起始坐标）
+<span class="b">创建矩形</span>
+ ctx.<span class="kd">rect</span>(20,20,150,100);
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>线条的属性</h2>
+    <pre class="highlight"><code>
+  <span class="b">lineWidth</span>线条宽度
+  <span class="b">lineCap</span>线条两端帽子
+        butt(default)
+        round 圆角
+        square 方形
+  <span class="b">lineJoin</span>线条衔接处
+        miter(default)
+        bevel
+        round 圆形
+    </code> </pre>
+</div>
 
+<div class="wrapper">
+    <h2>图形变化</h2>
+    <pre class="highlight"><code>
+save()
+restore()成对出现
+<span class="b">translate(x,y)</span>
+<span class="b">rotate(deg)</span>
+<span class="b">scale(x,y)</span>
+ 缩放会产生副作用
+<span class="b">设置变换矩阵</span>
+  transform(a,b,c,d,e,f)
+//a c e
+//b d f
+//0 0 1
+//a,d 水平、垂直缩放
+//b,c 水平、垂直倾斜
+//e,f 水平、垂直位移
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>渐变</h2>
+    <pre class="highlight"><code>
+<span class="b">线性渐变</span>
+ var <span class="kd">linearGrad</span>=<span class="kd">createLinearGradient</span>(0,0,x,y) 起始坐标
+linearGrad.<span class="kd">addColorStop</span>(0.0,'#fff')
+linearGrad.<span class="kd">addColorStop</span>(1.0,'#000')
+ctx.fillStyle=<span class="kd">linearGrad</span>;
+ctx.fillRect(0,0,800,800)
+<span class="b">径向渐变</span>
+var grd = ctx.createRadialGradient(x,y,r,x1,y1,r1);
+grd.addColorStop(stop,Color);
+
+<span class="b">使用图片</span>
+<span class="kd">createPattern</span>(<span class="x">img</span>,repeat-style); no-repeat\repeat\repeat-x\repeat-y
+<span class="kd">createPattern</span>(<span class="x">canvas</span>,repeat-style);
+<span class="kd">createPattern</span>(<span class="x">video</span>,repeat-style);
+var <span class="kd">backgroundImg</span>=new Image();
+<span class="kd">backgroundImg</span>.src='./bg.jpg';
+backgroundImg.onload=function(){
+  var pattern = <span class="kc">ctx.createPattern</span>(backgroundImg,no-repeat);
+  cxt.fillStyle=<span class="kd">pattern</span>;
+ cxt.rect.fillRect(0,0,800,800);
+}
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>圆弧和圆角</h2>
+    <pre class="highlight"><code>
+  ctx.<span class="kd">arc</span>(100,75,50半径,0起始角,2*Math.PI结束角，counterclockwise);
+  counterclockwise：可选。规定应该逆时针还是顺时针绘图。False = 顺时针，true = 逆时针。
+
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>画一个五角星</h2>
+    <pre class="highlight"><code>
+ <span class="kc">function</span> <span class="kd">drawStar</span>(cxt,r,R,x,y,rot){
+    cxt.beginPath();
+        for(var i=0; i<5;i++){
+          cxt.lineTo(Math.cos((18+i*72-rot)/180*Math.PI)*R+x,
+              -Math.sin((18+i*72-rot)/180*Math.PI)*R+y);
+          cxt.lineTo(Math.cos((54+i*72-rot)/180*Math.PI)*R+x,
+              -Math.sin((54+i*72-rot)/180*Math.PI)*R+y);
+        }
+        cxt.closePath();
+        cxt.stroke();
+ }
+
+    </code></pre>
 </div>
 <footer class="site-footer">
-
     <div class="wrapper">
-
         <div class="footer-col-wrapper">
             <div class="footer-col">
                 <ul class="social-media-list">
-
                     <li>
                         <a href="https://github.com/zhanglibing"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
 </span><span class="username">zhanglibing</span></a>
-
-                        <span>fullstack web developer
-</span>
+                        <span>fullstack web developer</span>
                     </li>
-
                 </ul>
             </div>
         </div>
-
     </div>
-
 </footer>
 </body>
 </html>
