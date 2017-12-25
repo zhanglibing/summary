@@ -134,6 +134,73 @@ backgroundImg.onload=function(){
 
     </code></pre>
 </div>
+<div class="wrapper">
+    <h2>另一种弧线绘制方法</h2>
+    <pre class="highlight"><code>
+cxt.arcTo(x0,y0,x2,y2,radius) //radius半径
+(x0,y0)和(x1,y1)组成一条直线，(x1,y1,x2,y2)组成一条直线，和这两条直线相切的圆会有无数个，取其中半径为r的圆的圆弧
+(x0,y0)和(x1,y1) <span class="kc">只是两条辅助线</span>、圆弧起始点不一定是传入的起始点
+<span class="b">绘制一角弯月</span>
+<span class="b">贝赛尔曲线</span>
+cxt.moveTo(x0,y0)
+二次贝赛尔曲线
+cxt.quadraticCurveTo(x1,y1,x2,y2)  x1,y1控制点   x2,y2终点
+
+二次贝赛尔曲线
+cxt.moveTo(x0,y0)
+cxt.bezierCurveTo(x1,y1,x2,y2,x3,y3) x1,y1,x2,y2控制点   x3,y3终点
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>文字渲染</h2>
+    <pre class="highlight"><code>
+cxt.font="bold 40px Arial"
+cxt.fillStyle = '#058'
+cxt.fillText("文本内容"，x,y,[maxLen])  //填充  [maxLen]可选参数  最长宽度  会强制雅俗文字
+cxt.strokeText("文本内容"，x,y,[maxLen]) //描边
+
+<span class="b">font</span>
+<span class="c">font-style</span>:normal默认  italic斜体字    oblique倾斜体字
+<span class="c">font-variant</span>:normal  small-caps
+<span class="c">font-weight</span>:lighter normal bold border
+<span class="c">font-size</span>:20px 2em 150%
+<span class="c">font-family</span>  支持@font-face
+<span class="kd">cxt.font</span>="bold 40px Arial"  简写
+<span class="b">文本对齐</span>
+cxt.textAlign=left right center
+cxt.textBaseline=top middle bottom
+<span class="b">文本的度量</span>
+cxt.measureText(string).width 获取文本宽度
+
+    </code></pre>
+</div>
+<div class="wrapper">
+    <h2>高级内容</h2>
+    <pre class="highlight"><code>
+<span class="v">阴影</span>
+cxt.shadowColor=""
+cxt.shadowOffsetX=20
+cxt.shadowOffsetY=20
+cxt.shadowBlur=20
+<span class="b">globalAlpha</span>
+cxt.globalAlpha=0.7 设置透明度
+<span class="b">globalCompositeOperation</span>
+cxt.globalCompositeOperation="<span class="kd">source-over</span>"(default)后绘制的图像会覆盖之前绘制的图像
+cxt.globalCompositeOperation="<span class="kd">destination-over</span>"(default)之前绘制的图像会覆盖后绘制的图像
+<span class="b">clip</span>
+cxt.<span class="kd">arc</span>=(400,400,150,0,Math.PI*2);
+cxt.<span class="kd">clip</span>()  //将绘制区域设置为之前绘制的路径
+        实现探照灯...
+<span class="b">路径方向和剪纸效果</span>
+<span class="x">非零环绕原则</span>
+露空图形 （外环和内环使用不同方向绘制）
+
+<span class="b">isPointInPath</span>
+cxt.<span class="kd">isPointInPath</span>(x,y)   <span class="k">//判断x,y点是否在某个路径内</span>
+多个小球 鼠标点击小球颜色变化
+    </code></pre>
+</div>
+
 <footer class="site-footer">
     <div class="wrapper">
         <div class="footer-col-wrapper">
