@@ -706,6 +706,41 @@ Vue.use(Mint);
 </div>
 
 <div class="wrapper">
+    <h2>vue表单控件</h2>
+    <pre class="highlight"><code>
+<span class="b">修饰符</span>
+<span class="nt">&lt;input</span> v-model<span class="x">.lazy</span>="msg" <span class="nt">&gt;</span>
+在默认情况下，v-model 在 input 事件中同步输入框的值与数据，使用lazy转变为在 change 事件中同步：
+
+<span class="nt">&lt;input</span> v-model<span class="x">.number</span>="age" type="number" <span class="nt">&gt;</span>
+自动将用户的输入值转为 Number 类型（如果原值的转换结果为 NaN 则返回原值）
+因为在 type="number" 时 HTML 中输入的值也总是会返回字符串类型
+
+<span class="nt">&lt;input</span> v-model<span class="x">.trim</span>="msg" <span class="nt">&gt;</span>
+自动过滤用户输入的首尾空格
+
+<span class="b">两种改变 prop 的情况</span>
+1.prop 作为初始值传入，子组件之后只是将它的初始值作为本地数据的初始值使用；
+2.prop 作为需要被转变的原始值传入。
+props: ['initialCounter'],
+data: function () {
+  return { counter: this.initialCounter }
+}
+props: ['size'],
+computed: {
+  normalizedSize: function () {
+    return this.size.trim().toLowerCase()
+  }
+}
+注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 <span class="kd">prop</span> 是一个 <span class="x">对象或数组</span>，
+在子组件内部改变它会影响父组件的状态。
+
+        <a href="http://cordova.axuer.com/docs/zh-cn/latest/reference/cordova-plugin-file/index.html">套壳APP</a>
+        <a href="https://www.cnblogs.com/haoxuan/articles/5412103.html">套壳APP</a>
+    </code></pre>
+
+</div>
+<div class="wrapper">
     <h2>项目中遇到的问题</h2>
     <pre class="highlight"><code>
  <span class="b">1.图片缓存问题</span>

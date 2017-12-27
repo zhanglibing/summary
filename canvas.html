@@ -23,6 +23,10 @@
             <p>drawImage</p>
             <pre>
           <code>
+
+ 圆的角度是固定的 上 1.5Math.PI   左 0Math.PI  下0.5*Math.PI  右 1*Math.PI
+ context.closePath()  在 context.fill() 时不需要
+
  var canvas = document.getElementById("canvas")
  var context = canvas.getContext("2d")
  var image = new Image()
