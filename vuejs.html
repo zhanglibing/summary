@@ -735,10 +735,73 @@ computed: {
 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 <span class="kd">prop</span> 是一个 <span class="x">对象或数组</span>，
 在子组件内部改变它会影响父组件的状态。
 
-        <a href="http://cordova.axuer.com/docs/zh-cn/latest/reference/cordova-plugin-file/index.html">套壳APP</a>
-        <a href="https://www.cnblogs.com/haoxuan/articles/5412103.html">套壳APP</a>
+<a href="http://cordova.axuer.com/docs/zh-cn/latest/reference/cordova-plugin-file/index.html">套壳APP</a>
+<a href="https://www.cnblogs.com/haoxuan/articles/5412103.html">套壳APP</a>
+
+ <span class="b">图片load事件 </span>
+  <span class="nt">&lt;img</span> class="needsclick" <span class="kc">@load</span>="loadImage" <span class="nt">&gt;</span>
+  <span class="kd">loadImage(){}</span>方法中执行图片加载完成后要执行的事件
     </code></pre>
 
+</div>
+
+<div class="wrapper">
+    <pre class="highlight"><code>
+解决v-if/v-show还未完全编译时其{{message}}<span class="x">内容会闪现</span>的问题
+<span class="nt">&lt;div</span> v-cloak <span class="nt">&gt;</span>
+  {{ message }}
+<span class="nt">&lt;/div&gt;</span>
+配合以下css
+[v-cloak] {
+  display: none;
+}
+    </code></pre>
+</div>
+
+<div class="wrapper">
+    <h2>Vue常用插件</h2>
+    <pre class="highlight"><code>
+ <span class="b">1.babel-polyfill</span>（--save-dev） 解决es6补丁  promis
+ 入口最前面import 'babel-polyfill'
+ <span class="b">2.fastclick 解决手机端点击300ms延迟</span>
+ import fastclick from 'fastclick'
+ fastclick.attach(document.body)
+<span class="b">3.better-scroll</span> 移动端使用
+组件中  import BScroll from 'better-scroll'
+ <span class="x">dom元素发生变化是一定要重新计算高度或者宽度</span>
+this.slider = <span class="kd">new BScroll</span>(this.$refs.slider, {
+  scrollX: true,
+  scrollY: false,
+  momentum: false,
+  snap: true,
+  snapLoop: this.loop,
+  snapThreshold: 0.3,
+  snapSpeed: 400
+})
+this.slider.on('scrollEnd', this._onScrollEnd)
+this.slider.on('touchend', () => {
+  if (this.autoPlay) {
+    this._play()
+  }
+})
+this.slider.on('beforeScrollStart', () => {
+  if (this.autoPlay) {
+    clearTimeout(this.timer)
+  }
+})
+<span class="x">注意</span>
+ <span class="kd">fastclick</span> 和 <span class="kd">better-scroll</span><span class="x">click事件发生冲突时</span>
+ <span class="x">给需要点击的元素上添加类</span> <span class="kd">class</span>="<span class="kc">needsclick</span>"
+
+<span class="b">4.vue-lazyload图片懒加载</span>
+入口main.js中
+import <span class="kd">VueLazyload</span> from 'vue-lazyload' //引入插件
+Vue.<span class="kc">use</span>(<span class="x">VueLazyload</span>, {
+  <span class="kd">loading</span>: require('common/image/default.png') //设置一个默认图片 引入默认图片路径
+})
+<span class="nt">&lt;img</span>  <span class="x">v-lazy</span>="imgurl" <span class="nt">&gt;</span>
+
+    </code></pre>
 </div>
 <div class="wrapper">
     <h2>项目中遇到的问题</h2>
